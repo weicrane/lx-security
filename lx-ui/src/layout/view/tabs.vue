@@ -128,10 +128,12 @@ export default defineComponent({
 });
 </script>
 <template>
-  <!-- <div class="rr-view-tab-wrap">
+  <div class="rr-view-tab-wrap">
     <el-tabs class="rr-view-tab" v-model="state.activeTabName" @tab-click="onTabClick" @tab-remove="onTabRemove">
       <el-tab-pane :name="home.path" :closable="false">
         <template #label>
+          <!-- 文字主页和图标主页tab -->
+          <!-- {{ t("ui.router.pageHome") }} -->
           <svg-icon name="home"></svg-icon>
         </template>
       </el-tab-pane>
@@ -149,5 +151,5 @@ export default defineComponent({
         <el-icon class="el-icon--right"><arrow-down /></el-icon>
       </span>
     </el-dropdown>
-  </div> -->
+  </div>
 </template>

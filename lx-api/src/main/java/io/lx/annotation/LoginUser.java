@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
  *
  * @author Mark sunlightcs@gmail.com
  */
-@Target(ElementType.PARAMETER)
+@Target({ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LoginUser {
 

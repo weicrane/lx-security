@@ -1,7 +1,7 @@
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import { defineConfig, loadEnv, UserConfig, UserConfigExport } from "vite";
-import html from "vite-plugin-html";
+import { createHtmlPlugin } from "vite-plugin-html";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
@@ -11,14 +11,23 @@ export default (config: UserConfig): UserConfigExport => {
     base: "./",
     plugins: [
       vue(),
-      html({
+      createHtmlPlugin({
+        minify: true,
         inject: {
-          injectData: {
+          data: {
             apiURL: loadEnv(mode, process.cwd()).VITE_APP_API,
             title: ""
-          }
-        },
-        minify: true
+          },
+          tags: [
+            {
+              injectTo: 'body-prepend',
+              tag: 'div',
+              attrs: {
+                id: 'tag'
+              }
+            }
+          ]
+        }
       }),
       tsconfigPaths(),
       createSvgIconsPlugin({
@@ -51,7 +60,6 @@ export default (config: UserConfig): UserConfigExport => {
       open: false, // 自动启动浏览器
       host: "0.0.0.0", // localhost
       port: 8001, // 端口号
-      https: false,
       hmr: { overlay: false }
     }
   });

@@ -2,7 +2,6 @@ import "@/assets/icons/iconfont/iconfont.js";
 import RenDeptTree from "@/components/ren-dept-tree";
 import RenRadioGroup from "@/components/ren-radio-group";
 import RenRegionTree from "@/components/ren-region-tree";
-import ImgWall from "@/components/img-wall";
 import RenSelect from "@/components/ren-select";
 import ElementPlus from "element-plus";
 import "element-plus/theme-chalk/display.css";
@@ -29,7 +28,6 @@ app
   .use(RenSelect)
   .use(RenDeptTree)
   .use(RenRegionTree)
-  .use(ImgWall)
   .use(ElementPlus, { size: "default", locale: locale })
   .mount("#app");
 

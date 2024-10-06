@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.ruoergai</groupId>
-    <artifactId>ruoergai-security</artifactId>
+    <groupId>io.lx</groupId>
+    <artifactId>lx-security</artifactId>
     <version>5.4.0</version>
     <packaging>pom</packaging>
 
-    <name>ruoergai-security</name>
-    <description>人人权限系统</description>
-    <url>https://www.ruoergai.io</url>
+    <name>lx-security</name>
+    <description>路寻管理后台</description>
+    <url></url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -17,11 +17,11 @@
 	</parent>
 
     <modules>
-        <module>ruoergai-common</module>
-		<module>ruoergai-dynamic-datasource</module>
-        <module>ruoergai-admin</module>
-        <module>ruoergai-api</module>
-        <module>ruoergai-generator</module>
+        <module>lx-common</module>
+        <module>lx-dynamic-datasource</module>
+        <module>lx-admin</module>
+        <module>lx-api</module>
+        <module>lx-generator</module>
     </modules>
 
     <properties>

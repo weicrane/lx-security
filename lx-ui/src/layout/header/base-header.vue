@@ -1,5 +1,4 @@
 <script lang="ts">
-import logoicon from "@/assets/images/small-logo.png";
 import logo from "@/assets/images/logo.png";
 import { EMitt, ESidebarLayoutEnum, EThemeSetting } from "@/constants/enum";
 import emits from "@/utils/emits";
@@ -31,23 +30,23 @@ export default defineComponent({
     const onRefresh = () => {
       emits.emit(EMitt.OnReloadTabPage);
     };
-    return { store, state, onRefresh, logoicon, logo, ESidebarLayoutEnum };
+    return { store, state, onRefresh, logo, ESidebarLayoutEnum };
   }
 });
 </script>
 <template>
-  <!-- <div class="ruoergai-header-logo">
-    <img class="ruoergai-header-logo-icon" :src="logoicon">
-    <img class="ruoergai-header-logo-main" :src="logo">
-  </div> -->
   <div class="rr-header-ctx">
+    <div class="rr-header-ctx-logo hidden-xs-only">
+      <logo :logoUrl="logo" logoName="综合管理后台"></logo>
+    </div>
     <div class="rr-header-right">
       <div class="rr-header-right-left">
         <div class="rr-header-right-items rr-header-action" :style="`display:${state.sidebarLayout === ESidebarLayoutEnum.Top ? 'none' : ''}`">
-          <!-- <collapse-sidebar-btn></collapse-sidebar-btn> -->
-          <div >
-            <img class="ruoergai-header-logo-icon" :src="logoicon">
-             <img class="ruoergai-header-logo-main" :src="logo">
+          <collapse-sidebar-btn></collapse-sidebar-btn>
+          <div @click="onRefresh" style="cursor: pointer">
+            <div class="el-badge">
+              <el-icon><refresh-right /></el-icon>
+            </div>
           </div>
         </div>
         <div class="rr-header-right-left-br ele-scrollbar-hide hidden-xs-only">
@@ -62,16 +61,3 @@ export default defineComponent({
     </div>
   </div>
 </template>
-<style>
-.ruoergai-header-logo{
-  display: flex ;
-  text-align: center;
-}
-.ruoergai-header-logo-icon{
-  margin-top: 10px;
-  border-bottom: 5px solid transparent; /* 创建透明边框以实现透明边距 */
-}
-.ruoergai-header-logo-main{
-  margin-left: 10px;
-}
-</style>

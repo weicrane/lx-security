@@ -17,11 +17,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/home",
         component: () => import("@/views/home.vue"),
-        meta: { title: "模型服务", icon: "icon-heatmap" }
-      },{
-        path: "/result",
-        component: () => import("@/views/result.vue"),
-        meta: { title: "数据资源", icon: "icon-database-fill" }
+        meta: { title: "主页", icon: "icon-home" }
       }
     ]
   },

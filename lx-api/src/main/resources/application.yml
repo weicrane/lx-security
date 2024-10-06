@@ -5,9 +5,9 @@ server:
     threads:
       max: 1000
       min-spare: 30
-  port: 8081
+  port: 8083
   servlet:
-    context-path: /renren-api
+    context-path: /lx-api
     session:
       cookie:
         http-only: true
@@ -44,8 +44,8 @@ spring:
   data:
     redis:
       database: 0
-      host: 192.168.10.10
-      port: 6379
+      host: 0.0.0.0
+      port: 0000
       password:    # 密码（默认为空）
       timeout: 6000ms  # 连接超时时长（毫秒）
       lettuce:
@@ -55,7 +55,7 @@ spring:
           max-idle: 10      # 连接池中的最大空闲连接
           min-idle: 5       # 连接池中的最小空闲连接
 
-renren:
+ruoergai:
   redis:
     open: false  # 是否开启redis缓存  true开启   false关闭
 
@@ -64,7 +64,7 @@ renren:
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: io.renren.entity
+  typeAliasesPackage: io.lx.entity
   global-config:
     #数据库相关配置
     db-config:
@@ -81,3 +81,8 @@ mybatis-plus:
     prefix:
     blobType: BLOB
     boolValue: TRUE
+
+# 微信
+wechat:
+  appid: xxx
+  secret: xxx

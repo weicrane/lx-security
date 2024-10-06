@@ -9,24 +9,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     #MySQL配置
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/renren_security?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
-    username: renren
-    password: 123456
-    #oracle配置
-#    driverClassName: oracle.jdbc.OracleDriver
-#    url: jdbc:oracle:thin:@192.168.10.10:1521:xe
-#    username: renren_security
-#    password: 123456
-    #SQLServer配置
-#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#    url: jdbc:sqlserver://192.168.10.10:1433;DatabaseName=renren_security
-#    username: sa
-#    password: 123456
-    #PostgreSQL配置
-#    driverClassName: org.postgresql.Driver
-#    url: jdbc:postgresql://192.168.10.10:5432/renren_security
-#    username: postgres
-#    password: 123456
+    url: jdbc:mysql://localhost:3306/lxdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 200418WEIwei
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -46,5 +31,5 @@ pagehelper:
 
 
 #指定数据库，可选值有【mysql、oracle、sqlserver、postgresql】
-ruoergai:
+lxdb:
   database: mysql

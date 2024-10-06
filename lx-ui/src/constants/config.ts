@@ -2,9 +2,9 @@
  * 主题设置默认值
  */
 export const themeSetting = {
-  sidebar: "light",
-  topHeader: "white",
-  themeColor: "#409EFF",
+  sidebar: "dark",
+  topHeader: "primary",
+  themeColor: "#17B3A3",
   navLayout: "left",
   contentFull: true,
   logoAuto: false,

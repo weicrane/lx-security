@@ -60,5 +60,5 @@ export default defineComponent({
 });
 </script>
 <template>
-  <!-- <base-sidebar mode="horizontal" :menus="topHeaderMenus" :router="false" :currRoute="state.currRoute" :is-mobile="false" :onSelect="onSelect"></base-sidebar> -->
+  <base-sidebar mode="horizontal" :menus="topHeaderMenus" :router="false" :currRoute="state.currRoute" :is-mobile="false" :onSelect="onSelect"></base-sidebar>
 </template>

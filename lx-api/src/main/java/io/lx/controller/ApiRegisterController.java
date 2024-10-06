@@ -46,7 +46,7 @@ public class ApiRegisterController {
         user.setMobile(dto.getMobile());
         user.setUsername(dto.getMobile());
         user.setPassword(DigestUtil.sha256Hex(dto.getPassword()));
-        user.setCreateDate(new Date());
+        user.setCreatedAt(new Date());
         userService.insert(user);
 
         return new Result();

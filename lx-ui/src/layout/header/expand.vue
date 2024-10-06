@@ -59,6 +59,21 @@ export default defineComponent({
 </script>
 <template>
   <div class="rr-header-right-items">
+    <div>
+      <a href="https://www.renren.io/community" target="_blank">
+        <svg-icon name="icon-earth"></svg-icon>
+      </a>
+    </div>
+    <div>
+      <a href="https://gitee.com/renrenio/renren-security" target="_blank">
+        <svg-icon name="icon-gitee"></svg-icon>
+      </a>
+    </div>
+    <div @click="toggle" class="hidden-xs-only">
+      <span>
+        <svg-icon :name="isFullscreen ? 'tuichuquanping' : 'fullscreen2'"></svg-icon>
+      </span>
+    </div>
     <div style="display: flex; justify-content: center; align-items: center">
       <img :src="userLogo" :alt="props.userName" style="width: 30px; height: 30px; border-radius: 50%; margin-top: 3px; margin-right: 5px" />
       <el-dropdown @command="onClickUserMenus">
@@ -73,11 +88,6 @@ export default defineComponent({
           <el-icon class="el-icon--right" style="font-size: 14px"><arrow-down /></el-icon>
         </span>
       </el-dropdown>
-    </div>
-    <div @click="toggle" class="hidden-xs-only">
-      <span>
-        <svg-icon :name="isFullscreen ? 'tuichuquanping' : 'fullscreen2'"></svg-icon>
-      </span>
     </div>
   </div>
 </template>

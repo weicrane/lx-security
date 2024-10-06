@@ -27,8 +27,8 @@ export default defineComponent({
 });
 </script>
 <template>
-  <!-- <el-breadcrumb separator="/" style="padding-top: 4px">
+  <el-breadcrumb separator="/" style="padding-top: 4px">
     <el-breadcrumb-item :to="{ path: home.path }"> 主页 </el-breadcrumb-item>
     <el-breadcrumb-item v-for="x in breadcrumbs" :key="x.path">{{ currentRoute.query._mt || x.title || "" }} </el-breadcrumb-item>
-  </el-breadcrumb> -->
+  </el-breadcrumb>
 </template>

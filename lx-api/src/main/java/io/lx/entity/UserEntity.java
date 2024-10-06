@@ -47,6 +47,10 @@ public class UserEntity implements Serializable {
 	/**
 	 * 创建时间
 	 */
-	private Date createDate;
+	private Date createdAt;
+	/**
+	 *
+	 */
+	private Date updatedAt;
 
 }

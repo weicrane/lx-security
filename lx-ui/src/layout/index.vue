@@ -1,6 +1,4 @@
 <script lang="ts">
-import logoicon from "@/assets/images/small-logo.png";
-import logo from "@/assets/images/logo.png";
 import { EMitt, ESidebarLayoutEnum, EThemeSetting } from "@/constants/enum";
 import emits from "@/utils/emits";
 import { getThemeConfigCache, getThemeConfigCacheByKey, getThemeConfigToClass } from "@/utils/theme";
@@ -55,7 +53,7 @@ export default defineComponent({
     emits.on(EMitt.OnLoading, (vl) => {
       state.loading = vl;
     });
-    return { state, ESidebarLayoutEnum, containerClassNames, logoicon, logo };
+    return { state, ESidebarLayoutEnum, containerClassNames };
   }
 });
 </script>
@@ -80,10 +78,3 @@ export default defineComponent({
     </el-container>
   </el-container>
 </template>
-
-<style>
-
-.rr-view-container {
-  margin-top: 0px !important;
-}
-</style>

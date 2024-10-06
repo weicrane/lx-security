@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.lx.dao.BannersDao">
+
+    <resultMap type="io.lx.entity.BannersEntity" id="BannersMap">
+        <result property="id" column="id"/>
+        <result property="routeCode" column="route_code"/>
+        <result property="oriName" column="ori_name"/>
+        <result property="savedName" column="saved_name"/>
+        <result property="path" column="path"/>
+        <result property="displayOrder" column="display_order"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+</mapper>

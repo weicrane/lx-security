@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 public class DbConfig {
-    @Value("${ruoergai.database: mysql}")
+    @Value("${lxdb.database: mysql}")
     private String database;
     @Resource
     private MySQLGeneratorDao mySQLGeneratorDao;

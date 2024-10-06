@@ -320,7 +320,7 @@ body {
       .el-sub-menu__title {
         background: transparent !important;
         &:focus {
-          background: #fc9696 !important;
+          background: transparent !important;
         }
       }
       &-item,
@@ -556,4 +556,12 @@ body {
 }
 .ql-toolbar.ql-snow{
   width: 100% !important;
+}
+
+.el-form--inline {
+  .el-form-item {
+    & > .el-input, .el-cascader, .el-select, .el-date-editor, .el-autocomplete {
+      min-width: 200px;
+    }
+  }
 }
