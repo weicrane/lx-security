@@ -11,6 +11,7 @@ package io.lx.dao;
 import io.lx.common.dao.BaseDao;
 import io.lx.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 用户
@@ -22,4 +23,6 @@ public interface UserDao extends BaseDao<UserEntity> {
     UserEntity getUserByMobile(String mobile);
 
     UserEntity getUserByUserId(Long userId);
+
+    void updateAvatarUrl(@Param("userId") Long userId, @Param("path") String path);
 }

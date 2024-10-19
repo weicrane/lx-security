@@ -10,4 +10,8 @@
     <select id="getUserByUserId" resultType="io.lx.entity.UserEntity">
         select * from tb_user where id = #{value}
     </select>
+
+    <update id="updateAvatarUrl">
+        update tb_user set avatar_url = #{path} where id = #{userId}
+    </update>
 </mapper>

@@ -6,6 +6,7 @@ import io.lx.common.utils.Result;
 import io.lx.modules.model.dto.FileRecordDto;
 import io.lx.modules.model.entity.FileRecordEntity;
 import io.lx.modules.model.service.FileRecordService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ import java.util.UUID;
  * @author wyh
  */
 @RestController
-@RequestMapping("/model")
-@Tag(name = "文件上传管理")
+@RequestMapping("/image")
+@Tag(name = "后台图片上传管理")
 
 public class FileUploadController {
 
@@ -41,6 +42,7 @@ public class FileUploadController {
     private FileRecordService fileRecordService;
 
     @PostMapping("/upload")
+    @Operation(summary = "上传图片")
     public String upload(MultipartFile uploadFile, HttpServletRequest request) {
 
         // 确保上传路径存在
@@ -62,9 +64,10 @@ public class FileUploadController {
             uploadFile.transferTo(destinationFile);
 
             // 返回上传文件的访问路径
-            String filePath = request.getScheme() + "://" + request.getServerName()
-                    + ":" + request.getServerPort() + request.getContextPath()
-                    + "/model/" + newName;
+//            String filePath = request.getScheme() + "://" + request.getServerName()
+//                    + ":" + request.getServerPort() + request.getContextPath()
+//                     + newName;
+            String filePath = "images/"+newName;
 
             // 记录到表里
             FileRecordEntity fileRecord = new FileRecordEntity();
@@ -82,7 +85,7 @@ public class FileUploadController {
             }
 
             // 返回文件名
-            return fileRecordId+"@"+newName;
+            return filePath;
         } catch (IOException e) {
             throw new RenException(ErrorCode.ACCOUNT_FILE_ERROR, e.getMessage());
         }
@@ -91,14 +94,14 @@ public class FileUploadController {
     // 虚拟环境
     private void callPythonScript(String fileRecordId) throws IOException {
         // 设置虚拟环境中的 Python 解释器路径
-        String pythonInterpreter = "/Users/wyh/Github/ruoergai/ruoergai-security/ruoergai-python/myenv/bin/python3"; // 修改为你的虚拟环境路径
-        String pythonScriptPath = "/Users/wyh/Github/ruoergai/ruoergai-security/ruoergai-python/script.py";
+        String pythonInterpreter = "myenv/bin/python3"; // 修改为你的虚拟环境路径
+        String pythonScriptPath = "script.py";
 
         // 创建 ProcessBuilder 对象
         ProcessBuilder processBuilder = new ProcessBuilder(pythonInterpreter, pythonScriptPath, fileRecordId.toString());
 
         // 设置工作目录（可选）
-        processBuilder.directory(new File("/Users/wyh/Github/ruoergai/ruoergai-security/ruoergai-python"));
+        processBuilder.directory(new File("/python"));
 
         // 启动进程
         Process process = processBuilder.start();

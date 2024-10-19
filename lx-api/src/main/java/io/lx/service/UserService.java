@@ -8,9 +8,12 @@
 
 package io.lx.service;
 
+import io.lx.common.exception.RenException;
 import io.lx.common.service.BaseService;
 import io.lx.dto.LoginDTO;
+import io.lx.dto.UserDetailDTO;
 import io.lx.entity.UserEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -31,4 +34,14 @@ public interface UserService extends BaseService<UserEntity> {
 	 * @return        返回登录信息
 	 */
 	Map<String, Object> login(LoginDTO dto);
+
+	/**
+	 * 上传头像文件
+	 * @param file
+	 * @return
+	 */
+	String uploadHeadIcon(MultipartFile file,String token) throws RenException;
+
+	UserDetailDTO getUserInfoDetailByToken(String token);
+
 }

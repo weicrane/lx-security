@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/model")
-@Tag(name = "模型管理")
+@Tag(name = "模型管理-弃用")
 @AllArgsConstructor
 public class ModelController {
     private final ModelService modelService;

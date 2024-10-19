@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/resource")
-@Tag(name = "资源管理")
+@Tag(name = "资源管理-弃用")
 @AllArgsConstructor
 public class ResourceController {
     private final ModelService modelService;

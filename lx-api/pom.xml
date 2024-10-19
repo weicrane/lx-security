@@ -20,6 +20,11 @@
 			<artifactId>lx-dynamic-datasource</artifactId>
 			<version>5.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>3.10.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

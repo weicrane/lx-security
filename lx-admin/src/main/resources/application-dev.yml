@@ -3,9 +3,9 @@ spring:
     druid:
       #MySQL
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/lxdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://124.223.0.160:3306/lxdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
-      password: 200418WEIwei
+      password: 200418WEIwei+
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -23,3 +23,6 @@ spring:
         enabled: true
         url-pattern: /druid/*
 
+# 文件存储路径
+web:
+  upload-path: "/Users/wyh/Github/mihuan/lx-security/lx-files/images"

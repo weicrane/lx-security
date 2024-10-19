@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("wxapp/tbtravelguides")
-@Tag(name="路线指南产品")
+@Tag(name="路线指南产品-百度网盘")
 public class TbTravelGuidesController {
     @Autowired
     private TbTravelGuidesService tbTravelGuidesService;

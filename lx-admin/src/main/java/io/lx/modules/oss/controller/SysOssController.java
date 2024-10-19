@@ -44,7 +44,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("sys/oss")
-@Tag(name = "文件上传")
+@Tag(name = "oss文件上传-未启用")
 @AllArgsConstructor
 public class SysOssController {
     private final SysOssService sysOssService;

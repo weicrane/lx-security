@@ -50,9 +50,10 @@ spring:
           max-idle: 10      # 连接池中的最大空闲连接
           min-idle: 5       # 连接池中的最小空闲连接
 
-  # 文件存储路径
+# 文件存储路径
 web:
-  upload-path: "/Users/wyh/Github/ruoergai/ruoergai-security/ruoergai-files"
+  upload-path: /opt/wxapp/lx-images/images
+
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
 

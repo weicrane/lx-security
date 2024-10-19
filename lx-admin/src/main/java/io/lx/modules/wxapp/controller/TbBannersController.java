@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("wxapp/tbbanners")
-@Tag(name="轮播图")
+@Tag(name="首页轮播图")
 public class TbBannersController {
     @Autowired
     private TbBannersService tbBannersService;

@@ -52,5 +52,17 @@ public class UserEntity implements Serializable {
 	 *
 	 */
 	private Date updatedAt;
+	/**
+	 * 昵称
+	 */
+	private String nickname;
+	/**
+	 * 头像地址
+	 */
+	private String avatarUrl;
+	/**
+	 * 会员类型：0-非会员，1-终身全部会员，2-特定路线会员
+	 */
+	private String memberType;
 
 }

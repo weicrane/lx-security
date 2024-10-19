@@ -84,5 +84,9 @@ mybatis-plus:
 
 # 微信
 wechat:
-  appid: xxx
-  secret: xxx
+  appid: wxd94969d7b7e05f1c
+  secret: 53296948a25dba3c8a159a20a303c78c
+
+# 文件存储路径
+web:
+  upload-path: "/opt/wxapp/lx-images"
