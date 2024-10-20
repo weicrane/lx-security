@@ -15,7 +15,7 @@ import java.util.Map;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-03
+ * @since 1.0.0 2024-10-20
  */
 @Service
 public class TbRoadConditionsServiceImpl extends CrudServiceImpl<TbRoadConditionsDao, TbRoadConditionsEntity, TbRoadConditionsDTO> implements TbRoadConditionsService {

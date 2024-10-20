@@ -43,4 +43,16 @@ public class RoadConditionsEntity {
      * 
      */
 	private Date updatedAt;
+    /**
+     *
+     */
+    private String status;
+    /**
+     *
+     */
+    private Long userId;
+    /**
+     *
+     */
+    private String userType;
 }

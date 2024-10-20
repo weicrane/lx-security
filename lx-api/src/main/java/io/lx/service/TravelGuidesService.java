@@ -13,5 +13,5 @@ import java.util.List;
  * @since 1.0.0 2024-10-05
  */
 public interface TravelGuidesService extends CrudService<TravelGuidesEntity,TravelGuidesDTO> {
-    List<TravelGuidesDTO> getTravelGuidesList();
+    List<TravelGuidesDTO> getTravelGuidesList(String keyword);
 }

@@ -1,4 +1,4 @@
-package io.lx.modules.wxapp.entity;
+package io.lx.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -12,8 +12,8 @@ import java.util.Date;
  * @since 1.0.0 2024-10-20
  */
 @Data
-@TableName("tb_road_conditions")
-public class TbRoadConditionsEntity {
+@TableName("tb_road_discuss")
+public class RoadDiscussEntity {
 
     /**
      * 
@@ -22,27 +22,7 @@ public class TbRoadConditionsEntity {
     /**
      * 
      */
-	private String title;
-    /**
-     * 
-     */
 	private String content;
-    /**
-     * 
-     */
-	private String tag;
-    /**
-     * 
-     */
-	private String imgPath;
-    /**
-     * 
-     */
-	private Date createdAt;
-    /**
-     * 
-     */
-	private Date updatedAt;
     /**
      * 
      */
@@ -54,5 +34,21 @@ public class TbRoadConditionsEntity {
     /**
      * 
      */
-	private String userType;
+	private Integer conditionId;
+    /**
+     * 
+     */
+	private Date createdAt;
+    /**
+     * 
+     */
+	private Date updatedAt;
+    /**
+     *
+     */
+    private String nickname;
+    /**
+     *
+     */
+    private String avatarUrl;
 }

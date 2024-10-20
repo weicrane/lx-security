@@ -15,26 +15,20 @@ import java.util.Date;
  * @since 1.0.0 2024-10-20
  */
 @Data
-public class TbRoadConditionsExcel {
+public class TbRoadDiscussExcel {
     @ExcelProperty(value = "")
     private Integer id;
     @ExcelProperty(value = "")
-    private String title;
-    @ExcelProperty(value = "")
     private String content;
-    @ExcelProperty(value = "")
-    private String tag;
-    @ExcelProperty(value = "")
-    private String imgPath;
-    @ExcelProperty(value = "")
-    private Date createdAt;
-    @ExcelProperty(value = "")
-    private Date updatedAt;
     @ExcelProperty(value = "")
     private String status;
     @ExcelProperty(value = "")
     private Long userId;
     @ExcelProperty(value = "")
-    private String userType;
+    private Integer conditionId;
+    @ExcelProperty(value = "")
+    private Date createdAt;
+    @ExcelProperty(value = "")
+    private Date updatedAt;
 
 }

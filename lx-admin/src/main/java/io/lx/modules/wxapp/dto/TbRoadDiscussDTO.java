@@ -16,29 +16,14 @@ import java.util.Date;
  */
 @Data
 @Schema(name = "")
-public class TbRoadConditionsDTO implements Serializable {
+public class TbRoadDiscussDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
 	private Integer id;
 
 	@SchemaProperty(name = "")
-	private String title;
-
-	@SchemaProperty(name = "")
 	private String content;
-
-	@SchemaProperty(name = "")
-	private String tag;
-
-	@SchemaProperty(name = "")
-	private String imgPath;
-
-	@SchemaProperty(name = "")
-	private Date createdAt;
-
-	@SchemaProperty(name = "")
-	private Date updatedAt;
 
 	@SchemaProperty(name = "")
 	private String status;
@@ -47,7 +32,13 @@ public class TbRoadConditionsDTO implements Serializable {
 	private Long userId;
 
 	@SchemaProperty(name = "")
-	private String userType;
+	private Integer conditionId;
+
+	@SchemaProperty(name = "")
+	private Date createdAt;
+
+	@SchemaProperty(name = "")
+	private Date updatedAt;
 
 
 }

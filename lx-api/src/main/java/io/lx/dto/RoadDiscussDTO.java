@@ -1,7 +1,9 @@
-package io.lx.modules.wxapp.dto;
+package io.lx.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,23 +18,25 @@ import java.util.Date;
  */
 @Data
 @Schema(name = "")
-public class TbRoadConditionsDTO implements Serializable {
+public class RoadDiscussDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
 	private Integer id;
 
-	@SchemaProperty(name = "")
-	private String title;
-
-	@SchemaProperty(name = "")
+	@SchemaProperty(name = "内容")
+	@NotBlank(message="内容不能为空")
 	private String content;
 
 	@SchemaProperty(name = "")
-	private String tag;
+	private String status;
 
 	@SchemaProperty(name = "")
-	private String imgPath;
+	private Long userId;
+
+	@SchemaProperty(name = "公告id")
+	@NotNull(message="公告id不能为空")
+	private Integer conditionId;
 
 	@SchemaProperty(name = "")
 	private Date createdAt;
@@ -41,13 +45,9 @@ public class TbRoadConditionsDTO implements Serializable {
 	private Date updatedAt;
 
 	@SchemaProperty(name = "")
-	private String status;
+	private String nickname;
 
 	@SchemaProperty(name = "")
-	private Long userId;
-
-	@SchemaProperty(name = "")
-	private String userType;
-
+	private String avatarUrl;
 
 }

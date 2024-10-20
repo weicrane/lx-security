@@ -1,7 +1,7 @@
-package io.lx.modules.wxapp.dao;
+package io.lx.dao;
 
 import io.lx.common.dao.BaseDao;
-import io.lx.modules.wxapp.entity.TbRoadConditionsEntity;
+import io.lx.entity.RoadDiscussEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 1.0.0 2024-10-20
  */
 @Mapper
-public interface TbRoadConditionsDao extends BaseDao<TbRoadConditionsEntity> {
+public interface RoadDiscussDao extends BaseDao<RoadDiscussEntity> {
 	
 }

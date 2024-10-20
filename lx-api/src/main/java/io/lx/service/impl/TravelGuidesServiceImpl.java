@@ -33,8 +33,13 @@ public class TravelGuidesServiceImpl extends CrudServiceImpl<TravelGuidesDao, Tr
     }
 
     @Override
-    public List<TravelGuidesDTO> getTravelGuidesList(){
-        List<TravelGuidesEntity> list = baseDao.selectList(null);
+    public List<TravelGuidesDTO> getTravelGuidesList(String keyword){
+        QueryWrapper<TravelGuidesEntity> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(keyword)){
+            wrapper.like( "title", keyword)
+                    .or().like("sub_title", keyword);
+        }
+        List<TravelGuidesEntity> list = baseDao.selectList(wrapper);
         return ConvertUtils.sourceToTarget(list,TravelGuidesDTO.class);
     }
 

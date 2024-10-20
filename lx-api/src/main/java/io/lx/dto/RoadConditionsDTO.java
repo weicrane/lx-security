@@ -1,11 +1,14 @@
 package io.lx.dto;
 
+import io.lx.entity.RoadDiscussEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -22,10 +25,12 @@ public class RoadConditionsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer id;
 
-	@SchemaProperty(name = "")
+	@SchemaProperty(name = "标题")
+	@NotBlank(message="标题不能为空")
 	private String title;
 
-	@SchemaProperty(name = "")
+	@SchemaProperty(name = "内容")
+	@NotBlank(message="内容不能为空")
 	private String content;
 
 	@SchemaProperty(name = "")
@@ -40,5 +45,18 @@ public class RoadConditionsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "")
+	private String status;
+
+	@SchemaProperty(name = "")
+	private Long userId;
+
+	@SchemaProperty(name = "")
+	private String userType;
+
+	/**
+	 * 评论区
+	 */
+	private List<RoadDiscussEntity> discussList;
 
 }
