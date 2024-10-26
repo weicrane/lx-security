@@ -1,4 +1,4 @@
-package io.lx.modules.wxapp.dto;
+package io.lx.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
@@ -15,8 +15,8 @@ import java.util.Date;
  * @since 1.0.0 2024-10-05
  */
 @Data
-@Schema(name = "路线指南")
-public class TbTravelGuidesDTO implements Serializable {
+@Schema(name = "我购买的路线指南")
+public class MyTravelGuidesDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
@@ -58,9 +58,11 @@ public class TbTravelGuidesDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private BigDecimal price;
 
-	@SchemaProperty(name = "库存数量")
+	@SchemaProperty(name = "")
 	private Integer inventory;
 
 	@SchemaProperty(name = "")
 	private String asset;
+
+
 }

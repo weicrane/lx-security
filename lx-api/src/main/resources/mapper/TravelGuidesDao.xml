@@ -17,6 +17,8 @@
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
         <result property="price" column="price"/>
+        <result property="inventory" column="inventory"/>
+        <result property="asset" column="asset"/>
     </resultMap>
 
 

@@ -58,6 +58,10 @@ public class UserDetailDTO {
      */
     private String memberType;
     /**
+     * openid
+     */
+    private String openid;
+    /**
      * 会员体系
      */
     private Map<String,Object> membershipsMap;

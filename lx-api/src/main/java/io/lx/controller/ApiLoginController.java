@@ -71,6 +71,15 @@ public class ApiLoginController {
 
         return new Result().ok(map);
     }
+
+    @PostMapping("getOpenId")
+    @Operation(summary = "获取openid")
+    public Result<Map<String, Object>> getOpenid (@RequestBody CodeLoginDTO dto){
+        Map<String, Object> map =wechatService.getOpenId(dto.getCode());
+        return new Result().ok(map);
+    }
+
+
     @PostMapping("updateUserProfile")
     @Operation(summary = "更新用户信息")
     public Result updateUserProfile(@RequestBody UserProfileDTO dto) throws RenException  {
@@ -98,5 +107,7 @@ public class ApiLoginController {
         String token = tokenUtils.getRequestToken(request);
         return new Result().ok(userService.getUserInfoDetailByToken(token));
     }
+
+
 
 }

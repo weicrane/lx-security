@@ -22,8 +22,13 @@ import lombok.Data;
 @Data
 @Schema(title = "微信快捷登录表单")
 public class CodeLoginDTO {
+
     @Schema(title = "临时code")
     @NotBlank(message="code不能为空")
     private String code;
+
+    @Schema(title = "openid")
+    @NotBlank(message="openid不能为空")
+    private String openid;
 
 }

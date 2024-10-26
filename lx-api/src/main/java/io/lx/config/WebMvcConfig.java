@@ -46,8 +46,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/lx-api/**");
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/home/**");
+        // TODO: 需要将待拦截的接口前缀加上
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/lx-api/**","/home/**","/travelguides/**");
+//        registry.addInterceptor(authorizationInterceptor).addPathPatterns();
 
     }
 

@@ -10,9 +10,9 @@ import io.lx.common.validator.ValidatorUtils;
 import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
-import io.lx.modules.wxapp.dto.TbTravelGuidesDTO;
-import io.lx.modules.wxapp.excel.TbTravelGuidesExcel;
-import io.lx.modules.wxapp.service.TbTravelGuidesService;
+import io.lx.modules.wxapp.dto.TbOrdersDTO;
+import io.lx.modules.wxapp.excel.TbOrdersExcel;
+import io.lx.modules.wxapp.service.TbOrdersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -30,14 +30,14 @@ import java.util.Map;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-05
+ * @since 1.0.0 2024-10-26
  */
 @RestController
-@RequestMapping("wxapp/tbtravelguides")
-@Tag(name="路线指南产品-百度网盘")
-public class TbTravelGuidesController {
+@RequestMapping("wxapp/tborders")
+@Tag(name="订单管理")
+public class TbOrdersController {
     @Autowired
-    private TbTravelGuidesService tbTravelGuidesService;
+    private TbOrdersService tbOrdersService;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -47,28 +47,28 @@ public class TbTravelGuidesController {
         @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
         @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
     })
-    public Result<PageData<TbTravelGuidesDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params){
-        PageData<TbTravelGuidesDTO> page = tbTravelGuidesService.page(params);
+    public Result<PageData<TbOrdersDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params){
+        PageData<TbOrdersDTO> page = tbOrdersService.page(params);
 
-        return new Result<PageData<TbTravelGuidesDTO>>().ok(page);
+        return new Result<PageData<TbOrdersDTO>>().ok(page);
     }
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    public Result<TbTravelGuidesDTO> get(@PathVariable("id") Long id){
-        TbTravelGuidesDTO data = tbTravelGuidesService.get(id);
+    public Result<TbOrdersDTO> get(@PathVariable("id") Long id){
+        TbOrdersDTO data = tbOrdersService.get(id);
 
-        return new Result<TbTravelGuidesDTO>().ok(data);
+        return new Result<TbOrdersDTO>().ok(data);
     }
 
     @PostMapping
     @Operation(summary = "保存")
     @LogOperation("保存")
-    public Result save(@RequestBody TbTravelGuidesDTO dto){
+    public Result save(@RequestBody TbOrdersDTO dto){
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
-        tbTravelGuidesService.encryptSave(dto);
+        tbOrdersService.save(dto);
 
         return new Result();
     }
@@ -76,11 +76,11 @@ public class TbTravelGuidesController {
     @PutMapping
     @Operation(summary = "修改")
     @LogOperation("修改")
-    public Result update(@RequestBody TbTravelGuidesDTO dto){
+    public Result update(@RequestBody TbOrdersDTO dto){
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
-        tbTravelGuidesService.update(dto);
+        tbOrdersService.update(dto);
 
         return new Result();
     }
@@ -92,7 +92,7 @@ public class TbTravelGuidesController {
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
 
-        tbTravelGuidesService.delete(ids);
+        tbOrdersService.delete(ids);
 
         return new Result();
     }
@@ -101,9 +101,9 @@ public class TbTravelGuidesController {
     @Operation(summary = "导出")
     @LogOperation("导出")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<TbTravelGuidesDTO> list = tbTravelGuidesService.list(params);
+        List<TbOrdersDTO> list = tbOrdersService.list(params);
 
-        ExcelUtils.exportExcelToTarget(response, null, "", list, TbTravelGuidesExcel.class);
+        ExcelUtils.exportExcelToTarget(response, null, "", list, TbOrdersExcel.class);
     }
 
 }

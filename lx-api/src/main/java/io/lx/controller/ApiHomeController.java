@@ -55,19 +55,6 @@ public class ApiHomeController {
     @Resource
     private TokenUtils tokenUtils;
 
-
-
-//    private RouteService routeService;
-
-
-//    @GetMapping("searchAll")
-//    @Operation(summary = "全局搜索路线")
-//    public Result searchAll(String keyword) {
-//        return new Result().ok(
-//                routeService.searchAll(keyword)
-//        );
-//    }
-
     @GetMapping("getHotSearchWords")
     @Operation(summary = "获取热门搜索关键字")
     public Result getHotSearchWords(){
@@ -146,14 +133,6 @@ public class ApiHomeController {
         return new Result();
     }
 
-//    @GetMapping("/getTravelGuidesList")
-//    @Operation(summary = "获取路线攻略列表")
-//    public Result getTravelGuidesList(){
-//        return new Result().ok(
-//                travelGuidesService.getTravelGuidesList()
-//        );
-//    }
-
     @GetMapping("getTravelGuidesListByPage")
     @Operation(summary = "分页")
     @Parameters({
@@ -169,10 +148,15 @@ public class ApiHomeController {
     }
 
     @GetMapping("/getTravelGuidesList")
-    @Operation(summary = "获取路线攻略列表")
-    public Result getTravelGuidesList(@Parameter String keyword){
+    @Operation(summary = "获取路书（网盘）列表-首页搜索")
+    @Parameters({
+            @Parameter(name = "keyword", description = "关键字", ref="String") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
+    })
+    public Result getTravelGuidesList(@Parameter String keyword,@Parameter String orderField,@Parameter String order){
         return new Result().ok(
-                travelGuidesService.getTravelGuidesList(keyword)
+                travelGuidesService.getTravelGuidesList(keyword,orderField,order)
         );
     }
 

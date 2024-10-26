@@ -10,6 +10,7 @@ import io.lx.dto.CodeLoginDTO;
 import io.lx.dto.UserProfileDTO;
 import io.lx.entity.TokenEntity;
 import io.lx.entity.UserEntity;
+import io.lx.utils.WeChatUtils;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,7 @@ public class WechatService {
 
     String getPhoneNumberUrl = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=%s";
     String getAccessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token";
+
 
     @Value("${wechat.appid}")
     private String appid;
@@ -102,14 +104,18 @@ public class WechatService {
         if (user == null) {
             // 新用户 注册
             UserEntity newUser = new UserEntity();
-
             newUser.setMobile(phone);
             newUser.setUsername(phone);
             newUser.setCreatedAt(new Date());
+            newUser.setOpenid(dto.getOpenid());
             userService.insert(newUser);
             isNewUser = true;
 
             user = newUser;
+        }else {
+            // 更新openid 一般不变
+            user.setOpenid(dto.getOpenid());
+            userService.updateById(user);
         }
 
         //获取登录token
@@ -133,4 +139,29 @@ public class WechatService {
        user.setNickname(dto.getNickname());
        userService.updateById(user);
    }
+
+    /**
+     * 获取openid
+     */
+    public Map<String, Object> getOpenId(String code){
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid="
+                + appid + "&secret=" + secret + "&js_code=" + code + "&grant_type=authorization_code";
+    // 发送请求，返回Json字符串
+        String str = WeChatUtils.httpRequest(url, "GET", null);
+        // 转成Json对象 获取openid
+        JSONObject jsonObject = JSONObject.parseObject(str);
+        // 我们需要的openid，在一个小程序中，openid是唯一的
+        try {
+            String openid = jsonObject.get("openid").toString();
+        }catch (Exception e){
+            if ("40029".equals(jsonObject.get("errcode"))){
+                throw new RenException("40029,获取openid失败");
+            }
+            throw new RenException("获取openid失败");
+        }
+        String openid = jsonObject.get("openid").toString();
+        Map<String, Object> map = new HashMap<>();
+        map.put("openid",openid);
+        return map;
+    }
 }

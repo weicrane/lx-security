@@ -72,4 +72,8 @@ public class TbTravelGuidesEntity {
      *
      */
     private Integer inventory;
+    /**
+     *
+     */
+    private String asset;
 }

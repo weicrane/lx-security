@@ -64,5 +64,9 @@ public class UserEntity implements Serializable {
 	 * 会员类型：0-非会员，1-终身全部会员，2-特定路线会员
 	 */
 	private String memberType;
+	/**
+	 * openid
+	 */
+	private String openid;
 
 }

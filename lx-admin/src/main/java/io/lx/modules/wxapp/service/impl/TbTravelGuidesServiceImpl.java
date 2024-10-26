@@ -1,12 +1,14 @@
 package io.lx.modules.wxapp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.lx.common.service.impl.CrudServiceImpl;
+import io.lx.common.utils.AESUtils;
 import io.lx.modules.wxapp.dao.TbTravelGuidesDao;
 import io.lx.modules.wxapp.dto.TbTravelGuidesDTO;
 import io.lx.modules.wxapp.entity.TbTravelGuidesEntity;
 import io.lx.modules.wxapp.service.TbTravelGuidesService;
-import cn.hutool.core.util.StrUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -31,4 +33,17 @@ public class TbTravelGuidesServiceImpl extends CrudServiceImpl<TbTravelGuidesDao
     }
 
 
+    @Override
+    public void encryptSave(TbTravelGuidesDTO tbTravelGuidesDTO){
+        String asset = tbTravelGuidesDTO.getAsset();
+        TbTravelGuidesEntity tbTravelGuidesEntity =new TbTravelGuidesEntity();
+        BeanUtils.copyProperties(tbTravelGuidesDTO,tbTravelGuidesEntity);
+        try {
+            tbTravelGuidesEntity.setAsset(AESUtils.encrypt(asset));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        baseDao.insert(tbTravelGuidesEntity);
+    }
 }

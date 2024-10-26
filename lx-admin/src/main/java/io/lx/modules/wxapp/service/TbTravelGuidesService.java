@@ -12,4 +12,5 @@ import io.lx.modules.wxapp.entity.TbTravelGuidesEntity;
  */
 public interface TbTravelGuidesService extends CrudService<TbTravelGuidesEntity, TbTravelGuidesDTO> {
 
+    void encryptSave(TbTravelGuidesDTO tbTravelGuidesDTO);
 }
