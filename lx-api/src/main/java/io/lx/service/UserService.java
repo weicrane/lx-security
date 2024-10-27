@@ -44,4 +44,9 @@ public interface UserService extends BaseService<UserEntity> {
 
 	UserDetailDTO getUserInfoDetailByToken(String token);
 
+	/**
+	 * 设置会员身份
+	 */
+	void setSvip(Long userId);
+
 }

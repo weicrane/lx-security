@@ -11,7 +11,7 @@ import java.util.SortedMap;
 /**
  * 微信支付
  */
-public interface IWxPayService {
+public interface WxPayService {
     /**
      * JSAPI下单
      *

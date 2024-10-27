@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.lx.modules.wxapp.dao.TbSvipDao">
+
+    <resultMap type="io.lx.modules.wxapp.entity.TbSvipEntity" id="tbSvipMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="travelType" column="travel_type"/>
+        <result property="destinationCity" column="destination_city"/>
+        <result property="departureCity" column="departure_city"/>
+        <result property="tag" column="tag"/>
+        <result property="purchaseNotes" column="purchase_notes"/>
+        <result property="coverImgPath" column="cover_img_path"/>
+        <result property="detailImgPath" column="detail_img_path"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="price" column="price"/>
+        <result property="inventory" column="inventory"/>
+    </resultMap>
+
+
+</mapper>

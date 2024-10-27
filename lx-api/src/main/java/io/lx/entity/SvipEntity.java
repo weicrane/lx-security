@@ -11,41 +11,53 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-26
+ * @since 1.0.0 2024-10-27
  */
 @Data
-@TableName("tb_orders")
-public class OrdersEntity {
+@TableName("tb_svip")
+public class SvipEntity {
 
     /**
      * 
      */
     @TableId
-	private String orderId;
+	private Integer id;
     /**
      * 
      */
-	private Long userId;
+	private String title;
     /**
      * 
      */
-	private String openid;
+	private String subTitle;
     /**
      * 
      */
-	private String productType;
+	private Integer travelType;
     /**
      * 
      */
-	private Integer productId;
+	private String destinationCity;
     /**
      * 
      */
-	private BigDecimal amount;
+	private String departureCity;
     /**
      * 
      */
-	private String status;
+	private String tag;
+    /**
+     * 
+     */
+	private String purchaseNotes;
+    /**
+     * 
+     */
+	private String coverImgPath;
+    /**
+     * 
+     */
+	private String detailImgPath;
     /**
      * 
      */
@@ -55,8 +67,11 @@ public class OrdersEntity {
      */
 	private Date updatedAt;
     /**
-     *
+     * 
      */
-    private String description;
-
+	private BigDecimal price;
+    /**
+     * 
+     */
+	private Integer inventory;
 }

@@ -65,5 +65,9 @@ public class UserDetailDTO {
      * 会员体系
      */
     private Map<String,Object> membershipsMap;
+    /**
+     * 是否svip：0-非会员，1-终身全部会员
+     */
+    private String svip;
 
 }

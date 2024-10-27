@@ -97,14 +97,14 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
         return page;
     }
 
-    protected <T> PageData<T> getPageData(List<?> list, long total, Class<T> target) {
+    protected <T> PageData<T> getPageData(List<?> list, long total,long pageSize,long totalPage,long currPage ,Class<T> target) {
         List<T> targetList = ConvertUtils.sourceToTarget(list, target);
 
-        return new PageData<>(targetList, total);
+        return new PageData<>(targetList, total,pageSize,totalPage,currPage);
     }
 
     protected <T> PageData<T> getPageData(IPage page, Class<T> target) {
-        return getPageData(page.getRecords(), page.getTotal(), target);
+        return getPageData(page.getRecords(), page.getTotal(), page.getSize(),page.getPages(),page.getCurrent(),target);
     }
 
     protected void paramsToLike(Map<String, Object> params, String... likes) {

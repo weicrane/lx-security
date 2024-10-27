@@ -5,40 +5,58 @@ import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+
 
 /**
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-26
+ * @since 1.0.0 2024-10-27
  */
 @Data
-@Schema(name = "小程序订单")
-public class TbOrdersDTO implements Serializable {
+@Schema(name = "")
+public class TbTransactionDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
-	private String orderId;
+	private String transactionId;
 
 	@SchemaProperty(name = "")
-	private Long userId;
+	private String outTradeNo;
 
 	@SchemaProperty(name = "")
-	private String openid;
+	private Integer total;
 
 	@SchemaProperty(name = "")
-	private String productType;
+	private String tradeState;
 
 	@SchemaProperty(name = "")
-	private Integer productId;
+	private String tradeType;
 
 	@SchemaProperty(name = "")
-	private BigDecimal amount;
+	private String tradeStateDesc;
 
 	@SchemaProperty(name = "")
-	private String status;
+	private String bankType;
+
+	@SchemaProperty(name = "")
+	private String successTime;
+
+	@SchemaProperty(name = "")
+	private String payer;
+
+	@SchemaProperty(name = "")
+	private String amount;
+
+	@SchemaProperty(name = "")
+	private String sceneInfo;
+
+	@SchemaProperty(name = "")
+	private String promotionDetail;
+
+	@SchemaProperty(name = "")
+	private String failMessage;
 
 	@SchemaProperty(name = "")
 	private Date createdAt;

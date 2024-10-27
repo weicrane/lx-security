@@ -15,4 +15,6 @@ import java.util.Map;
 public interface UserMembershipsService extends CrudService<UserMembershipsEntity, UserMembershipsDTO> {
 
     Map<String, Object> getMembershipsByUserId(Long userId);
+
+    void updateUserMemShips(String orderId);
 }

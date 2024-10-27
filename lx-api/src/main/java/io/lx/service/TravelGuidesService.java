@@ -17,6 +17,6 @@ import java.util.Map;
  */
 public interface TravelGuidesService extends CrudService<TravelGuidesEntity,TravelGuidesDTO> {
     List<TravelGuidesDTO> getTravelGuidesList(String keyword,String orderField,String order);
-    TravelGuidesDTO getTravelGuidesDetail(Long id);
+    TravelGuidesDTO getTravelGuidesDetail(Integer id);
     PageData<MyTravelGuidesDTO> getMyTravelGuides(String token,String keyword, Map<String, Object> params);
 }

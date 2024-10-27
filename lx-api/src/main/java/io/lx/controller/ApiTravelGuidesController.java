@@ -50,9 +50,9 @@ public class ApiTravelGuidesController {
         if(!StringUtil.isNotEmpty(id)){
             throw new RenException("id不能为空");
         }
-        Long long_id = Long.valueOf(id);
+        Integer int_id = Integer.parseInt(id);
         return new Result().ok(
-                travelGuidesService.getTravelGuidesDetail(long_id)
+                travelGuidesService.getTravelGuidesDetail(int_id)
         );
     }
 

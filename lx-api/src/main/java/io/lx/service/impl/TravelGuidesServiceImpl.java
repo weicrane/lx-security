@@ -3,7 +3,6 @@ package io.lx.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
 import io.lx.common.utils.AESUtils;
@@ -24,6 +23,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static io.lx.constant.ApiConstant.ZERO_STRING;
 
 /**
  * @author Mofeng laoniane@gmail.com
@@ -68,7 +69,7 @@ public class TravelGuidesServiceImpl extends CrudServiceImpl<TravelGuidesDao, Tr
     }
 
     @Override
-    public TravelGuidesDTO getTravelGuidesDetail(Long id) {
+    public TravelGuidesDTO getTravelGuidesDetail(Integer id) {
         TravelGuidesEntity entity = baseDao.selectById(id);
         TravelGuidesDTO dto = new TravelGuidesDTO();
         BeanUtils.copyProperties(entity, dto);
@@ -79,7 +80,7 @@ public class TravelGuidesServiceImpl extends CrudServiceImpl<TravelGuidesDao, Tr
     public PageData<MyTravelGuidesDTO> getMyTravelGuides(String token, String keyword,Map<String, Object> params) {
         // 1.获取用户会员身份
         UserDetailDTO userDetailDTO = userService.getUserInfoDetailByToken(token);
-        String memberType = userDetailDTO.getMemberType();
+        String svip = userDetailDTO.getSvip();
 
         // 创建分页对象
         IPage<TravelGuidesEntity> page = null;
@@ -87,56 +88,46 @@ public class TravelGuidesServiceImpl extends CrudServiceImpl<TravelGuidesDao, Tr
         // 初始化查询条件
         QueryWrapper<TravelGuidesEntity> wrapper = new QueryWrapper<>();
 
-        // 根据会员类型进行查询: 0-非会员，1-终身全部会员，2-网盘会员，3-玩法会员
-        switch (memberType) {
-            case "0": // 非会员，返回空结果
-                page = new Page<>(0, 0); // 空分页对象
-                break;
-
-            case "1": // 终身会员，返回所有产品的分页列表
-                // 如果有 keyword，按 title 和 subtitle 模糊匹配
-                if (StrUtil.isNotBlank(keyword)) {
-                    wrapper.like("title", keyword)
-                            .or()
-                            .like("sub_title", keyword);
-                }
-                page = baseDao.selectPage(getPage(params, null, false), wrapper);
-                break;
-
-            case "2": // 网盘会员，返回用户已购买的产品列表
-                Map<String, Object> memberships = userMembershipsService.getMembershipsByUserId(userDetailDTO.getId());
-                List<Integer> travelGuidesIds = (List<Integer>) memberships.get("travelGuidesIds");
-                if (travelGuidesIds.isEmpty()) {
-                    // 如果用户没有已购产品，返回空分页
-                    return new PageData<>(Collections.emptyList(), 0);
-                }
-                // 将购买的产品ID设置为查询条件，结合模糊搜索条件
-                wrapper.in("id", travelGuidesIds);
-                // 如果有 keyword，按 title 和 subtitle 模糊匹配
-                if (StrUtil.isNotBlank(keyword)) {
-                    wrapper.like("title", keyword)
-                            .or()
-                            .like("sub_title", keyword);
-                }
-                page = baseDao.selectPage(getPage(params, null, false), wrapper);
-                break;
+        // 根据是否svip进行查询: 0-非会员，1-终身全部会员
+        if (ZERO_STRING.equals(svip)){
+            // 终身会员，返回所有产品的分页列表
+            // 如果有 keyword，按 title 和 subtitle 模糊匹配
+            if (StrUtil.isNotBlank(keyword)) {
+                wrapper.like("title", keyword)
+                        .or()
+                        .like("sub_title", keyword);
+            }
+            page = baseDao.selectPage(getPage(params, null, false), wrapper);
+        }else {
+            Map<String, Object> memberships = userMembershipsService.getMembershipsByUserId(userDetailDTO.getId());
+            List<Integer> travelGuidesIds = (List<Integer>) memberships.get("travelGuidesIds");
+            if (travelGuidesIds.isEmpty()) {
+                // 如果用户没有已购产品，返回空分页
+                return new PageData<>(Collections.emptyList(), 0,0,0,0);
+            }
+            // 将购买的产品ID设置为查询条件，结合模糊搜索条件
+            wrapper.in("id", travelGuidesIds);
+            // 如果有 keyword，按 title 和 subtitle 模糊匹配
+            if (StrUtil.isNotBlank(keyword)) {
+                wrapper.like("title", keyword)
+                        .or()
+                        .like("sub_title", keyword);
+            }
+            page = baseDao.selectPage(getPage(params, null, false), wrapper);
         }
 
         // 将结果转换为 DTO 并处理解密逻辑
         List<MyTravelGuidesDTO> dtoList = page.getRecords().stream().map(entity -> {
             MyTravelGuidesDTO dto = convertToDTO(entity);
-
             // 解密 asset 字段
             try {
                 dto.setAsset(decryptAssetField(dto.getAsset()));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
             return dto;
         }).collect(Collectors.toList());
-
-        return new PageData<>(dtoList, page.getTotal());
+        return new PageData<>(dtoList, page.getTotal(),page.getSize(),page.getPages(),page.getCurrent());
     }
 
     // 转换实体对象到 DTO

@@ -61,7 +61,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         //查询
         List<SysUserEntity> list = baseDao.getList(params);
 
-        return getPageData(list, page.getTotal(), SysUserDTO.class);
+        return getPageData(list, page.getTotal(),page.getSize(),page.getPages(),page.getCurrent(), SysUserDTO.class);
     }
 
     @Override

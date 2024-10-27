@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.lx.dao.TransactionDao">
+
+    <resultMap type="io.lx.entity.TransactionEntity" id="TransactionMap">
+        <result property="transactionId" column="transaction_id"/>
+        <result property="outTradeNo" column="out_trade_no"/>
+        <result property="total" column="total"/>
+        <result property="tradeState" column="trade_state"/>
+        <result property="tradeType" column="trade_type"/>
+        <result property="tradeStateDesc" column="trade_state_desc"/>
+        <result property="bankType" column="bank_type"/>
+        <result property="successTime" column="success_time"/>
+        <result property="payer" column="payer"/>
+        <result property="amount" column="amount"/>
+        <result property="sceneInfo" column="scene_info"/>
+        <result property="promotionDetail" column="promotion_detail"/>
+        <result property="failMessage" column="fail_message"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+</mapper>

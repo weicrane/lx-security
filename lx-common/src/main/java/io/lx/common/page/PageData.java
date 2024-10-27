@@ -22,21 +22,33 @@ import java.util.List;
 @Data
 @Schema(title = "分页数据")
 public class PageData<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    @Schema(title = "总记录数")
+    private static final long serialVersionUID = 1L;@Schema(title = "总记录数")
     private int total;
 
     @Schema(title = "列表数据")
     private List<T> list;
+
+    @Schema(title = "每页记录数")
+    private int pageSize;
+
+    @Schema(title = "总页数")
+    private int totalPage;
+
+    @Schema(title = "当前页数")
+    private int currPage;
+
+
 
     /**
      * 分页
      * @param list   列表数据
      * @param total  总记录数
      */
-    public PageData(List<T> list, long total) {
+    public PageData(List<T> list, long total,long pageSize,long totalPage,long currPage) {
         this.list = list;
         this.total = (int)total;
+        this.pageSize = (int)pageSize;
+        this.totalPage = (int)totalPage;
+        this.currPage = (int)currPage;
     }
 }

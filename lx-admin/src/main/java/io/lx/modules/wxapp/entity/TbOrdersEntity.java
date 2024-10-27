@@ -35,7 +35,7 @@ public class TbOrdersEntity {
     /**
      * 
      */
-	private Long productId;
+	private Integer productId;
     /**
      * 
      */

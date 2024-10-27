@@ -36,7 +36,7 @@ public class OrdersDTO implements Serializable {
 
 	@SchemaProperty(name = "产品ID")
 	@NotNull(message="产品ID不能为空")
-	private Long productId;
+	private Integer productId;
 
 	@SchemaProperty(name = "金额（元）")
 	@NotNull(message="价格不能为空")

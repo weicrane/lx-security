@@ -10,6 +10,7 @@ package io.lx.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.digest.DigestUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import io.lx.common.exception.ErrorCode;
 import io.lx.common.exception.RenException;
 import io.lx.common.service.impl.BaseServiceImpl;
@@ -41,7 +42,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
     @Value("${web.upload-path}")
     private String uploadPath;
 
-    // 通过 @Autowired 注入 TokenService
     private final TokenService tokenService;
     private final UserMembershipsService userMembershipsService;
 
@@ -127,8 +127,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
         // 自动映射相同字段
         BeanUtils.copyProperties(user, dto);
 
-        if ("2".equals(user.getMemberType())) {
-            // 当 memberType 为 "2"-特殊会员，获取全部会员列表
+        if ("0".equals(user.getSvip())) {
+            // 当不是svip，获取全部会员列表
             Map<String, Object> membershipsMap = userMembershipsService.getMembershipsByUserId(tokenEntity.getUserId());
             dto.setMembershipsMap(membershipsMap);
         }
@@ -136,4 +136,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserDao, UserEntity> implem
         return dto;
     }
 
+    @Override
+    public  void setSvip(Long userId){
+        // 使用 UpdateWrapper 更新状态
+        UpdateWrapper<UserEntity> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", userId).set("svip", "1");
+
+        // 执行更新
+        baseDao.update(null, updateWrapper);
+    }
 }

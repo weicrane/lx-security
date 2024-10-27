@@ -11,7 +11,7 @@ public class WxV3PayConfig {
     /**
      * 微信回调通知地址
      */
-    public static String PAY_BACK_URL = "https://luxunlvyou.com/";
+    public static String PAY_BACK_URL = "https://luxunlvyou.com/lx-api/wepay/callback";
 
     //平台证书序列号
     public static String MCH_SERIAL_NO = "33089AA10813CB4A2DD0AC6D8E7359016563259D";

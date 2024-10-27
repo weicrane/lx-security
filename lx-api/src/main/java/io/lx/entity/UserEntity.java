@@ -61,12 +61,16 @@ public class UserEntity implements Serializable {
 	 */
 	private String avatarUrl;
 	/**
-	 * 会员类型：0-非会员，1-终身全部会员，2-特定路线会员
+	 * ！弃用：会员类型：0-非会员，1-终身全部会员，2-特定路线会员
 	 */
 	private String memberType;
 	/**
 	 * openid
 	 */
 	private String openid;
+	/**
+	 * 是否svip：0-非会员，1-终身全部会员
+	 */
+	private String svip;
 
 }

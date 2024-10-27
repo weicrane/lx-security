@@ -2,21 +2,23 @@ package io.lx.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.wechat.pay.java.service.payments.jsapi.model.Amount;
-import io.lx.common.exception.RenException;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
 import io.lx.dao.OrdersDao;
 import io.lx.dto.OrdersDTO;
-import io.lx.dto.TravelGuidesDTO;
 import io.lx.entity.OrdersEntity;
+import io.lx.entity.UserEntity;
 import io.lx.service.OrdersService;
-import io.lx.service.TravelGuidesService;
-import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static io.lx.constant.ApiConstant.ORDER_STATUS_SUCCESS;
 
 /**
  * 
@@ -26,10 +28,6 @@ import java.util.Map;
  */
 @Service
 public class OrdersServiceImpl extends CrudServiceImpl<OrdersDao, OrdersEntity, OrdersDTO> implements OrdersService {
-
-    @Resource
-    TravelGuidesService travelGuidesService;
-
 
     @Override
     public QueryWrapper<OrdersEntity> getWrapper(Map<String, Object> params){
@@ -51,42 +49,92 @@ public class OrdersServiceImpl extends CrudServiceImpl<OrdersDao, OrdersEntity, 
     }
 
     /**
-     * 获取产品价格
-     * 00-终身会员，01-网盘路书，a02-自驾活动，03-四季玩法
+     * 查询订单状态
+     * @param orderId
+     * @return
      */
-    public Amount getAmount(String productType, Long productId){
-        Amount amount = new Amount();
-        switch (productType) {
-            case "00":
-                // 处理终身会员的逻辑
-                amount.setTotal(1);//TODO:终身会员价格要修改
-                break;
-
-            case "01":
-                // 处理网盘路书的逻辑
-                TravelGuidesDTO dto = travelGuidesService.getTravelGuidesDetail(productId);
-                try {
-                    BigDecimal price = dto.getPrice();
-                    amount.setTotal(price.multiply(BigDecimal.valueOf(100)).intValue());
-                }catch (Exception e){
-                    throw new RenException("查询商品价格失败");
-                }
-                break;
-
-            case "a02":
-                // 处理自驾活动的逻辑
-                break;
-
-            case "03":
-                // 处理四季玩法的逻辑
-                break;
-
-            default:
-                // 处理其他情况的逻辑
-                break;
+    public String getOederStatus(String orderId){
+        // 查询订单
+        OrdersEntity entity = baseDao.selectById(orderId);
+        if (entity == null) {
+            throw new IllegalArgumentException("订单不存在，无法更新状态");
         }
-    return amount;
+        return entity.getStatus();
     }
 
+    /**
+     * 更新订单状态: 0-未支付，1-已支付，2-支付失败, 3-取消支付
+     *
+     */
+    public void updateOrderStatus(String orderId, String status) {
+        // 查询订单
+        OrdersEntity entity = baseDao.selectById(orderId);
+        if (entity == null) {
+            throw new IllegalArgumentException("订单不存在，无法更新状态");
+        }
+        if (ORDER_STATUS_SUCCESS.equals(entity.getStatus())) {
+            throw new IllegalArgumentException("订单已完成，无法重复操作");
+        }
+
+        // 使用 UpdateWrapper 更新状态
+        UpdateWrapper<OrdersEntity> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("order_id", orderId).set("status", status);
+
+        // 执行更新
+        baseDao.update(null, updateWrapper);
+    }
+
+    @Override
+    public OrdersEntity getOrderDetail(String orderId){
+        return baseDao.selectById(orderId);
+    }
+
+    /**
+     * 订单状态: 0-未支付，1-已支付，2-支付失败, 3-取消支付;
+     * 对应前端参数：不传-全部，待付款（0-未支付），3-已取消（3-取消支付），1-已完成（1-已支付）
+     * @param params
+     * @param keyword
+     * @param status
+     * @param user
+     * @return
+     */
+    @Override
+    public PageData<OrdersDTO> getOrderListByPage(Map<String, Object> params,
+                                                  String keyword,
+                                                  String status,
+                                                  UserEntity user){
+        // 1.创建分页对象
+        IPage<OrdersEntity> page = null;
+        // 2.初始化查询条件
+        QueryWrapper<OrdersEntity> wrapper = new QueryWrapper<>();
+
+        // 3. 如果有 keyword，按 description 模糊匹配
+        if (keyword != null && !keyword.isEmpty()) {
+            wrapper.lambda().like(OrdersEntity::getDescription, keyword);
+        }
+
+        // 4. 如果有 status，则按状态匹配
+        if (status != null && !status.isEmpty()) {
+            wrapper.lambda().eq(OrdersEntity::getStatus, status);
+        }
+
+        // 5. 按 userId 匹配用户订单
+        if (user != null && user.getId() != null) {
+            wrapper.lambda().eq(OrdersEntity::getUserId, user.getId());
+        }
+
+        // 6. 执行分页查询
+        IPage<OrdersEntity> resultPage = baseDao.selectPage(getPage(params, null, false), wrapper);
+
+        // 7. 转换结果为 DTO 并返回分页数据
+        List<OrdersDTO> list = resultPage.getRecords().stream()
+                .map(order -> {
+                    OrdersDTO dto = new OrdersDTO();
+                    BeanUtils.copyProperties(order, dto);
+                    return dto;
+                }).collect(Collectors.toList());
+
+        return new PageData<>(list, resultPage.getTotal(),resultPage.getSize(),resultPage.getPages(),resultPage.getCurrent());
+    }
 
 }

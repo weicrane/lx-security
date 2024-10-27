@@ -12,39 +12,54 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-26
+ * @since 1.0.0 2024-10-27
  */
 @Data
-@Schema(name = "小程序订单")
-public class TbOrdersDTO implements Serializable {
+@Schema(name = "")
+public class TbSvipDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
-	private String orderId;
+	private Integer id;
 
 	@SchemaProperty(name = "")
-	private Long userId;
+	private String title;
 
 	@SchemaProperty(name = "")
-	private String openid;
+	private String subTitle;
 
 	@SchemaProperty(name = "")
-	private String productType;
+	private Integer travelType;
 
 	@SchemaProperty(name = "")
-	private Integer productId;
+	private String destinationCity;
 
 	@SchemaProperty(name = "")
-	private BigDecimal amount;
+	private String departureCity;
 
 	@SchemaProperty(name = "")
-	private String status;
+	private String tag;
+
+	@SchemaProperty(name = "")
+	private String purchaseNotes;
+
+	@SchemaProperty(name = "")
+	private String coverImgPath;
+
+	@SchemaProperty(name = "")
+	private String detailImgPath;
 
 	@SchemaProperty(name = "")
 	private Date createdAt;
 
 	@SchemaProperty(name = "")
 	private Date updatedAt;
+
+	@SchemaProperty(name = "")
+	private BigDecimal price;
+
+	@SchemaProperty(name = "")
+	private Integer inventory;
 
 
 }
