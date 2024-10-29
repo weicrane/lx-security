@@ -1,8 +1,11 @@
 package io.lx.service;
 
+import io.lx.common.page.PageData;
 import io.lx.common.service.CrudService;
 import io.lx.dto.SelfDrivingsDTO;
 import io.lx.entity.SelfDrivingsEntity;
+
+import java.util.Map;
 
 /**
  * 
@@ -12,4 +15,5 @@ import io.lx.entity.SelfDrivingsEntity;
  */
 public interface SelfDrivingsService extends CrudService<SelfDrivingsEntity, SelfDrivingsDTO> {
 
+    PageData<SelfDrivingsDTO> getSelfDrivingListByPage(Map<String, Object> params,String keyword);
 }
