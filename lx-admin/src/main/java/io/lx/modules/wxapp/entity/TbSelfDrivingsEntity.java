@@ -72,4 +72,12 @@ public class TbSelfDrivingsEntity {
      * 
      */
 	private Integer inventory;
+    /**
+     *
+     */
+    private Date startDate;
+    /**
+     *
+     */
+    private Date endDate;
 }

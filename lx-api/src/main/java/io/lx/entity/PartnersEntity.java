@@ -4,55 +4,56 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-29
+ * @since 1.0.0 2024-10-31
  */
 @Data
-@TableName("tb_self_drivings_apply")
-public class SelfDrivingsApplyEntity {
+@TableName("tb_partners")
+public class PartnersEntity {
 
     /**
      * 
      */
     @TableId
-	private String applyId;
+	private Integer id;
     /**
      * 
      */
-	private Long userId;
+	private String title;
     /**
      * 
      */
-	private Integer selfDrivingId;
+	private String subTitle;
     /**
      * 
      */
-	private String name;
+	private Integer type;
     /**
      * 
      */
-	private String phone;
+	private String city;
     /**
      * 
      */
-	private Integer adults;
+	private String tag;
     /**
      * 
      */
-	private Integer children;
+	private String purchaseNotes;
     /**
      * 
      */
-	private String remark;
+	private String coverImgPath;
     /**
      * 
      */
-	private String status;
+	private String detailImgPath;
     /**
      * 
      */
@@ -62,11 +63,11 @@ public class SelfDrivingsApplyEntity {
      */
 	private Date updatedAt;
     /**
-     *
+     * 
      */
-    private String vehicleType;
+	private BigDecimal price;
     /**
-     *
+     * 
      */
-    private String plate;
+	private Integer inventory;
 }

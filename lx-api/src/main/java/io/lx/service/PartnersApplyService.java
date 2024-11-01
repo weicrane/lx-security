@@ -3,8 +3,8 @@ package io.lx.service;
 import io.lx.common.page.PageData;
 import io.lx.common.service.CrudService;
 import io.lx.dto.GetApplyDTO;
-import io.lx.dto.SelfDrivingsApplyDTO;
-import io.lx.entity.SelfDrivingsApplyEntity;
+import io.lx.dto.PartnersApplyDTO;
+import io.lx.entity.PartnersApplyEntity;
 import io.lx.entity.UserEntity;
 
 import java.util.Map;
@@ -13,19 +13,18 @@ import java.util.Map;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-29
+ * @since 1.0.0 2024-10-31
  */
-public interface SelfDrivingsApplyService extends CrudService<SelfDrivingsApplyEntity, SelfDrivingsApplyDTO> {
+public interface PartnersApplyService extends CrudService<PartnersApplyEntity, PartnersApplyDTO> {
 
     /**
-     * 提交报名表
+     * 提交预约表
      * @param dto
      * @param user
      */
-    void submitApply(SelfDrivingsApplyDTO dto, UserEntity user);
+    void submitApply(PartnersApplyDTO dto, UserEntity user);
 
-
-    PageData<SelfDrivingsApplyDTO> getSelfDriApplyByPage(Map<String, Object> params, String keyword,UserEntity user);
+    PageData<PartnersApplyDTO> getPartnersApplyByPage(Map<String, Object> params, String keyword, UserEntity user);
 
     /**
      * 取消
@@ -34,8 +33,9 @@ public interface SelfDrivingsApplyService extends CrudService<SelfDrivingsApplyE
      */
     void cancelApply(GetApplyDTO dto, UserEntity user);
 
+
     /**
-     * 查询我的自驾报名详情
+     * 查询我的商家预约详情
      * @param applyId
      * @return
      */

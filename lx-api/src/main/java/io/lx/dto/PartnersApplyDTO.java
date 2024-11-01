@@ -1,71 +1,59 @@
-package io.lx.modules.wxapp.dto;
+package io.lx.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+
 
 /**
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-19
+ * @since 1.0.0 2024-10-31
  */
 @Data
 @Schema(name = "")
-public class TbSelfDrivingsDTO implements Serializable {
+public class PartnersApplyDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
-	private Integer id;
+	private String applyId;
+
+	@SchemaProperty(name = "")
+	private Long userId;
+
+	@SchemaProperty(name = "")
+	private Integer partnersId;
 
 	@SchemaProperty(name = "")
 	private String title;
 
 	@SchemaProperty(name = "")
-	private String subTitle;
+	private String name;
 
 	@SchemaProperty(name = "")
-	private Integer travelType;
+	private String phone;
 
 	@SchemaProperty(name = "")
-	private String destinationCity;
+	private Integer adults;
 
 	@SchemaProperty(name = "")
-	private String departureCity;
+	private Integer children;
 
 	@SchemaProperty(name = "")
-	private String tag;
+	private String remark;
 
 	@SchemaProperty(name = "")
-	private String purchaseNotes;
-
-	@SchemaProperty(name = "")
-	private String coverImgPath;
-
-	@SchemaProperty(name = "")
-	private String detailImgPath;
+	private String status;
 
 	@SchemaProperty(name = "")
 	private Date createdAt;
 
 	@SchemaProperty(name = "")
 	private Date updatedAt;
-
-	@SchemaProperty(name = "")
-	private BigDecimal price;
-
-	@SchemaProperty(name = "")
-	private Integer inventory;
-
-	@SchemaProperty(name = "")
-	private Date startDate;
-
-	@SchemaProperty(name = "")
-	private Date endDate;
 
 
 }

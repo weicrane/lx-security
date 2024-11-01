@@ -6,15 +6,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
-import io.lx.dao.SelfDrivingsApplyDao;
+import io.lx.dao.PartnersApplyDao;
 import io.lx.dto.GetApplyDTO;
-import io.lx.dto.SelfDrivingsApplyDTO;
-import io.lx.dto.SelfDrivingsDTO;
-import io.lx.entity.SelfDrivingsApplyEntity;
-import io.lx.entity.SelfDrivingsEntity;
+import io.lx.dto.PartnersApplyDTO;
+import io.lx.dto.PartnersDTO;
+import io.lx.entity.PartnersApplyEntity;
+import io.lx.entity.PartnersEntity;
 import io.lx.entity.UserEntity;
-import io.lx.service.SelfDrivingsApplyService;
-import io.lx.service.SelfDrivingsService;
+import io.lx.service.PartnersApplyService;
+import io.lx.service.PartnersService;
 import io.lx.utils.OrderNumberUtils;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
@@ -29,22 +29,20 @@ import static io.lx.constant.ApiConstant.SELF_DRIVING_APPLY_CANCEL;
 import static io.lx.constant.ApiConstant.SELF_DRIVING_APPLY_PENDING_REVIEW;
 
 /**
- * 
- *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-29
+ * @since 1.0.0 2024-10-31
  */
 @Service
-public class SelfDrivingsApplyServiceImpl extends CrudServiceImpl<SelfDrivingsApplyDao, SelfDrivingsApplyEntity, SelfDrivingsApplyDTO> implements SelfDrivingsApplyService {
+public class PartnersApplyServiceImpl extends CrudServiceImpl<PartnersApplyDao, PartnersApplyEntity, PartnersApplyDTO> implements PartnersApplyService {
 
     @Resource
-    SelfDrivingsService selfDrivingsService;
+    PartnersService partnersService;
 
     @Override
-    public QueryWrapper<SelfDrivingsApplyEntity> getWrapper(Map<String, Object> params){
-        String id = (String)params.get("id");
+    public QueryWrapper<PartnersApplyEntity> getWrapper(Map<String, Object> params) {
+        String id = (String) params.get("id");
 
-        QueryWrapper<SelfDrivingsApplyEntity> wrapper = new QueryWrapper<>();
+        QueryWrapper<PartnersApplyEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StrUtil.isNotBlank(id), "id", id);
 
         return wrapper;
@@ -52,10 +50,10 @@ public class SelfDrivingsApplyServiceImpl extends CrudServiceImpl<SelfDrivingsAp
 
 
     @Override
-    public void submitApply(SelfDrivingsApplyDTO dto, UserEntity user){
+    public void submitApply(PartnersApplyDTO dto, UserEntity user) {
 
-        SelfDrivingsApplyEntity entity = new SelfDrivingsApplyEntity();
-        BeanUtils.copyProperties(dto,entity);
+        PartnersApplyEntity entity = new PartnersApplyEntity();
+        BeanUtils.copyProperties(dto, entity);
 
         // 生成报名单号
         String orderNum = OrderNumberUtils.generateOrderNumber();
@@ -69,46 +67,47 @@ public class SelfDrivingsApplyServiceImpl extends CrudServiceImpl<SelfDrivingsAp
     }
 
     @Override
-    public PageData<SelfDrivingsApplyDTO> getSelfDriApplyByPage(Map<String, Object> params, String keyword, UserEntity user){
+    public PageData<PartnersApplyDTO> getPartnersApplyByPage(Map<String, Object> params, String keyword, UserEntity user) {
         // 初始化查询条件
-        QueryWrapper<SelfDrivingsApplyEntity> wrapper = new QueryWrapper<>();
+        QueryWrapper<PartnersApplyEntity> wrapper = new QueryWrapper<>();
         // 如果有 keyword，按 title 和 subtitle 模糊匹配
         if (StrUtil.isNotBlank(keyword)) {
-            wrapper.like("activity_title", keyword);
+            wrapper.like("title", keyword);
         }
         // 添加本人条件
         wrapper.eq("user_id",user.getId());
         // 执行查询
-        IPage<SelfDrivingsApplyEntity> page ;
+        IPage<PartnersApplyEntity> page;
         page = baseDao.selectPage(getPage(params, "updated_at", false), wrapper);
 
         // 将结果转换为 DTO
-        List<SelfDrivingsApplyDTO> dtoList = page.getRecords().stream().map(entity -> {
-            SelfDrivingsApplyDTO dto = convertToDTO(entity);
+        List<PartnersApplyDTO> dtoList = page.getRecords().stream().map(entity -> {
+            PartnersApplyDTO dto = convertToDTO(entity);
             return dto;
         }).collect(Collectors.toList());
 
-        return new PageData<>(dtoList, page.getTotal(),page.getSize(),page.getPages(),page.getCurrent());
+        return new PageData<>(dtoList, page.getTotal(), page.getSize(), page.getPages(), page.getCurrent());
 
     }
+
     // 转换实体对象到 DTO
-    private SelfDrivingsApplyDTO convertToDTO(SelfDrivingsApplyEntity entity) {
-        SelfDrivingsApplyDTO dto = new SelfDrivingsApplyDTO();
+    private PartnersApplyDTO convertToDTO(PartnersApplyEntity entity) {
+        PartnersApplyDTO dto = new PartnersApplyDTO();
         BeanUtils.copyProperties(entity, dto);
         return dto;
     }
 
     @Override
-    public void cancelApply(GetApplyDTO dto, UserEntity user){
+    public void cancelApply(GetApplyDTO dto, UserEntity user) {
 
         // 查询单号
-        SelfDrivingsApplyEntity entity = baseDao.selectById(dto.getApplyId());
+        PartnersApplyEntity entity = baseDao.selectById(dto.getApplyId());
         // 判断单号存在
         if (entity == null) {
             throw new RenException("订单不存在");
         }
         // 判断是否本人
-        if (!user.getId().equals(entity.getUserId())){
+        if (!user.getId().equals(entity.getUserId())) {
             throw new RenException("订单号与用户不符");
         }
 
@@ -121,9 +120,9 @@ public class SelfDrivingsApplyServiceImpl extends CrudServiceImpl<SelfDrivingsAp
 
     @Override
     public Map<String, Object> getApplyDetailById(String applyId,UserEntity user){
-        // 1.根据id查询报名单详情
+        // 1.根据id查询预约申请单详情
         // 查询单号
-        SelfDrivingsApplyEntity entity = baseDao.selectById(applyId);
+        PartnersApplyEntity entity = baseDao.selectById(applyId);
         // 判断单号存在
         if (entity == null) {
             throw new RenException("订单不存在");
@@ -132,20 +131,19 @@ public class SelfDrivingsApplyServiceImpl extends CrudServiceImpl<SelfDrivingsAp
         if (!user.getId().equals(entity.getUserId())) {
             throw new RenException("订单号与用户不符");
         }
-        SelfDrivingsApplyDTO applyDTO = new SelfDrivingsApplyDTO();
+        PartnersApplyDTO applyDTO = new PartnersApplyDTO();
         BeanUtils.copyProperties(entity, applyDTO);
 
-        // 2.查询活动详情
-        SelfDrivingsEntity partnersEntity = selfDrivingsService.getPartnersDetailById(entity.getSelfDrivingId());
-        SelfDrivingsDTO partnersDTO = new SelfDrivingsDTO();
+        // 2.查询酒店详情
+        PartnersEntity partnersEntity = partnersService.getPartnersDetailById(entity.getPartnersId());
+        PartnersDTO partnersDTO = new PartnersDTO();
         BeanUtils.copyProperties(partnersEntity, partnersDTO);
 
         // 3.组装报文
         Map<String,Object> map = new HashMap<>();
         map.put("applyDetail",applyDTO);
-        map.put("selfDrivingsDetail",partnersDTO);
+        map.put("partnersDetail",partnersDTO);
 
         return map;
     }
-
 }

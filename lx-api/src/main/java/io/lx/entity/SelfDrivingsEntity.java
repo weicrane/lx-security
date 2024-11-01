@@ -1,5 +1,6 @@
 package io.lx.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class SelfDrivingsEntity {
     /**
      * 
      */
+    @TableId
 	private Integer id;
     /**
      * 
@@ -72,4 +74,12 @@ public class SelfDrivingsEntity {
      * 
      */
 	private Integer inventory;
+    /**
+     *
+     */
+    private Date startDate;
+    /**
+     *
+     */
+    private Date endDate;
 }

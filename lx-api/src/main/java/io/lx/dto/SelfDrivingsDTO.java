@@ -61,5 +61,10 @@ public class SelfDrivingsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer inventory;
 
+	@SchemaProperty(name = "")
+	private Date startDate;
+
+	@SchemaProperty(name = "")
+	private Date endDate;
 
 }

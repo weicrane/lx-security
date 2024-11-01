@@ -1,6 +1,5 @@
-package io.lx.entity;
+package io.lx.modules.wxapp.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -10,16 +9,15 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-29
+ * @since 1.0.0 2024-10-31
  */
 @Data
-@TableName("tb_self_drivings_apply")
-public class SelfDrivingsApplyEntity {
+@TableName("tb_partners_apply")
+public class TbPartnersApplyEntity {
 
     /**
      * 
      */
-    @TableId
 	private String applyId;
     /**
      * 
@@ -28,7 +26,11 @@ public class SelfDrivingsApplyEntity {
     /**
      * 
      */
-	private Integer selfDrivingId;
+	private Integer partnersId;
+    /**
+     * 
+     */
+	private String title;
     /**
      * 
      */
@@ -61,12 +63,4 @@ public class SelfDrivingsApplyEntity {
      * 
      */
 	private Date updatedAt;
-    /**
-     *
-     */
-    private String vehicleType;
-    /**
-     *
-     */
-    private String plate;
 }

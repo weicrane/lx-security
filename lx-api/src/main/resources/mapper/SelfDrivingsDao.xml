@@ -18,6 +18,8 @@
         <result property="updatedAt" column="updated_at"/>
         <result property="price" column="price"/>
         <result property="inventory" column="inventory"/>
+        <result property="stratDate" column="strat_date"/>
+        <result property="endDate" column="end_date"/>
     </resultMap>
 
 

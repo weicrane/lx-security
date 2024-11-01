@@ -16,4 +16,11 @@ import java.util.Map;
 public interface SelfDrivingsService extends CrudService<SelfDrivingsEntity, SelfDrivingsDTO> {
 
     PageData<SelfDrivingsDTO> getSelfDrivingListByPage(Map<String, Object> params,String keyword);
+
+    /**
+     * 查询自驾活动详情
+     * @param id
+     * @return
+     */
+    SelfDrivingsEntity getPartnersDetailById(Integer id);
 }

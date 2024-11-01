@@ -12,11 +12,11 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-19
+ * @since 1.0.0 2024-10-31
  */
 @Data
 @Schema(name = "")
-public class TbSelfDrivingsDTO implements Serializable {
+public class TbPartnersDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
@@ -29,13 +29,10 @@ public class TbSelfDrivingsDTO implements Serializable {
 	private String subTitle;
 
 	@SchemaProperty(name = "")
-	private Integer travelType;
+	private Integer type;
 
 	@SchemaProperty(name = "")
-	private String destinationCity;
-
-	@SchemaProperty(name = "")
-	private String departureCity;
+	private String city;
 
 	@SchemaProperty(name = "")
 	private String tag;
@@ -60,12 +57,6 @@ public class TbSelfDrivingsDTO implements Serializable {
 
 	@SchemaProperty(name = "")
 	private Integer inventory;
-
-	@SchemaProperty(name = "")
-	private Date startDate;
-
-	@SchemaProperty(name = "")
-	private Date endDate;
 
 
 }

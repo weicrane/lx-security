@@ -48,7 +48,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // TODO: 需要将待拦截的接口前缀加上
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/lx-api/**","/home/**",
-                "/travelguides/**","/wepay/**","/selfdriving/**");
+                "/travelguides/**","/wepay/**","/selfdriving/**"
+                ,"/partners/**");
 //        registry.addInterceptor(authorizationInterceptor).addPathPatterns();
 
     }

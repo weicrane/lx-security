@@ -37,10 +37,11 @@ public interface ApiConstant {
     String ONE_STRING = "1";
     // ===== End 常量 ====
 
-    // ====== Start自驾报名 =====
-    // 审核状态：0-待审核，1-成功，2-失败
+    // ====== Start自驾、商家活动报名 =====
+    // 审核状态：0-待审核，1-审核通过，2-审核未通过，3-已取消
     String SELF_DRIVING_APPLY_PENDING_REVIEW = "0";
-    String SELF_DRIVING_APPLY_SUCCESS = "0";
-    String SELF_DRIVING_APPLY_FAILED = "0";
+    String SELF_DRIVING_APPLY_SUCCESS = "1";
+    String SELF_DRIVING_APPLY_FAILED = "2";
+    String SELF_DRIVING_APPLY_CANCEL = "3";
     // ====== End 自驾报名 =====
 }
