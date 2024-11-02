@@ -13,12 +13,14 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-10
+ * @since 1.0.0 2024-11-02
  */
 @Data
 public class TbPoiInfoExcel {
     @ExcelProperty(value = "")
     private Long id;
+    @ExcelProperty(value = "")
+    private Integer guidesId;
     @ExcelProperty(value = "")
     private String title;
     @ExcelProperty(value = "")
@@ -31,6 +33,12 @@ public class TbPoiInfoExcel {
     private BigDecimal latitude;
     @ExcelProperty(value = "")
     private BigDecimal longitude;
+    @ExcelProperty(value = "")
+    private Long imageId;
+    @ExcelProperty(value = "")
+    private String filePath;
+    @ExcelProperty(value = "")
+    private Integer status;
     @ExcelProperty(value = "")
     private Date createdAt;
     @ExcelProperty(value = "")

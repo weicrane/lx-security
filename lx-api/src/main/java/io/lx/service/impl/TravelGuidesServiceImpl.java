@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static io.lx.constant.ApiConstant.ZERO_STRING;
+import static io.lx.constant.ApiConstant.ONE_STRING;
 
 /**
  * @author Mofeng laoniane@gmail.com
@@ -89,7 +89,7 @@ public class TravelGuidesServiceImpl extends CrudServiceImpl<TravelGuidesDao, Tr
         QueryWrapper<TravelGuidesEntity> wrapper = new QueryWrapper<>();
 
         // 根据是否svip进行查询: 0-非会员，1-终身全部会员
-        if (ZERO_STRING.equals(svip)){
+        if (ONE_STRING.equals(svip)){
             // 终身会员，返回所有产品的分页列表
             // 如果有 keyword，按 title 和 subtitle 模糊匹配
             if (StrUtil.isNotBlank(keyword)) {

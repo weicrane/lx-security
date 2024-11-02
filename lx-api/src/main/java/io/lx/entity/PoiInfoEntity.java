@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-10
+ * @since 1.0.0 2024-11-02
  */
 @Data
 @TableName("tb_poi_info")
@@ -20,6 +20,10 @@ public class PoiInfoEntity {
      * 
      */
 	private Long id;
+    /**
+     * 
+     */
+	private Integer guidesId;
     /**
      * 
      */
@@ -44,6 +48,18 @@ public class PoiInfoEntity {
      * 
      */
 	private BigDecimal longitude;
+    /**
+     * 
+     */
+	private Long imageId;
+    /**
+     * 
+     */
+	private String filePath;
+    /**
+     * 
+     */
+	private Integer status;
     /**
      * 
      */

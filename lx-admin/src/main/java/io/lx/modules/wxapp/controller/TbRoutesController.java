@@ -28,14 +28,14 @@ import java.util.Map;
 
 
 /**
- * 路线信息表
+ * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-09-21
+ * @since 1.0.0 2024-11-02
  */
 @RestController
 @RequestMapping("wxapp/tbroutes")
-@Tag(name="路线信息表")
+@Tag(name="线路管理")
 public class TbRoutesController {
     @Autowired
     private TbRoutesService tbRoutesService;
@@ -110,7 +110,7 @@ public class TbRoutesController {
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
         List<TbRoutesDTO> list = tbRoutesService.list(params);
 
-        ExcelUtils.exportExcelToTarget(response, null, "路线信息表", list, TbRoutesExcel.class);
+        ExcelUtils.exportExcelToTarget(response, null, "", list, TbRoutesExcel.class);
     }
 
 }

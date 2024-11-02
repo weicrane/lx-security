@@ -8,7 +8,7 @@ import io.lx.modules.wxapp.entity.TbPoiInfoEntity;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-10
+ * @since 1.0.0 2024-11-02
  */
 public interface TbPoiInfoService extends CrudService<TbPoiInfoEntity, TbPoiInfoDTO> {
 

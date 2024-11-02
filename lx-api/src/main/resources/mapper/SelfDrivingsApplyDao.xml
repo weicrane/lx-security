@@ -17,6 +17,7 @@
         <result property="updatedAt" column="updated_at"/>
         <result property="vehicleType" column="vehicle_type"/>
         <result property="plate" column="plate"/>
+        <result property="title" column="title"/>
     </resultMap>
 
 

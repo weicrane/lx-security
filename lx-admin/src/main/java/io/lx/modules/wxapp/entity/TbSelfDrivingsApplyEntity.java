@@ -67,4 +67,8 @@ public class TbSelfDrivingsApplyEntity {
      *
      */
     private String plate;
+    /**
+     *
+     */
+    private String title;
 }

@@ -44,4 +44,23 @@ public interface ApiConstant {
     String SELF_DRIVING_APPLY_FAILED = "2";
     String SELF_DRIVING_APPLY_CANCEL = "3";
     // ====== End 自驾报名 =====
+
+    // ====== Start 玩法线路指南 ======
+
+    // season:0全部，1-4：春夏秋冬
+    String SEASON_ALL = "0";
+    String SEASON_SPRING = "1";
+    String SEASON_SUMMER = "2";
+    String SEASON_AUTUMN = "3";
+    String SEASON_WINTER = "4";
+
+
+    // ====== End 玩法线路指南 ======
+
+    // ====== Start 会员关系  =======
+    // member_type与订单一致
+
+
+
+    // ====== End 会员关系 ========
 }

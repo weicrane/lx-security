@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.lx.constant.ApiConstant.ORDER_TYPE_WANGPAN;
+import static io.lx.constant.ApiConstant.*;
 
 /**
  * @author Mofeng laoniane@gmail.com
@@ -85,6 +85,43 @@ public class UserMembershipsServiceImpl extends CrudServiceImpl<UserMembershipsD
 
         // 3.其他情况
     }
+
+    @Override
+    public Boolean isMember(Long userId,String type, Integer productId){
+
+        QueryWrapper<UserMembershipsEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId) // 添加查询条件
+                .eq("member_type",type);
+
+        switch (type) {
+            case ORDER_TYPE_WANGPAN:
+                // 网盘路书
+                queryWrapper.eq("travel_guides_id", productId); // 添加查询条件
+                break;
+            case ORDER_TYPE_DRIVING:
+                // 自驾活动
+                queryWrapper.eq("self_drivings_id", productId); // 添加查询条件
+                break;
+            // 可以添加更多 case 语句
+            case ORDER_TYPE_ROUTES:
+                // 四季玩法
+                queryWrapper.eq("routes_guides_id", productId); // 添加查询条件
+                break;
+            default:
+                // 当所有 case 都不匹配时执行的代码
+                break;
+        }
+
+        List<UserMembershipsEntity> shipsList = baseDao.selectList(queryWrapper);
+
+        if (shipsList!=null && shipsList.size()>0){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
 
 
 }

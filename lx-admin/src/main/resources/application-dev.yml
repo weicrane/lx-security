@@ -26,3 +26,4 @@ spring:
 # 文件存储路径
 web:
   upload-path: "/Users/wyh/Github/mihuan/lx-security/lx-files/images"
+  pic-path: "/Users/wyh/Github/mihuan/lx-security/lx-files/pics"

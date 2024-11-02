@@ -12,7 +12,7 @@ import java.util.Date;
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-10-10
+ * @since 1.0.0 2024-11-02
  */
 @Data
 @Schema(name = "")
@@ -21,6 +21,9 @@ public class PoiInfoDTO implements Serializable {
 
 	@SchemaProperty(name = "")
 	private Long id;
+
+	@SchemaProperty(name = "")
+	private Integer guidesId;
 
 	@SchemaProperty(name = "")
 	private String title;
@@ -39,6 +42,15 @@ public class PoiInfoDTO implements Serializable {
 
 	@SchemaProperty(name = "")
 	private BigDecimal longitude;
+
+	@SchemaProperty(name = "")
+	private Long imageId;
+
+	@SchemaProperty(name = "")
+	private String filePath;
+
+	@SchemaProperty(name = "")
+	private Integer status;
 
 	@SchemaProperty(name = "")
 	private Date createdAt;

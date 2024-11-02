@@ -69,4 +69,8 @@ public class SelfDrivingsApplyEntity {
      *
      */
     private String plate;
+    /**
+     *
+     */
+    private String title;
 }

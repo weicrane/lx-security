@@ -74,7 +74,7 @@ public class SelfDrivingsApplyServiceImpl extends CrudServiceImpl<SelfDrivingsAp
         QueryWrapper<SelfDrivingsApplyEntity> wrapper = new QueryWrapper<>();
         // 如果有 keyword，按 title 和 subtitle 模糊匹配
         if (StrUtil.isNotBlank(keyword)) {
-            wrapper.like("activity_title", keyword);
+            wrapper.like("title", keyword);
         }
         // 添加本人条件
         wrapper.eq("user_id",user.getId());

@@ -17,4 +17,13 @@ public interface UserMembershipsService extends CrudService<UserMembershipsEntit
     Map<String, Object> getMembershipsByUserId(Long userId);
 
     void updateUserMemShips(String orderId);
+
+    /**
+     * 查询用户购买情况
+     * @param userId
+     * @param type
+     * @param productId
+     * @return
+     */
+    Boolean isMember(Long userId,String type, Integer productId);
 }

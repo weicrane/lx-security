@@ -72,7 +72,6 @@ public class CommonController {
             fileRecord.setSavedName(newName);
             fileRecord.setUploadTime(new Date());
             fileRecord.setFilePath(filePath);
-            fileRecord.setStatus(0);
             fileRecordService.uploadFile(fileRecord);
 
             // 获取刚插入记录的 ID

@@ -7,16 +7,15 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-import java.math.BigDecimal;
 
 /**
- * 路线信息表
+ * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-09-21
+ * @since 1.0.0 2024-11-02
  */
 @Data
-@Schema(name = "路线信息表")
+@Schema(name = "")
 public class TbRoutesDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +23,7 @@ public class TbRoutesDTO implements Serializable {
 	private Integer id;
 
 	@SchemaProperty(name = "")
-	private Integer routeCode;
+	private Integer guideId;
 
 	@SchemaProperty(name = "")
 	private String name;
@@ -33,10 +32,16 @@ public class TbRoutesDTO implements Serializable {
 	private String description;
 
 	@SchemaProperty(name = "")
-	private BigDecimal price;
+	private String duration;
 
 	@SchemaProperty(name = "")
-	private String duration;
+	private Integer kmlId;
+
+	@SchemaProperty(name = "")
+	private String kmlPath;
+
+	@SchemaProperty(name = "")
+	private String travelType;
 
 	@SchemaProperty(name = "")
 	private Date createdAt;

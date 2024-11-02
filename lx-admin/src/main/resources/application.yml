@@ -24,7 +24,7 @@ knife4j:
 spring:
   # 环境 dev|test|prod
   profiles:
-    active: dev
+    active: prod
   messages:
     encoding: UTF-8
     basename: i18n/messages
@@ -53,6 +53,7 @@ spring:
 # 文件存储路径
 web:
   upload-path: /opt/wxapp/lx-images/images
+  pic-path: /opt/wxapp/lx-images/pics
 
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}

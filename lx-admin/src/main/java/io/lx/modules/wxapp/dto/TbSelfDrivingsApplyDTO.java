@@ -60,4 +60,7 @@ public class TbSelfDrivingsApplyDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private String plate;
 
+	@SchemaProperty(name = "")
+	private String title;
+
 }

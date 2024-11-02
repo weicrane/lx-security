@@ -5,11 +5,13 @@
 
     <resultMap type="io.lx.modules.wxapp.entity.TbRoutesEntity" id="tbRoutesMap">
         <result property="id" column="id"/>
-        <result property="routeCode" column="route_code"/>
+        <result property="guideId" column="guide_id"/>
         <result property="name" column="name"/>
         <result property="description" column="description"/>
-        <result property="price" column="price"/>
         <result property="duration" column="duration"/>
+        <result property="kmlId" column="kml_id"/>
+        <result property="kmlPath" column="kml_path"/>
+        <result property="travelType" column="travel_type"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
