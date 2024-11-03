@@ -27,3 +27,4 @@ spring:
 web:
   upload-path: "/Users/wyh/Github/mihuan/lx-security/lx-files/images"
   pic-path: "/Users/wyh/Github/mihuan/lx-security/lx-files/pics"
+  kml-path: "/Users/wyh/Github/mihuan/lx-security/lx-files/kml"

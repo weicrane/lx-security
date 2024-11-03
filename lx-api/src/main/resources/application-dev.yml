@@ -34,5 +34,6 @@ spring:
 
 # 文件存储路径
 web:
-  upload-path: /Users/wyh/Github/mihuan/lx-security/lx-files
-#  upload-path: "/opt/wxapp/lx-images"
+  upload-path: /Users/wyh/Github/mihuan/lx-security/lx-files/images
+  pic-path: /Users/wyh/Github/mihuan/lx-security/lx-files/pics
+  kml-path: /Users/wyh/Github/mihuan/lx-security/lx-files/kml

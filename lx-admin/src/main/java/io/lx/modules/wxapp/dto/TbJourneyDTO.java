@@ -23,9 +23,6 @@ public class TbJourneyDTO implements Serializable {
 	private Integer id;
 
 	@SchemaProperty(name = "")
-	private Integer routeId;
-
-	@SchemaProperty(name = "")
 	private String name;
 
 	@SchemaProperty(name = "")

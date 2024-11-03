@@ -12,7 +12,6 @@ import io.lx.common.validator.ValidatorUtils;
 import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
-import io.lx.modules.model.service.FileRecordService;
 import io.lx.modules.wxapp.dto.TbPicsDTO;
 import io.lx.modules.wxapp.entity.TbPicsEntity;
 import io.lx.modules.wxapp.excel.TbPicsExcel;
@@ -50,8 +49,6 @@ public class TbPicsController {
     @Value("${web.pic-path}")
     private String picPath;
 
-    @Autowired
-    private FileRecordService fileRecordService;
     @GetMapping("page")
     @Operation(summary = "分页")
     @Parameters({

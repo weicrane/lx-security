@@ -89,4 +89,6 @@ wechat:
 
 # 文件存储路径
 web:
-  upload-path: "/opt/wxapp/lx-images"
+  upload-path: /opt/wxapp/lx-images
+  pic-path: /opt/wxapp/lx-images/pics
+  kml-path: /opt/wxapp/lx-kml

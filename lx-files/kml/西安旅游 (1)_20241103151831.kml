@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>西安旅游</name>
+	<gx:CascadingStyle kml:id="__managed_style_05AD623DC83425D2441C">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>3</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_17EE2CFE8F3425D2441B">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>2</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0EA293E65E3425D2441B">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_17EE2CFE8F3425D2441B</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_05AD623DC83425D2441C</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0A21C38EE73425D3DF64">
+		<name>第一天 西安市内</name>
+		<LookAt>
+			<longitude>108.899761010456</longitude>
+			<latitude>34.29166848066716</latitude>
+			<altitude>428.1898660100437</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>54434.4485294167</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0EA293E65E3425D2441B</styleUrl>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						108.9096203263726,34.15878986124621,0 108.9897239408325,34.1679936601406,0 109.1129604964972,34.21057325235157,0 109.1167314739783,34.31367987260487,0 108.9220995631553,34.34048750588367,0 108.9553518353935,34.30676689635918,0 108.9468881873446,34.28990969198774,0 108.9526629971867,34.22517118609077,0 108.838807702316,34.32680074761199,0 108.8463750013045,34.2255723659173,0 108.8115240763006,34.17294856319899,0 108.9096203263726,34.15878986124621,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

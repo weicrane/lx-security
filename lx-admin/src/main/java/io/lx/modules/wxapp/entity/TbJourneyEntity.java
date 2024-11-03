@@ -22,10 +22,6 @@ public class TbJourneyEntity {
     /**
      * 
      */
-	private Integer routeId;
-    /**
-     * 
-     */
 	private String name;
     /**
      * 

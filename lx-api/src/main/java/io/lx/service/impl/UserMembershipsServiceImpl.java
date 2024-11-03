@@ -75,11 +75,21 @@ public class UserMembershipsServiceImpl extends CrudServiceImpl<UserMembershipsD
     public void updateUserMemShips(String orderId) {
         // 1.查询订单详情
         OrdersEntity orderEntity = ordersService.getOrderDetail(orderId);
-        // 2.网盘会员
+        // 判断类型
         UserMembershipsEntity entity = new UserMembershipsEntity();
-        entity.setUserId(orderEntity.getUserId()); // userID
-        entity.setMemberType(ORDER_TYPE_WANGPAN); //会员
-        entity.setTravelGuidesId(orderEntity.getProductId());//网盘路书id
+        // 2-1.网盘会员
+        if (ORDER_TYPE_WANGPAN.equals(orderEntity.getProductType())){
+            entity.setUserId(orderEntity.getUserId()); // userID
+            entity.setMemberType(ORDER_TYPE_WANGPAN); //会员
+            entity.setTravelGuidesId(orderEntity.getProductId());//网盘路书id
+        }else if (ORDER_TYPE_ROUTES.equals(orderEntity.getProductType())){
+            // 2-2.玩法会员
+            entity.setUserId(orderEntity.getUserId()); // userID
+            entity.setMemberType(ORDER_TYPE_ROUTES); //会员
+            entity.setRoutesGuidesId(orderEntity.getProductId());//网盘路书id
+        }
+
+
         // 写入表
         baseDao.insert(entity);
 

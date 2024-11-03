@@ -54,6 +54,7 @@ spring:
 web:
   upload-path: /opt/wxapp/lx-images/images
   pic-path: /opt/wxapp/lx-images/pics
+  kml-path: /opt/wxapp/lx-kml
 
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}

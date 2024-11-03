@@ -22,10 +22,6 @@ public class JourneyEntity {
     /**
      * 
      */
-	private Integer routeId;
-    /**
-     * 
-     */
 	private String name;
     /**
      * 

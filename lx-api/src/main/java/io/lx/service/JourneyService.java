@@ -17,10 +17,18 @@ public interface JourneyService extends CrudService<JourneyEntity, JourneyDTO> {
 
     /**
      * 获取主线行程信息
-     * @param routeId
+     * @param guideId
      * @param journeyType
      * @param entity
      * @return
      */
     Map<String,Object> getMainJourney(Integer guideId, String journeyType, UserEntity entity);
+
+    /**
+     * 获取行程路径坐标列表
+     * @param journeyId
+     * @return
+     */
+    Map<String,Object> getPathCoordinates(Integer journeyId);
+
 }

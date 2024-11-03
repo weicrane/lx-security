@@ -4,6 +4,8 @@ import io.lx.common.service.CrudService;
 import io.lx.dto.PoiInfoDTO;
 import io.lx.entity.PoiInfoEntity;
 
+import java.util.List;
+
 /**
  * 
  *
@@ -12,4 +14,7 @@ import io.lx.entity.PoiInfoEntity;
  */
 public interface PoiInfoService extends CrudService<PoiInfoEntity, PoiInfoDTO> {
 
+    List<PoiInfoDTO> getPoiList(Integer routeGuideId,String poiType);
+
+    PoiInfoDTO getPoiInfo(Long pointId);
 }

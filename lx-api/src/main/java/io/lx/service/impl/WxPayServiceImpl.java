@@ -62,6 +62,8 @@ public class WxPayServiceImpl implements WxPayService {
     TravelGuidesService travelGuidesService;
     @Resource
     SvipService svipService;
+    @Resource
+    RoutesGuidesService routesGuidesService;
 
     /**
      * 创建微信支付订单
@@ -381,6 +383,13 @@ public class WxPayServiceImpl implements WxPayService {
 
             case "03":
                 // 处理四季玩法的逻辑
+                RoutesGuidesDTO rdto = routesGuidesService.getRoutesGuidesDetail(productId);
+                try {
+                    BigDecimal price = rdto.getPrice();
+                    amount.setTotal(price.multiply(BigDecimal.valueOf(100)).intValue());
+                }catch (Exception e){
+                    throw new RenException("查询商品价格失败");
+                }
                 break;
 
             default:
@@ -401,8 +410,8 @@ public class WxPayServiceImpl implements WxPayService {
         if (ORDER_TYPE_SVIP.equals(orderEntity.getProductType())){
             // case00:终身会员,写入表
             userService.setSvip(orderEntity.getUserId());
-        }else if (ORDER_TYPE_WANGPAN.equals(orderEntity.getProductType())){
-            // case:01 网盘会员,写入表
+        }else {
+            // case:其他会员,写入表
             userMembershipsService.updateUserMemShips(orderId);
         }
         // 3.其他情况

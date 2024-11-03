@@ -119,7 +119,6 @@ public class ApiRouteGuidesController {
     }
 
 
-
     @Login
     @GetMapping("getMyGuidesByPage")
     @Operation(summary = "获取我的玩法指南列表-分页")
@@ -133,6 +132,20 @@ public class ApiRouteGuidesController {
         PageData<RoutesGuidesDTO> page = routesGuidesService.getMyGuidesByPage(keyword,params,user);
         return new Result<PageData<RoutesGuidesDTO>>().ok(page);
     }
+
+
+    @GetMapping("getPathCoordinates")
+    @Operation(summary = "获取行程路径坐标列表")
+    @Login
+    public Result<Map<String,Object>> getJourney(@Parameter Integer journeyId){
+        if(journeyId == null){
+            throw new RenException("行程id不能为空");
+        }
+        return new Result().ok(
+                journeyService.getPathCoordinates(journeyId)
+        );
+    }
+
 
 
 }

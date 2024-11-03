@@ -12,4 +12,5 @@ import io.lx.modules.wxapp.entity.KmlRecordEntity;
  */
 public interface KmlRecordService extends CrudService<KmlRecordEntity, KmlRecordDTO> {
 
+    void uploadFile(KmlRecordEntity pic);
 }
