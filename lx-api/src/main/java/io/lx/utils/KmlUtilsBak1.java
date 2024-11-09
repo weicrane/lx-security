@@ -1,11 +1,9 @@
-package io.lx.controller;
+package io.lx.utils;
 
-import io.lx.common.utils.Result;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.lx.common.exception.RenException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -16,22 +14,30 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/kml")
-@Tag(name = "地图解析")
-public class ApiKmlController {
+@Slf4j
+@Component
+public class KmlUtilsBak1 {
 
-    @GetMapping("/parseKML")
-    public Result parseKML(@RequestParam String filePath) {
-        List<List<Double>> latlngs = new ArrayList<>();
+    @Value("${web.kml-path}")
+    private String kmlPath;
 
-        File kmlFile = new File(filePath);
+    public List<List<Double>> parseKML(String filePath) {
+        List<List<Double>> latlngs = new ArrayList<>();  // 存储纬度和经度的列表
+
+        if (kmlPath == null || filePath == null) {
+            throw new IllegalArgumentException("kmlPath和filePath不能为空");
+        }
+
+        String path = kmlPath.endsWith(File.separator) ? kmlPath + filePath : kmlPath + File.separator + filePath;
+        log.info("解析kml文件 >>>>>>>>>>>>>>>>> 地址：{}", path);
+
+        File kmlFile = new File(path);
         if (!kmlFile.exists() || !kmlFile.isFile()) {
-            return new Result().error("文件不存在或不是有效的文件路径");
+            throw new RenException("文件不存在或不是有效的文件路径");
         }
 
         try {
-            // 初始化 XML 解析器并开启命名空间支持
+            // 初始化 XML 解析器，支持命名空间
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setNamespaceAware(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -41,14 +47,14 @@ public class ApiKmlController {
             // 获取根元素
             Element root = document.getDocumentElement();
 
-            // 递归遍历所有 <Placemark> 和 <MultiGeometry> 元素
+            // 递归解析 <Placemark> 和 <MultiGeometry> 元素
             parsePlacemarkOrMultiGeometry(root, latlngs);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return new Result().error("解析KML文件时发生错误: " + e.getMessage());
+            log.error("解析KML文件时发生错误", e);
+            throw new RenException("解析KML文件时发生错误: " + e.getMessage());
         }
-        return new Result().ok(latlngs);
+        return latlngs;
     }
 
     private void parsePlacemarkOrMultiGeometry(Element parentElement, List<List<Double>> latlngs) {
@@ -90,7 +96,7 @@ public class ApiKmlController {
             // 处理坐标数据
             for (int j = 0; j < coords.getLength(); j++) {
                 String coordText = coords.item(j).getTextContent().trim();
-                String[] coordLines = coordText.split("\\s+");
+                String[] coordLines = coordText.split("\\s+");  // 按空格或换行分割
 
                 for (String line : coordLines) {
                     String[] coordParts = line.split(",");
@@ -104,7 +110,7 @@ public class ApiKmlController {
                             latlng.add(lng);
                             latlngs.add(latlng);
                         } catch (NumberFormatException e) {
-                            e.printStackTrace();
+                            log.error("坐标解析错误，跳过该条数据: {}", line, e);
                         }
                     }
                 }

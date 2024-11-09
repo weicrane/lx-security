@@ -96,7 +96,9 @@ public class JourneyServiceImpl extends CrudServiceImpl<JourneyDao, JourneyEntit
         if (StrUtil.isBlank(entity.getKmlPath())){
             throw new RenException("管理员暂未录入路径数据");
         }
-        List<List<Double>> path = kmlUtils.parseKML(entity.getKmlPath());
+//        List<List<Double>> path = kmlUtils.parseKML(entity.getKmlPath(),"D1");
+        Map<String, List<double[]>> path = kmlUtils.parseRoutes(entity.getKmlPath());
+
         Map<String,Object> map = new HashMap<>();
         map.put("path",path);
         return map;
