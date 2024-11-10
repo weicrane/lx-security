@@ -49,6 +49,12 @@ public class JourneyServiceImpl extends CrudServiceImpl<JourneyDao, JourneyEntit
      *   1.判断用户是否购买
      *   2.已购买，返回全部
      *   3.未购买，只返回第一天
+     *   返回id、标题
+     *   journeyType：
+     *   0-总览
+     *   1-主线
+     *   2-小众
+     *   3-全部小众
      *
      * @param
      * @param journeyType

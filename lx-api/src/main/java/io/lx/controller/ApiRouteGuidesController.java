@@ -15,6 +15,7 @@ import io.lx.common.utils.Result;
 import io.lx.dto.PicsDTO;
 import io.lx.dto.RoutesGuidesDTO;
 import io.lx.entity.UserEntity;
+import io.lx.service.HighlightsService;
 import io.lx.service.JourneyService;
 import io.lx.service.PicsService;
 import io.lx.service.RoutesGuidesService;
@@ -49,6 +50,8 @@ public class ApiRouteGuidesController {
     private JourneyService journeyService;
     @Resource
     private PicsService picsService;
+    @Resource
+    private HighlightsService highlightsService;
 
     @GetMapping("getAllRoutesGuidesByPage")
     @Operation(summary = "获取玩法路线指南列表-分页、搜索")
@@ -118,6 +121,16 @@ public class ApiRouteGuidesController {
         );
     }
 
+    @GetMapping("getJourneyDetail")
+    @Operation(summary = "获取行程详情")
+    public Result getJourneyDetail(@Parameter Integer journeyId){
+        if(journeyId == null){
+            throw new RenException("日程id不能为空");
+        }
+        return new Result().ok(
+                highlightsService.getJourneyDetail(journeyId)
+        );
+    }
 
     @Login
     @GetMapping("getMyGuidesByPage")

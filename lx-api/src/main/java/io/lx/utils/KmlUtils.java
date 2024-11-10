@@ -6,6 +6,7 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.XPath;
 import org.dom4j.io.SAXReader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,14 +18,24 @@ import java.util.Map;
 @Slf4j
 @Component
 public class KmlUtils {
+    @Value("${web.kml-path}")
+    private String kmlPath;
 
-    public static Map<String, List<double[]>> parseRoutes(String filePath) {
+    public  Map<String, List<double[]>> parseRoutes(String filePath) {
+        // 确保路径格式正确
+        if (filePath == null) {
+            throw new IllegalArgumentException("filePath不能为空");
+        }
+
+        String path = kmlPath.endsWith(File.separator) ? kmlPath + filePath : kmlPath + File.separator + filePath;
+        log.info("解析kml文件 >>>>>>>>>>>>>>>>> 地址：{}", path);
+
         Map<String, List<double[]>> routeData = new HashMap<>();
-        File file = new File(filePath);
+        File file = new File(path);
 
         // 检查文件是否存在
         if (!file.exists()) {
-            log.error("文件不存在: " + filePath);
+            log.error("文件不存在: " + path);
             return routeData;
         }
 
