@@ -1,5 +1,6 @@
 package io.lx.controller;
 
+import io.lx.annotation.Login;
 import io.lx.common.utils.Result;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import java.util.List;
 public class ApiKmlController {
 
     @GetMapping("/parseKML")
+    @Login
     public Result parseKML(@RequestParam String filePath) {
         List<List<Double>> latlngs = new ArrayList<>();
 

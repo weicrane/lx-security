@@ -5,6 +5,7 @@
 package io.lx.controller;
 
 
+import io.lx.annotation.Login;
 import io.lx.common.exception.RenException;
 import io.lx.common.utils.Result;
 import io.lx.dto.PoiInfoDTO;
@@ -33,6 +34,7 @@ public class ApiPoiController {
 
     @GetMapping("getPoiList")
     @Operation(summary = "查询路线相关的Poi")
+    @Login
     public Result<List<PoiInfoDTO>> getPoiList(@Parameter Integer routeGuideId,@Parameter String poiType){
         if (routeGuideId == null){
             throw new RenException("路线ID不能为空");
@@ -42,6 +44,7 @@ public class ApiPoiController {
 
     @GetMapping("getPoiInfo")
     @Operation(summary = "查询Poi详情")
+    @Login
     public Result<PoiInfoDTO> getPoiInfo(@Parameter Long pointId){
         if (pointId == null){
             throw new RenException("poi_id不能为空");

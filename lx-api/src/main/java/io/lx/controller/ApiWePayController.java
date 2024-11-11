@@ -52,6 +52,7 @@ public class ApiWePayController {
 
     @PostMapping("creatOrder")
     @Operation(summary = "创建订单")
+    @Login
     public Result creatOrder(@RequestBody OrdersDTO ordersDTO, HttpServletRequest request) throws Exception {
         //表单校验
         ValidatorUtils.validateEntity(ordersDTO);
@@ -63,6 +64,7 @@ public class ApiWePayController {
 
     @PostMapping("closeOrder")
     @Operation(summary = "关闭订单")
+    @Login
     public Result closeOrder(@RequestBody OrdersDTO ordersDTO){
         if (StringUtils.isBlank(ordersDTO.getOrderId())){
             throw new RenException("订单号码为空");
@@ -85,6 +87,7 @@ public class ApiWePayController {
 
     @PostMapping("updateOrderStatus")
     @Operation(summary = "更新订单状态")
+    @Login
     public Result updateOrderStatus(@Parameter String orderId,@Parameter String status){
         ordersService.updateOrderStatus(orderId,status);
         return new Result();

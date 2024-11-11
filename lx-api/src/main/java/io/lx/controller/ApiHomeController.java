@@ -5,6 +5,7 @@
 package io.lx.controller;
 
 
+import io.lx.annotation.Login;
 import io.lx.common.constant.Constant;
 import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
@@ -89,6 +90,7 @@ public class ApiHomeController {
 
     @GetMapping("/getMyRoadConsList")
     @Operation(summary = "根据token获取我提交的路况公告列表")
+    @Login
     public Result getMyRoadConsList(HttpServletRequest request){
         // 从请求中获取 Token
         String token = tokenUtils.getRequestToken(request);
@@ -99,6 +101,7 @@ public class ApiHomeController {
 
     @GetMapping("getRoadConsById")
     @Operation(summary = "获取路况公告详情")
+    @Login
     public Result<RoadConditionsDTO> getRoadConsById(@NotNull @Parameter Long id) {
 
         return new Result<RoadConditionsDTO>().ok(roadConditionsService.getRoadConsById(id));
@@ -106,6 +109,7 @@ public class ApiHomeController {
 
     @PostMapping("uploadRoadConsImage")
     @Operation(summary = "上传公告图片")
+    @Login
     public Result uploadRoadConsImage(@RequestBody MultipartFile file, HttpServletRequest request) throws RenException {
         // 从请求中获取 Token
         String token = tokenUtils.getRequestToken(request);
@@ -113,6 +117,7 @@ public class ApiHomeController {
     }
     @PostMapping("submitRoadCon")
     @Operation(summary = "用户提交路况公告")
+    @Login
     public Result submitRoadCon(@RequestBody RoadConditionsDTO dto, HttpServletRequest request)throws RenException {
         //表单校验
         ValidatorUtils.validateEntity(dto);
@@ -124,6 +129,7 @@ public class ApiHomeController {
 
     @PostMapping("discussRoadCons")
     @Operation(summary = "用户评论路况公告")
+    @Login
     public Result discussRoadCons(@RequestBody RoadDiscussDTO dto, HttpServletRequest request)throws RenException {
         //表单校验
         ValidatorUtils.validateEntity(dto);

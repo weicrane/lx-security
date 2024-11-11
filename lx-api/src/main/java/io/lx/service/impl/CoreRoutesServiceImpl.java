@@ -1,5 +1,6 @@
 package io.lx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.lx.common.service.impl.BaseServiceImpl;
 import io.lx.common.utils.ConvertUtils;
 import io.lx.dao.CoreRoutesDao;
@@ -21,7 +22,9 @@ public class CoreRoutesServiceImpl extends BaseServiceImpl<CoreRoutesDao, CoreRo
 
     @Override
     public List<CoreRoutesDTO> getCoreList(){
-        List<CoreRoutesEntity> list = baseDao.selectList(null);
+        QueryWrapper<CoreRoutesEntity> wrapper = new QueryWrapper<>();
+        wrapper.orderByAsc("sort");
+        List<CoreRoutesEntity> list = baseDao.selectList(wrapper);
         return ConvertUtils.sourceToTarget(list,CoreRoutesDTO.class);
     }
 

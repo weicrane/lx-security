@@ -102,6 +102,7 @@ public class ApiLoginController {
 
     @GetMapping("getUserInfoDetail")
     @Operation(summary = "通过token获取用户信息详情")
+    @Login
     public Result getUserInfoDetail(HttpServletRequest request) throws RenException{
         // 从请求中获取 Token
         String token = tokenUtils.getRequestToken(request);

@@ -13,6 +13,7 @@ import io.lx.entity.UserEntity;
 import io.lx.service.OrdersService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,7 @@ public class OrdersServiceImpl extends CrudServiceImpl<OrdersDao, OrdersEntity, 
      * 更新订单状态: 0-未支付，1-已支付，2-支付失败, 3-取消支付
      *
      */
+    @Transactional
     public void updateOrderStatus(String orderId, String status) {
         // 查询订单
         OrdersEntity entity = baseDao.selectById(orderId);

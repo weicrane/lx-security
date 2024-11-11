@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +47,6 @@ public class TbCoreRoutesController {
         @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
         @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
     })
-    @RequiresPermissions("wxapp:tbcoreroutes:page")
     public Result<PageData<TbCoreRoutesDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params){
         PageData<TbCoreRoutesDTO> page = tbCoreRoutesService.page(params);
 
@@ -57,7 +55,6 @@ public class TbCoreRoutesController {
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
-    @RequiresPermissions("wxapp:tbcoreroutes:info")
     public Result<TbCoreRoutesDTO> get(@PathVariable("id") Long id){
         TbCoreRoutesDTO data = tbCoreRoutesService.get(id);
 

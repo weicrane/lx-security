@@ -46,6 +46,7 @@ public class ApiTravelGuidesController {
 
     @GetMapping("getTravelGuidesDetail")
     @Operation(summary = "获取路书（网盘产品）详情")
+    @Login
     public Result getTravelGuidesDetail(@Parameter String id){
         if(!StringUtil.isNotEmpty(id)){
             throw new RenException("id不能为空");

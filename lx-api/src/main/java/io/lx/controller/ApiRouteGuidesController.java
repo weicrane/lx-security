@@ -61,6 +61,7 @@ public class ApiRouteGuidesController {
             @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
             @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
     })
+    @Login
     public Result<PageData<RoutesGuidesDTO>> getAllRoutesGuidesByPage(@Parameter(hidden = false) @RequestParam Map<String, Object> params,
                                                                       @Parameter String keyword,
                                                                       @Parameter String season){
@@ -71,6 +72,7 @@ public class ApiRouteGuidesController {
 
     @GetMapping("getRoutesGuidesDetail")
     @Operation(summary = "获取玩法详情")
+    @Login
     public Result getRoutesGuidesDetail(@Parameter Integer guideId){
         if(guideId == null){
             throw new RenException("玩法id不能为空");
@@ -123,6 +125,7 @@ public class ApiRouteGuidesController {
 
     @GetMapping("getJourneyDetail")
     @Operation(summary = "获取行程详情")
+    @Login
     public Result getJourneyDetail(@Parameter Integer journeyId){
         if(journeyId == null){
             throw new RenException("日程id不能为空");

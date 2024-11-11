@@ -2,6 +2,7 @@ package io.lx.modules.wxapp.controller;
 
 import io.lx.common.exception.ErrorCode;
 import io.lx.common.exception.RenException;
+import io.lx.common.utils.Result;
 import io.lx.modules.model.entity.FileRecordEntity;
 import io.lx.modules.model.service.FileRecordService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +40,7 @@ public class CommonController {
 
     @PostMapping("/uploadImg")
     @Operation(summary = "上传图片")
-    public Map<String,Object> upload(MultipartFile uploadFile, HttpServletRequest request) {
+    public Result upload(MultipartFile uploadFile, HttpServletRequest request) {
 
         // 空文件检验
         if (uploadFile == null){
@@ -87,7 +88,7 @@ public class CommonController {
             map.put("newName",newName);
             map.put("filePath",filePath);
 
-            return map;
+            return new Result().ok(map);
         } catch (IOException e) {
             throw new RenException(ErrorCode.ACCOUNT_FILE_ERROR, e.getMessage());
         }
