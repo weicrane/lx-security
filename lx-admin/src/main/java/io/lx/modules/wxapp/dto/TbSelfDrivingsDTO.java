@@ -1,5 +1,6 @@
 package io.lx.modules.wxapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import lombok.Data;
@@ -61,9 +62,11 @@ public class TbSelfDrivingsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer inventory;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@SchemaProperty(name = "")
 	private Date startDate;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@SchemaProperty(name = "")
 	private Date endDate;
 

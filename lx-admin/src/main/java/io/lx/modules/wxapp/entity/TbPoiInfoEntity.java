@@ -1,5 +1,7 @@
 package io.lx.modules.wxapp.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -19,6 +21,7 @@ public class TbPoiInfoEntity {
     /**
      * 
      */
+    @TableId(type = IdType.AUTO) // 使用数据库的自增策略
 	private Long id;
     /**
      * 
@@ -68,4 +71,12 @@ public class TbPoiInfoEntity {
      * 
      */
 	private Date updatedAt;
+    /**
+     *
+     */
+    private String dateId;
+    /**
+     *
+     */
+    private String journeyType;
 }

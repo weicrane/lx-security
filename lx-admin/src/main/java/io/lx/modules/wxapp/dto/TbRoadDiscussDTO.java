@@ -40,5 +40,10 @@ public class TbRoadDiscussDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "")
+	private String nickname;
+
+	@SchemaProperty(name = "")
+	private String avatarUrl;
 
 }

@@ -52,4 +52,8 @@ public class TbOrdersEntity {
      * 
      */
 	private Date updatedAt;
+    /**
+     *
+     */
+    private String description;
 }

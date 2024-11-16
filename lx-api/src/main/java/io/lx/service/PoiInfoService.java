@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface PoiInfoService extends CrudService<PoiInfoEntity, PoiInfoDTO> {
 
-    List<PoiInfoDTO> getPoiList(Integer routeGuideId,String poiType);
+    List<PoiInfoDTO> getPoiList(Integer routeGuideId, List<String> poiTypeList, String dateId, String journeyType);
 
     PoiInfoDTO getPoiInfo(Long pointId);
 }

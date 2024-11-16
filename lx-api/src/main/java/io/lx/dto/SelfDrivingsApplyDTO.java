@@ -1,5 +1,6 @@
 package io.lx.dto;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ import java.util.Date;
 public class SelfDrivingsApplyDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+	@TableId
 	@SchemaProperty(name = "")
 	private String applyId;
 

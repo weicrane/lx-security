@@ -53,6 +53,19 @@ public class TbSelfDrivingsController {
         return new Result<PageData<TbSelfDrivingsDTO>>().ok(page);
     }
 
+    @GetMapping("getListByPage")
+    @Operation(summary = "查询自驾活动列表分页")
+    @Parameters({
+            @Parameter(name = Constant.PAGE, description = "当前页码，从1开始", in = ParameterIn.QUERY, required = true, ref="int") ,
+            @Parameter(name = Constant.LIMIT, description = "每页显示记录数", in = ParameterIn.QUERY,required = true, ref="int") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
+    })
+    public Result<PageData<TbSelfDrivingsDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params,@Parameter String keyword){
+        PageData<TbSelfDrivingsDTO> page = tbSelfDrivingsService.getListByPage(params,keyword);
+        return new Result<PageData<TbSelfDrivingsDTO>>().ok(page);
+    }
+
     @GetMapping("{id}")
     @Operation(summary = "信息")
     public Result<TbSelfDrivingsDTO> get(@PathVariable("id") Long id){

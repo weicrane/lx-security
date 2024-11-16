@@ -126,7 +126,7 @@ public class KmlRecordController {
 
     @PostMapping("/uploadKml")
     @Operation(summary = "上传kml文件")
-    public Map<String, Object> upload(MultipartFile uploadFile) {
+    public Result upload(MultipartFile uploadFile) {
 
         // 空文件检验
         if (uploadFile == null) {
@@ -185,7 +185,7 @@ public class KmlRecordController {
             map.put("newName", newName);
             map.put("filePath", filePath);
 
-            return map;
+            return new Result().ok(map);
         } catch (IOException e) {
             throw new RenException(ErrorCode.ACCOUNT_FILE_ERROR, e.getMessage());
         }

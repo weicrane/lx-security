@@ -34,7 +34,7 @@ public class SvipServiceImpl extends CrudServiceImpl<SvipDao, SvipEntity, SvipDT
     @Override
     public  BigDecimal getSvipPrice(){
         try {
-            SvipEntity entity = baseDao.selectById(0);
+            SvipEntity entity = baseDao.selectById(1);
             return entity.getPrice();
         }catch (Exception e) {
             throw new RenException("查询会员价格失败");

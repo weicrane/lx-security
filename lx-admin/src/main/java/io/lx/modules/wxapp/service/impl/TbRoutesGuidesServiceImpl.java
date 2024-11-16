@@ -30,5 +30,10 @@ public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao
         return wrapper;
     }
 
+    @Override
+    public TbRoutesGuidesEntity selectById(Integer id){
+        TbRoutesGuidesEntity entity = baseDao.selectById(id);
+        return entity;
+    }
 
 }

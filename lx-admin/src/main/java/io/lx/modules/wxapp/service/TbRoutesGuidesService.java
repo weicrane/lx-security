@@ -12,4 +12,10 @@ import io.lx.modules.wxapp.entity.TbRoutesGuidesEntity;
  */
 public interface TbRoutesGuidesService extends CrudService<TbRoutesGuidesEntity, TbRoutesGuidesDTO> {
 
+    /**
+     * 查询线路
+     * @param id
+     * @return
+     */
+    TbRoutesGuidesEntity selectById(Integer id);
 }

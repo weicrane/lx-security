@@ -1,5 +1,7 @@
 package io.lx.dto;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import lombok.Data;
@@ -19,6 +21,7 @@ import java.util.Date;
 public class SelfDrivingsDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+	@TableId
 	@SchemaProperty(name = "")
 	private Integer id;
 
@@ -61,9 +64,11 @@ public class SelfDrivingsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer inventory;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@SchemaProperty(name = "")
 	private Date startDate;
 
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@SchemaProperty(name = "")
 	private Date endDate;
 

@@ -2,6 +2,7 @@ package io.lx.modules.wxapp.controller;
 
 import io.lx.common.annotation.LogOperation;
 import io.lx.common.constant.Constant;
+import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.utils.ExcelUtils;
 import io.lx.common.utils.Result;
@@ -22,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -51,6 +53,23 @@ public class TbPoiInfoController {
     @RequiresPermissions("wxapp:tbpoiinfo:page")
     public Result<PageData<TbPoiInfoDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params){
         PageData<TbPoiInfoDTO> page = tbPoiInfoService.page(params);
+
+        return new Result<PageData<TbPoiInfoDTO>>().ok(page);
+    }
+
+    @GetMapping("selectPage")
+    @Operation(summary = "分页")
+    @Parameters({
+            @Parameter(name = Constant.PAGE, description = "当前页码，从1开始", in = ParameterIn.QUERY, required = true, ref="int") ,
+            @Parameter(name = Constant.LIMIT, description = "每页显示记录数", in = ParameterIn.QUERY,required = true, ref="int") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
+    })
+    public Result<PageData<TbPoiInfoDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params,
+                                               @Parameter Integer guidesId,
+                                               @Parameter String dateId,
+                                               @Parameter String journeyType){
+        PageData<TbPoiInfoDTO> page = tbPoiInfoService.selectPage(params,guidesId,dateId,journeyType);
 
         return new Result<PageData<TbPoiInfoDTO>>().ok(page);
     }
@@ -112,5 +131,32 @@ public class TbPoiInfoController {
 
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbPoiInfoExcel.class);
     }
+
+    @PostMapping("/import")
+    @Operation(summary = "批量导入excel")
+    @LogOperation("导入文件")
+    public Result importPoiData(@RequestParam("uploadFile") MultipartFile file) {
+        try {
+            // 批量导入数据库
+            tbPoiInfoService.importPoiData(file);
+        } catch (Exception e) {
+            throw new RenException("文件解析失败", e);
+        }
+        return new Result();
+    }
+
+    @PostMapping("/importPoiXlsx")
+    @Operation(summary = "批量导入excel")
+    @LogOperation("导入文件")
+    public Result importPoiXlsx(@RequestParam("uploadFile") MultipartFile file) {
+        try {
+            // 批量导入数据库
+            tbPoiInfoService.importPoiXlsx(file);
+        } catch (Exception e) {
+            throw new RenException("文件解析失败", e);
+        }
+        return new Result();
+    }
+
 
 }

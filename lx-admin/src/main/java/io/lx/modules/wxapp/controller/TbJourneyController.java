@@ -2,6 +2,7 @@ package io.lx.modules.wxapp.controller;
 
 import io.lx.common.annotation.LogOperation;
 import io.lx.common.constant.Constant;
+import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.utils.ExcelUtils;
 import io.lx.common.utils.Result;
@@ -10,6 +11,7 @@ import io.lx.common.validator.ValidatorUtils;
 import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
+import io.lx.modules.wxapp.dto.SubmitKmlDTO;
 import io.lx.modules.wxapp.dto.TbJourneyDTO;
 import io.lx.modules.wxapp.excel.TbJourneyExcel;
 import io.lx.modules.wxapp.service.TbJourneyService;
@@ -54,6 +56,24 @@ public class TbJourneyController {
 
         return new Result<PageData<TbJourneyDTO>>().ok(page);
     }
+
+
+    @GetMapping("selectPage")
+    @Operation(summary = "分页")
+    @Parameters({
+            @Parameter(name = Constant.PAGE, description = "当前页码，从1开始", in = ParameterIn.QUERY, required = true, ref="int") ,
+            @Parameter(name = Constant.LIMIT, description = "每页显示记录数", in = ParameterIn.QUERY,required = true, ref="int") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
+    })
+    public Result<PageData<TbJourneyDTO>> selectPage(@Parameter(hidden = true) @RequestParam Map<String, Object> params,
+                                               @Parameter Integer guideId, @Parameter Integer id){
+        PageData<TbJourneyDTO> page = tbJourneyService.selectPage(params,guideId,id);
+
+        return new Result<PageData<TbJourneyDTO>>().ok(page);
+    }
+
+
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
@@ -111,6 +131,39 @@ public class TbJourneyController {
         List<TbJourneyDTO> list = tbJourneyService.list(params);
 
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbJourneyExcel.class);
+    }
+
+    @PostMapping("/submitKml")
+    @Operation(summary = "绑定kml")
+    public Result submitKml(@RequestBody SubmitKmlDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto);
+        tbJourneyService.submitKml(dto);
+        return new Result();
+    }
+
+    @GetMapping("/getKmlInfo")
+    @Operation(summary = "查询kml信息")
+    public Result<Map<String,Object>> getKmlInfo(@Parameter Integer guideId){
+        if (guideId == null){
+            throw new RenException("guideId不可为空");
+        }
+
+        Map<String,Object> map = tbJourneyService.getKmlInfo(guideId);
+
+        return new Result<Map<String,Object>>().ok(map);
+    }
+
+    @PostMapping("/submitJourney")
+    @Operation(summary = "新增行程")
+    @LogOperation("新增行程")
+    public Result submitJourney(@RequestBody TbJourneyDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto);
+
+        tbJourneyService.submitJourney(dto);
+
+        return new Result();
     }
 
 }

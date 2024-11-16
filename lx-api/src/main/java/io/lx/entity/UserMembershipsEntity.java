@@ -1,5 +1,7 @@
 package io.lx.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -18,6 +20,7 @@ public class UserMembershipsEntity {
     /**
      * 
      */
+    @TableId(type = IdType.AUTO) // 使用数据库的自增策略
 	private Long id;
     /**
      * 

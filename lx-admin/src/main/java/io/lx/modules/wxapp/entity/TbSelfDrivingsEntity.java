@@ -1,6 +1,9 @@
 package io.lx.modules.wxapp.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -19,6 +22,7 @@ public class TbSelfDrivingsEntity {
     /**
      * 
      */
+    @TableId(type = IdType.AUTO) // 使用数据库的自增策略
 	private Integer id;
     /**
      * 
@@ -75,9 +79,11 @@ public class TbSelfDrivingsEntity {
     /**
      *
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     /**
      *
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 }

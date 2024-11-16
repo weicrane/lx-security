@@ -14,6 +14,8 @@
         <result property="travelType" column="travel_type"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
+        <result property="intro" column="intro"/>
+        <result property="guideId" column="guide_id"/>
     </resultMap>
 
 

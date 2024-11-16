@@ -64,5 +64,7 @@ public class TbRoutesGuidesDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer inventory;
 
+	@SchemaProperty(name = "")
+	private String mapImgPath;
 
 }

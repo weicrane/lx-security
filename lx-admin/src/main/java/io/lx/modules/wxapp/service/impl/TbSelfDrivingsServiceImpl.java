@@ -1,15 +1,20 @@
 package io.lx.modules.wxapp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
 import io.lx.modules.wxapp.dao.TbSelfDrivingsDao;
 import io.lx.modules.wxapp.dto.TbSelfDrivingsDTO;
 import io.lx.modules.wxapp.entity.TbSelfDrivingsEntity;
 import io.lx.modules.wxapp.service.TbSelfDrivingsService;
 import cn.hutool.core.util.StrUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -31,4 +36,35 @@ public class TbSelfDrivingsServiceImpl extends CrudServiceImpl<TbSelfDrivingsDao
     }
 
 
+    @Override
+    public PageData<TbSelfDrivingsDTO> getListByPage(Map<String, Object> params, String keyword){
+
+        // 初始化查询条件
+        QueryWrapper<TbSelfDrivingsEntity> wrapper = new QueryWrapper<>();
+        // 如果有 keyword，按 title 和 subtitle 模糊匹配
+        if (StrUtil.isNotBlank(keyword)) {
+            wrapper.like("title", keyword)
+                    .or()
+                    .like("sub_title", keyword);
+        }
+
+        // 执行查询
+        IPage<TbSelfDrivingsEntity> page;
+        page = baseDao.selectPage(getPage(params, "updated_at", false), wrapper);
+
+        // 将结果转换为 DTO
+        List<TbSelfDrivingsDTO> dtoList = page.getRecords().stream().map(entity -> {
+            TbSelfDrivingsDTO dto = convertToDTO(entity);
+            return dto;
+        }).collect(Collectors.toList());
+
+        return new PageData<>(dtoList, page.getTotal(),page.getSize(),page.getPages(),page.getCurrent());
+
+    }
+    // 转换实体对象到 DTO
+    private TbSelfDrivingsDTO convertToDTO(TbSelfDrivingsEntity entity) {
+        TbSelfDrivingsDTO dto = new TbSelfDrivingsDTO();
+        BeanUtils.copyProperties(entity, dto);
+        return dto;
+    }
 }

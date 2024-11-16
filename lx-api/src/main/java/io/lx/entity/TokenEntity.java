@@ -8,6 +8,7 @@
 
 package io.lx.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -25,7 +26,7 @@ import java.util.Date;
 public class TokenEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@TableId
+	@TableId(type = IdType.AUTO) // 使用数据库的自增策略
 	private Long id;
 	/**
 	 * 用户ID

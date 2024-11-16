@@ -8,15 +8,15 @@ package io.lx.controller;
 import io.lx.annotation.Login;
 import io.lx.common.exception.RenException;
 import io.lx.common.utils.Result;
+import io.lx.common.validator.ValidatorUtils;
+import io.lx.dto.GetPoiListDTO;
 import io.lx.dto.PoiInfoDTO;
 import io.lx.service.PoiInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,14 +32,14 @@ import java.util.List;
 public class ApiPoiController {
     private PoiInfoService poiInfoService;
 
-    @GetMapping("getPoiList")
+    @PostMapping("getPoiList")
     @Operation(summary = "查询路线相关的Poi")
     @Login
-    public Result<List<PoiInfoDTO>> getPoiList(@Parameter Integer routeGuideId,@Parameter String poiType){
-        if (routeGuideId == null){
-            throw new RenException("路线ID不能为空");
-        }
-        return new Result().ok(poiInfoService.getPoiList(routeGuideId,poiType));
+    public Result<List<PoiInfoDTO>> getPoiList(@RequestBody GetPoiListDTO dto){
+        //表单校验
+        ValidatorUtils.validateEntity(dto);
+        return new Result().ok(poiInfoService.getPoiList(dto.getRouteGuideId(),
+                dto.getPoiTypeList(),dto.getDateId(),dto.getJourneyType()));
     }
 
     @GetMapping("getPoiInfo")

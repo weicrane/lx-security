@@ -46,5 +46,7 @@ public class TbOrdersDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "")
+	private String description;
 
 }

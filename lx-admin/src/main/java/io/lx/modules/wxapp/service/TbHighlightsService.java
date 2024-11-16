@@ -1,8 +1,11 @@
 package io.lx.modules.wxapp.service;
 
+import io.lx.common.page.PageData;
 import io.lx.common.service.CrudService;
 import io.lx.modules.wxapp.dto.TbHighlightsDTO;
 import io.lx.modules.wxapp.entity.TbHighlightsEntity;
+
+import java.util.Map;
 
 /**
  * 
@@ -12,4 +15,7 @@ import io.lx.modules.wxapp.entity.TbHighlightsEntity;
  */
 public interface TbHighlightsService extends CrudService<TbHighlightsEntity, TbHighlightsDTO> {
 
+    PageData<TbHighlightsDTO> selectPage(Map<String, Object> params, Integer journeyId, Integer id);
+
+    void submit(TbHighlightsDTO dto);
 }

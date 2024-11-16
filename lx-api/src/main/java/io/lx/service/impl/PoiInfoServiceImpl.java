@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import static io.lx.constant.ApiConstant.ZERO_STRING;
 
 /**
  * 
@@ -34,12 +37,27 @@ public class PoiInfoServiceImpl extends CrudServiceImpl<PoiInfoDao, PoiInfoEntit
     }
 
     @Override
-    public List<PoiInfoDTO> getPoiList(Integer routeGuideId,String poiType){
+    public List<PoiInfoDTO> getPoiList(Integer routeGuideId,List<String> poiTypeList,String dateId,String journeyType){
         QueryWrapper<PoiInfoEntity> wrapper = new QueryWrapper<>();
         wrapper.eq("guides_id",routeGuideId);
-        if (StrUtil.isNotBlank(poiType)){
-            wrapper.eq("poi_type",poiType);
+
+        if (poiTypeList != null && !poiTypeList.isEmpty()) {
+            // 遍历 poiTypeList，将每个值去掉前导零后加入查询条件
+            List<String> formattedPoiTypes = poiTypeList.stream()
+                    .map(poiType -> poiType.replaceAll("^0+", "")) // 去掉前导零
+                    .collect(Collectors.toList());
+
+            // 使用 in 查询条件，匹配多个 poiType
+            wrapper.in("poi_type", formattedPoiTypes);
         }
+
+        // 传0或者不传表示总览
+        if (StrUtil.isNotBlank(dateId) && !ZERO_STRING.equals(dateId)){
+            wrapper.eq("date_id",dateId);
+        }
+
+        wrapper.eq("journey_type",journeyType);
+
         List<PoiInfoEntity> entityList = baseDao.selectList(wrapper);
 
         // 将实体列表转换为 DTO 列表

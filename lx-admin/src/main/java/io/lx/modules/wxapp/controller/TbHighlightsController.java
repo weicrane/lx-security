@@ -54,6 +54,20 @@ public class TbHighlightsController {
 
         return new Result<PageData<TbHighlightsDTO>>().ok(page);
     }
+    @GetMapping("selectPage")
+    @Operation(summary = "分页")
+    @Parameters({
+            @Parameter(name = Constant.PAGE, description = "当前页码，从1开始", in = ParameterIn.QUERY, required = true, ref="int") ,
+            @Parameter(name = Constant.LIMIT, description = "每页显示记录数", in = ParameterIn.QUERY,required = true, ref="int") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
+    })
+    public Result<PageData<TbHighlightsDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params,
+                                                  @Parameter Integer journeyId, @Parameter Integer id){
+        PageData<TbHighlightsDTO> page = tbHighlightsService.selectPage(params,journeyId,id);
+
+        return new Result<PageData<TbHighlightsDTO>>().ok(page);
+    }
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
@@ -113,4 +127,23 @@ public class TbHighlightsController {
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbHighlightsExcel.class);
     }
 
+//    @GetMapping("getLights")
+//    @Operation(summary = "获取行程亮点")
+//    public Result<> getLights(@Parameter Integer journeyid){
+//        TbHighlightsDTO data = tbHighlightsService.get(journeyid);
+//
+//        return new Result<>().ok(data);
+//    }
+
+    @PostMapping("/submit")
+    @Operation(summary = "新增亮点")
+    @LogOperation("保存")
+    public Result submit(@RequestBody TbHighlightsDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto);
+
+        tbHighlightsService.submit(dto);
+
+        return new Result();
+    }
 }

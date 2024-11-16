@@ -12,10 +12,15 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.converters.longconverter.LongStringConverter;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
+import com.alibaba.excel.read.builder.ExcelReaderSheetBuilder;
+import com.alibaba.excel.read.listener.ReadListener;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeanUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,4 +77,26 @@ public class ExcelUtils {
         exportExcel(response, fileName, sheetName, targetList, targetClass);
     }
 
+
+    /**
+     * Excel导入
+     *
+     * @param file         上传的Excel文件
+     * @param pojoClass    映射的实体类
+     * @param readListener 自定义监听器，用于处理读取的每一行数据
+     * @param <T>          实体类泛型
+     * @return 读取的数据列表
+     * @throws IOException 如果文件读取失败
+     */
+    public static <T> List<T> importExcel(MultipartFile file, Class<T> pojoClass, ReadListener<T> readListener) throws IOException {
+        try (InputStream inputStream = file.getInputStream()) {
+            ExcelReaderBuilder readerBuilder = EasyExcel.read(inputStream, pojoClass, readListener);
+            ExcelReaderSheetBuilder sheetBuilder = readerBuilder.sheet();
+            List<T> result = new ArrayList<>();
+            sheetBuilder.doRead();
+            return result;
+        } catch (Exception e) {
+            throw new IOException("Excel导入失败：" + e.getMessage(), e);
+        }
+    }
 }

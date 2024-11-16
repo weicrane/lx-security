@@ -54,6 +54,12 @@ public interface ApiConstant {
     String SEASON_AUTUMN = "3";
     String SEASON_WINTER = "4";
 
+    // 行程类型 0-主线总览，1-主线；2-小众玩法；3-小众玩法总览
+    String JOURNEY_TYPE_MAIN_ALL = "0";
+    String JOURNEY_TYPE_MAIN = "1";
+    String JOURNEY_TYPE_OTHER = "2";
+    String JOURNEY_TYPE_OTHER_ALL = "3";
+
 
     // ====== End 玩法线路指南 ======
 

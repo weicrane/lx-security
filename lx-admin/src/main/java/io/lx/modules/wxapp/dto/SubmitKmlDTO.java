@@ -3,50 +3,38 @@ package io.lx.modules.wxapp.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
  * 
  *
  * @author Mofeng laoniane@gmail.com
- * @since 1.0.0 2024-11-09
+ * @since 1.0.0 2024-11-02
  */
 @Data
 @Schema(name = "")
-public class TbHighlightsDTO implements Serializable {
+public class SubmitKmlDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@SchemaProperty(name = "")
-	private Integer id;
-
-	@SchemaProperty(name = "")
-	@NotNull(message = "journeyId不能为空")
-	private Integer journeyId;
-
-	@SchemaProperty(name = "")
-	private Integer lightSeq;
-
-	@SchemaProperty(name = "")
-	@NotBlank(message = "name不能为空")
 	private String name;
 
 	@SchemaProperty(name = "")
-	@NotBlank(message = "description不能为空")
 	private String description;
 
 	@SchemaProperty(name = "")
-	private String filePath;
+	@NotBlank(message = "行程类型不可为空，提示： 0-主线总览；1-主线行程；2-小众玩法；3-小众玩法总览")
+	private String journeyType;
 
 	@SchemaProperty(name = "")
-	private Date createdAt;
+	private String guideId;
 
 	@SchemaProperty(name = "")
-	private Date updatedAt;
+	@NotBlank(message = "kmlPath不可为空")
+	private String kmlPath;
 
 
 }

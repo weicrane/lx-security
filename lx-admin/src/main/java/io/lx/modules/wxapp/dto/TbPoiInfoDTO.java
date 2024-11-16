@@ -58,5 +58,10 @@ public class TbPoiInfoDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "")
+	private String dateId;
+
+	@SchemaProperty(name = "")
+	private String journeyType;
 
 }

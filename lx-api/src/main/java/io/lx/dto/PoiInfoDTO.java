@@ -58,5 +58,9 @@ public class PoiInfoDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "日程id")
+	private String dateId;
 
+	@SchemaProperty(name = "类型:0-总览，1-主线；2-小众玩法；3-小众玩法总览")
+	private String journeyType;
 }
