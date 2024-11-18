@@ -70,7 +70,10 @@ public class KmlUtils {
                     if (parts.length >= 2) {
                         double lon = Double.parseDouble(parts[0]);
                         double lat = Double.parseDouble(parts[1]);
-                        coordinates.add(new double[]{lat, lon});
+                        // WGS84 转 GCJ-02
+                        double[] gcj02Coord = CoordinateTransformUtils.wgs84ToGcj02(lat, lon);
+                        coordinates.add(gcj02Coord);
+//                        coordinates.add(new double[]{lat, lon});
                     }
                 }
 
@@ -84,7 +87,10 @@ public class KmlUtils {
                             if (parts.length >= 2) {
                                 double lon = Double.parseDouble(parts[0]);
                                 double lat = Double.parseDouble(parts[1]);
-                                coordinates.add(new double[]{lat, lon});
+//                                coordinates.add(new double[]{lat, lon});
+                                // WGS84 转 GCJ-02
+                                double[] gcj02Coord = CoordinateTransformUtils.wgs84ToGcj02(lat, lon);
+                                coordinates.add(gcj02Coord);
                             }
                         }
                     }
