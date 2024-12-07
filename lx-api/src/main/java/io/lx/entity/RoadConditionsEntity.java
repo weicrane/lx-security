@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -58,4 +59,20 @@ public class RoadConditionsEntity {
      *
      */
     private String userType;
+    /**
+     *
+     */
+    private String type;
+    /**
+     *
+     */
+    private BigDecimal latitude;
+    /**
+     *
+     */
+    private BigDecimal longitude;
+    /**
+     *
+     */
+    private String address;
 }

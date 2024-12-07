@@ -103,6 +103,10 @@ public class RoadConditionsServiceImpl extends BaseServiceImpl<RoadConditionsDao
         entity.setUserId(user.getId());
         entity.setUserType("1");//0-管理员，1-用户
         entity.setImgPath(dto.getImgPath());//图片链接
+        entity.setType(dto.getType());
+        entity.setLatitude(dto.getLatitude());
+        entity.setLongitude(dto.getLongitude());
+        entity.setAddress(dto.getAddress());
 
         // 写入
         baseDao.insert(entity);

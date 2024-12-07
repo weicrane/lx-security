@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +54,25 @@ public class RoadConditionsDTO implements Serializable {
 
 	@SchemaProperty(name = "")
 	private String userType;
+
+	@SchemaProperty(name = "")
+	private String type;
+	/**
+	 *
+	 */
+	@SchemaProperty(name = "")
+	private BigDecimal latitude;
+	/**
+	 *
+	 */
+	@SchemaProperty(name = "")
+	private BigDecimal longitude;
+
+	/**
+	 *
+	 */
+	@SchemaProperty(name = "")
+	private String address;
 
 	/**
 	 * 评论区
