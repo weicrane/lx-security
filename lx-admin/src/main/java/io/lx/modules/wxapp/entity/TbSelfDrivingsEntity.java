@@ -69,14 +69,6 @@ public class TbSelfDrivingsEntity {
      */
 	private Date updatedAt;
     /**
-     * 
-     */
-	private BigDecimal price;
-    /**
-     * 
-     */
-	private Integer inventory;
-    /**
      *
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -86,4 +78,13 @@ public class TbSelfDrivingsEntity {
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
+
+    private String field1;
+    private BigDecimal price1;
+
+    private String field2;
+    private BigDecimal price2;
+
+    private String field3;
+    private BigDecimal price3;
 }

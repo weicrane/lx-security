@@ -12,6 +12,7 @@ import io.lx.service.SelfDrivingsService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,6 +72,34 @@ public class SelfDrivingsServiceImpl extends CrudServiceImpl<SelfDrivingsDao, Se
     public SelfDrivingsEntity getPartnersDetailById(Integer id){
         SelfDrivingsEntity entity = baseDao.selectById(id);
         return entity;
+    }
+
+    @Override
+    public BigDecimal calculateTotalAmount(Integer num1,
+                                           Integer num2,
+                                           Integer num3,Integer productId){
+        SelfDrivingsEntity entity = baseDao.selectById(productId);
+        BigDecimal price1 = entity.getPrice1();
+        BigDecimal price2 = entity.getPrice2();
+        BigDecimal price3 = entity.getPrice3();
+
+        // 初始化总金额为 0
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        // 计算商品1的金额
+        if (price1 != null && num1 != null && num1 > 0) {
+            totalAmount = totalAmount.add(price1.multiply(BigDecimal.valueOf(num1)));
+        }
+
+        // 计算商品2的金额
+        if (price2 != null && num2 != null && num2 > 0) {
+            totalAmount = totalAmount.add(price2.multiply(BigDecimal.valueOf(num2)));
+        }
+
+        // 计算商品3的金额
+        if (price3 != null && num3 != null && num3 > 0) {
+            totalAmount = totalAmount.add(price3.multiply(BigDecimal.valueOf(num3)));
+        }
+        return totalAmount;
     }
 
 

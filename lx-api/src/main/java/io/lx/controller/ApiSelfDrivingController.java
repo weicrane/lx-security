@@ -64,11 +64,10 @@ public class ApiSelfDrivingController {
         // 表单校验
         ValidatorUtils.validateEntity(dto);
 
-
         // 提交报名
-        selfDrivingsApplyService.submitApply(dto,user);
+        Map<String,String> orderId = selfDrivingsApplyService.submitApply(dto,user);
 
-        return new Result();
+        return new Result().ok(orderId);
     }
 
     @GetMapping("getSelfDriApplyByPage")

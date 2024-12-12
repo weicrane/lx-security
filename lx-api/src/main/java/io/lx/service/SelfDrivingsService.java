@@ -5,6 +5,7 @@ import io.lx.common.service.CrudService;
 import io.lx.dto.SelfDrivingsDTO;
 import io.lx.entity.SelfDrivingsEntity;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 /**
@@ -23,4 +24,9 @@ public interface SelfDrivingsService extends CrudService<SelfDrivingsEntity, Sel
      * @return
      */
     SelfDrivingsEntity getPartnersDetailById(Integer id);
+
+    BigDecimal calculateTotalAmount(Integer num1,
+                                    Integer num2,
+                                    Integer num3,
+                                    Integer productId);
 }

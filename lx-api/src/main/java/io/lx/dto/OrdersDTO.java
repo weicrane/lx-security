@@ -55,5 +55,15 @@ public class OrdersDTO implements Serializable {
 	@NotBlank(message="商品描述不能为空")
 	private String description;
 
+	@SchemaProperty(name = "")
+	private Integer num1;
+
+	@SchemaProperty(name = "")
+	private Integer num2;
+
+	@SchemaProperty(name = "")
+	private Integer num3;
+
+
 
 }

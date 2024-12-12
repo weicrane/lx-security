@@ -41,14 +41,6 @@ public class SelfDrivingsApplyEntity {
     /**
      * 
      */
-	private Integer adults;
-    /**
-     * 
-     */
-	private Integer children;
-    /**
-     * 
-     */
 	private String remark;
     /**
      * 
@@ -74,4 +66,20 @@ public class SelfDrivingsApplyEntity {
      *
      */
     private String title;
+
+    private String field1;
+
+    private Integer num1;
+
+    private String field2;
+
+    private Integer num2;
+
+    private String field3;
+
+    private Integer num3;
+
+    private String payStatus;
+
+    private String orderId;
 }

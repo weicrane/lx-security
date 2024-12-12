@@ -58,12 +58,6 @@ public class SelfDrivingsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
-	@SchemaProperty(name = "")
-	private BigDecimal price;
-
-	@SchemaProperty(name = "")
-	private Integer inventory;
-
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@SchemaProperty(name = "")
 	private Date startDate;
@@ -72,4 +66,18 @@ public class SelfDrivingsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date endDate;
 
+	@SchemaProperty(name = "自定义列1")
+	private String field1;
+	@SchemaProperty(name = "价格1")
+	private BigDecimal price1;
+
+	@SchemaProperty(name = "自定义列2")
+	private String field2;
+	@SchemaProperty(name = "价格2")
+	private BigDecimal price2;
+
+	@SchemaProperty(name = "自定义列3")
+	private String field3;
+	@SchemaProperty(name = "价格3")
+	private BigDecimal price3;
 }

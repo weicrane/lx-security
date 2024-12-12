@@ -9,8 +9,6 @@
         <result property="selfDrivingId" column="self_driving_id"/>
         <result property="name" column="name"/>
         <result property="phone" column="phone"/>
-        <result property="adults" column="adults"/>
-        <result property="children" column="children"/>
         <result property="remark" column="remark"/>
         <result property="status" column="status"/>
         <result property="createdAt" column="created_at"/>
@@ -18,6 +16,14 @@
         <result property="vehicleType" column="vehicle_type"/>
         <result property="plate" column="plate"/>
         <result property="title" column="title"/>
+        <result property="field1" column="field1"/>
+        <result property="num1" column="num1"/>
+        <result property="field2" column="field2"/>
+        <result property="num2" column="num2"/>
+        <result property="field3" column="field3"/>
+        <result property="num3" column="num3"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="orderId" column="order_id"/>
     </resultMap>
 
 

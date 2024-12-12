@@ -22,7 +22,7 @@ public interface SelfDrivingsApplyService extends CrudService<SelfDrivingsApplyE
      * @param dto
      * @param user
      */
-    void submitApply(SelfDrivingsApplyDTO dto, UserEntity user);
+    Map<String,String> submitApply(SelfDrivingsApplyDTO dto, UserEntity user);
 
 
     PageData<SelfDrivingsApplyDTO> getSelfDriApplyByPage(Map<String, Object> params, String keyword,UserEntity user);
@@ -40,5 +40,19 @@ public interface SelfDrivingsApplyService extends CrudService<SelfDrivingsApplyE
      * @return
      */
     Map<String, Object> getApplyDetailById(String applyId,UserEntity user);
+
+    /**
+     * 更新支付
+     * @param orderId
+     * @param status
+     */
+    void updatePayStatus(String orderId,String status);
+
+    /**
+     * 查询详情
+     * @param applyId
+     * @return
+     */
+    SelfDrivingsApplyEntity getSelfDrivingsApply(String applyId);
 
 }

@@ -64,7 +64,10 @@ public class WxPayServiceImpl implements WxPayService {
     SvipService svipService;
     @Resource
     RoutesGuidesService routesGuidesService;
-
+    @Resource
+    SelfDrivingsService selfDrivingsService;
+    @Resource
+    SelfDrivingsApplyService selfDrivingsApplyService;
     /**
      * 创建微信支付订单
      */
@@ -112,7 +115,11 @@ public class WxPayServiceImpl implements WxPayService {
             // 处理无订单号的逻辑
             log.info("微信支付 >>>>>>>>>>>>>>>>> 金额：{}元", ordersDTO.getAmount());
             // 1.核实商品金额
-            Amount amount = getAmount(ordersDTO.getProductType(),ordersDTO.getProductId());
+            Integer num1 = ORDER_TYPE_DRIVING.equals(ordersDTO.getProductType()) && ordersDTO.getNum1() != null ? ordersDTO.getNum1() : 0;
+            Integer num2 = ORDER_TYPE_DRIVING.equals(ordersDTO.getProductType()) && ordersDTO.getNum2() != null ? ordersDTO.getNum2() : 0;
+            Integer num3 = ORDER_TYPE_DRIVING.equals(ordersDTO.getProductType()) && ordersDTO.getNum3() != null ? ordersDTO.getNum3() : 0;
+
+            Amount amount = getAmount(ordersDTO.getProductType(),ordersDTO.getProductId(),num1,num2,num3);
             Integer price = ordersDTO.getAmount().multiply(BigDecimal.valueOf(100)).intValue();
             if (!amount.getTotal().equals(price)){
                 throw new RenException("价格异常：小程序商品价格与后台不一致");
@@ -129,6 +136,105 @@ public class WxPayServiceImpl implements WxPayService {
             request.setDescription(des.length() > 125 ? des.substring(0, 125) : des); // 商品描述
             // 4.生成订单号
             String outTradeNo = OrderNumberUtils.generateOrderNumber();
+            request.setOutTradeNo(outTradeNo); // 商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一。
+            params.put("trans_no", outTradeNo);// 订单号(业务需要）
+
+            log.info("商户订单号 >>>>>>>>>>>>>>>>> 订单号：{}", outTradeNo);
+            // 5.写入预支付订单
+            OrdersDTO dto = new OrdersDTO();
+            BeanUtils.copyProperties(ordersDTO,dto);
+            dto.setOrderId(outTradeNo); // 订单号
+            dto.setUserId(userDetailDTO.getId()); //用户id
+            dto.setOpenid(userDetailDTO.getOpenid()); //openid
+            dto.setStatus("0"); //订单状态:0-未支付，1-已支付，2-支付失败，3-取消支付
+            ordersService.creatOrder(dto);
+
+        }
+
+        request.setPayer(payer);
+
+        PrepayResponse response = getJsapiService().prepay(request);
+
+        WechatPaySign sign = sign(response.getPrepayId());
+
+        params.put("nonceStr", sign.getNonceStr());
+        params.put("package", "prepay_id=" + sign.getPrepayId());
+        params.put("signType", "RSA");
+        params.put("timeStamp", sign.getTimeStamp());
+        params.put("paySign", sign.getSign());
+
+        return params;
+    }
+
+    /**
+     * 创建自驾支付订单
+     * @param ordersDTO
+     * @param token
+     * @return
+     * @throws Exception
+     */
+    @Override
+    @Transactional
+    public SortedMap<String, String> createSelfDrivingOrder(OrdersDTO ordersDTO ,String token) throws Exception {
+
+        // 生成预支付订单参数
+        PrepayRequest request = new PrepayRequest();
+        request.setAppid(WxV3PayConfig.APP_ID); // appid
+        request.setMchid(WxV3PayConfig.MCH_ID); // 商户id
+        request.setNotifyUrl(WxV3PayConfig.PAY_BACK_URL); // 回调地址
+
+        SortedMap<String, String> params = new TreeMap<>();
+        params.put("appId", WxV3PayConfig.APP_ID);
+
+        Payer payer = new Payer();
+
+        OrdersEntity orderDetail = ordersService.getOrderDetail(ordersDTO.getOrderId());
+
+        // 检查是否存在订单情况
+        if (orderDetail!=null) {
+            if (ORDER_STATUS_SUCCESS.equals(orderDetail.getStatus())){
+                throw new RenException("订单已完成，请勿重复支付");
+            }
+            if (ORDER_STATUS_CANCEL.equals(orderDetail.getStatus())){
+                throw new RenException("订单已取消，请重新下单");
+            }
+            payer.setOpenid(orderDetail.getOpenid()); // openid
+
+            BigDecimal price = orderDetail.getAmount();
+            Amount amount = new Amount();
+            amount.setTotal(price.multiply(BigDecimal.valueOf(100)).intValue());
+            request.setAmount(amount); // 金额
+
+            request.setDescription(orderDetail.getDescription());//商品描述
+
+            request.setOutTradeNo(orderDetail.getOrderId());//订单号
+            params.put("trans_no", orderDetail.getOrderId());// 订单号(业务需要）
+
+        } else {
+            // 处理无订单号的逻辑
+            log.info("微信支付 >>>>>>>>>>>>>>>>> 金额：{}元", ordersDTO.getAmount());
+            // 1.核实商品金额
+            Integer num1 = ORDER_TYPE_DRIVING.equals(ordersDTO.getProductType()) && ordersDTO.getNum1() != null ? ordersDTO.getNum1() : 0;
+            Integer num2 = ORDER_TYPE_DRIVING.equals(ordersDTO.getProductType()) && ordersDTO.getNum2() != null ? ordersDTO.getNum2() : 0;
+            Integer num3 = ORDER_TYPE_DRIVING.equals(ordersDTO.getProductType()) && ordersDTO.getNum3() != null ? ordersDTO.getNum3() : 0;
+
+            Amount amount = getAmount(ordersDTO.getProductType(),ordersDTO.getProductId(),num1,num2,num3);
+            Integer price = ordersDTO.getAmount().multiply(BigDecimal.valueOf(100)).intValue();
+            if (!amount.getTotal().equals(price)){
+                throw new RenException("价格异常：小程序商品价格与后台不一致");
+            }
+            // 2.获取用户信息
+            UserDetailDTO userDetailDTO =userService.getUserInfoDetailByToken(token);
+            if (userDetailDTO.getOpenid()==null){
+                throw new RenException("用户openid缺失");
+            }
+            // 3.写入参数
+            payer.setOpenid(userDetailDTO.getOpenid()); // openid
+            request.setAmount(amount); // 金额
+            String des = ordersDTO.getDescription();
+            request.setDescription(des.length() > 125 ? des.substring(0, 125) : des); // 商品描述
+            // 4.生成订单号
+            String outTradeNo = ordersDTO.getOrderId();
             request.setOutTradeNo(outTradeNo); // 商户系统内部订单号，只能是数字、大小写字母_-*且在同一个商户号下唯一。
             params.put("trans_no", outTradeNo);// 订单号(业务需要）
 
@@ -230,7 +336,7 @@ public class WxPayServiceImpl implements WxPayService {
                         ordersService.updateOrderStatus(transaction.getOutTradeNo(),ORDER_STATUS_SUCCESS);
                     }
                     System.out.println("微信支付成功,更新订单："+orderId);
-                    // 更新用户会员身份
+                    // 更新用户会员身份、报名状态等
                     updateUserMemShips(orderId);
                     System.out.println("更新用户会员身份完成");
                     break;
@@ -352,7 +458,7 @@ public class WxPayServiceImpl implements WxPayService {
      * 获取产品价格 单位：分
      * 00-终身会员，01-网盘路书，a02-自驾活动，03-四季玩法
      */
-    public Amount getAmount(String productType, Integer productId){
+    public Amount getAmount(String productType, Integer productId,Integer num1,Integer num2,Integer num3){
         Amount amount = new Amount();
         switch (productType) {
             case "00":
@@ -377,8 +483,14 @@ public class WxPayServiceImpl implements WxPayService {
                 }
                 break;
 
-            case "a02":
+            case "02":
                 // 处理自驾活动的逻辑
+                try {
+                    BigDecimal totalAmount = selfDrivingsService.calculateTotalAmount(num1,num2,num3,productId);
+                    amount.setTotal(totalAmount.multiply(BigDecimal.valueOf(100)).intValue());
+                }catch (Exception e){
+                    throw new RenException("查询活动价格失败");
+                }
                 break;
 
             case "03":
@@ -407,13 +519,23 @@ public class WxPayServiceImpl implements WxPayService {
         // 1.查询订单详情
         OrdersEntity orderEntity = ordersService.getOrderDetail(orderId);
         // 2.判断开通的会员订单类型
-        if (ORDER_TYPE_SVIP.equals(orderEntity.getProductType())){
-            // case00:终身会员,写入表
-            userService.setSvip(orderEntity.getUserId());
-        }else {
-            // case:其他会员,写入表
-            userMembershipsService.updateUserMemShips(orderId);
+        String productType = orderEntity.getProductType();
+        switch (productType){
+            case ORDER_TYPE_SVIP:
+                // case00:终身会员,写入表
+                userService.setSvip(orderEntity.getUserId());
+                break;
+            case ORDER_TYPE_DRIVING:
+                // case02:自驾活动
+                selfDrivingsApplyService.updatePayStatus(orderEntity.getOrderId(),ORDER_STATUS_SUCCESS);
+                break;
+            default:
+                // 处理其他情况的逻辑
+                // case:其他会员,写入表
+                userMembershipsService.updateUserMemShips(orderId);
+                break;
         }
+
         // 3.其他情况
     }
 

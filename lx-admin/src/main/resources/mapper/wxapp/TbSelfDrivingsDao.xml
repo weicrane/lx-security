@@ -16,10 +16,14 @@
         <result property="detailImgPath" column="detail_img_path"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
-        <result property="price" column="price"/>
-        <result property="inventory" column="inventory"/>
         <result property="stratDate" column="strat_date"/>
         <result property="endDate" column="end_date"/>
+        <result property="field1" column="field1"/>
+        <result property="price1" column="price1"/>
+        <result property="field2" column="field2"/>
+        <result property="price2" column="price2"/>
+        <result property="field3" column="field3"/>
+        <result property="price3" column="price3"/>
     </resultMap>
 
 

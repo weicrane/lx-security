@@ -19,6 +19,12 @@ public interface WxPayService {
      */
     SortedMap<String, String> jsApiOrder(OrdersDTO ordersDTO, String token) throws Exception;
 
+    /**
+     * 自驾下单
+     *
+     * @return
+     */
+    SortedMap<String, String> createSelfDrivingOrder(OrdersDTO ordersDTO, String token) throws Exception;
 
 
     /**
