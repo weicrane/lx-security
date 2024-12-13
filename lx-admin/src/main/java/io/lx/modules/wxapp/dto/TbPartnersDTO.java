@@ -58,5 +58,6 @@ public class TbPartnersDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer inventory;
 
-
+	@SchemaProperty(name = "是否需要支付")
+	private String needPay;
 }

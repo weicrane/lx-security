@@ -22,7 +22,7 @@ public interface PartnersApplyService extends CrudService<PartnersApplyEntity, P
      * @param dto
      * @param user
      */
-    void submitApply(PartnersApplyDTO dto, UserEntity user);
+    Map<String,String> submitApply(PartnersApplyDTO dto, UserEntity user);
 
     PageData<PartnersApplyDTO> getPartnersApplyByPage(Map<String, Object> params, String keyword, UserEntity user);
 
@@ -41,4 +41,10 @@ public interface PartnersApplyService extends CrudService<PartnersApplyEntity, P
      */
     Map<String, Object> getApplyDetailById(String applyId,UserEntity user);
 
+    /**
+     * 更新支付状态
+     * @param orderId
+     * @param status
+     */
+    void updatePayStatus(String orderId,String status);
 }

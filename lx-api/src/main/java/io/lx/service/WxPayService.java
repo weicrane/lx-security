@@ -26,6 +26,13 @@ public interface WxPayService {
      */
     SortedMap<String, String> createSelfDrivingOrder(OrdersDTO ordersDTO, String token) throws Exception;
 
+    /**
+     * 会员福利下单
+     *
+     * @return
+     */
+    SortedMap<String, String> createOthersOrder(OrdersDTO ordersDTO, String token) throws Exception;
+
 
     /**
      * 支付回调

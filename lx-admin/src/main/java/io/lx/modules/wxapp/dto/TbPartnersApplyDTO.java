@@ -38,12 +38,6 @@ public class TbPartnersApplyDTO implements Serializable {
 	private String phone;
 
 	@SchemaProperty(name = "")
-	private Integer adults;
-
-	@SchemaProperty(name = "")
-	private Integer children;
-
-	@SchemaProperty(name = "")
 	private String remark;
 
 	@SchemaProperty(name = "")
@@ -55,5 +49,12 @@ public class TbPartnersApplyDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "")
+	private String address;
 
+	@SchemaProperty(name = "")
+	private String payStatus;
+
+	@SchemaProperty(name = "")
+	private Integer num;
 }

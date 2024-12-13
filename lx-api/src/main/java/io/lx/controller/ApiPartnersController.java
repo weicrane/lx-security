@@ -65,9 +65,9 @@ public class ApiPartnersController {
         ValidatorUtils.validateEntity(dto);
 
         // 提交报名
-        partnersApplyService.submitApply(dto,user);
+        Map<String,String> orderId = partnersApplyService.submitApply(dto,user);
 
-        return new Result();
+        return new Result().ok(orderId);
     }
 
     @GetMapping("getPartnersApplyByPage")

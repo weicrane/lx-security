@@ -74,6 +74,18 @@ public class ApiWePayController {
         return new Result().ok(wxPayService.createSelfDrivingOrder(ordersDTO,token));
     }
 
+    @PostMapping("creatOthersOrder")
+    @Operation(summary = "创建会员福利、自驾订单")
+    @Login
+    public Result creatOthersOrder(@RequestBody OrdersDTO ordersDTO, HttpServletRequest request) throws Exception {
+        //表单校验
+        ValidatorUtils.validateEntity(ordersDTO);
+        // 从请求中获取 Token
+        String token = tokenUtils.getRequestToken(request);
+        // 创建订单
+        return new Result().ok(wxPayService.createOthersOrder(ordersDTO,token));
+    }
+
     @PostMapping("closeOrder")
     @Operation(summary = "关闭订单")
     @Login

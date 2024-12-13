@@ -38,12 +38,6 @@ public class PartnersApplyDTO implements Serializable {
 	private String phone;
 
 	@SchemaProperty(name = "")
-	private Integer adults;
-
-	@SchemaProperty(name = "")
-	private Integer children;
-
-	@SchemaProperty(name = "")
 	private String remark;
 
 	@SchemaProperty(name = "")
@@ -55,5 +49,13 @@ public class PartnersApplyDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "收货地址")
+	private String address;
+
+	@SchemaProperty(name = "支付状态")
+	private String payStatus;
+
+	@SchemaProperty(name = "购买数量")
+	private Integer num;
 
 }

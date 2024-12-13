@@ -71,4 +71,5 @@ public class TbPartnersEntity {
      * 
      */
 	private Integer inventory;
+    private String needPay;
 }

@@ -45,14 +45,6 @@ public class PartnersApplyEntity {
     /**
      * 
      */
-	private Integer adults;
-    /**
-     * 
-     */
-	private Integer children;
-    /**
-     * 
-     */
 	private String remark;
     /**
      * 
@@ -66,4 +58,10 @@ public class PartnersApplyEntity {
      * 
      */
 	private Date updatedAt;
+
+    private String address;
+
+    private String payStatus;
+
+    private Integer num;
 }

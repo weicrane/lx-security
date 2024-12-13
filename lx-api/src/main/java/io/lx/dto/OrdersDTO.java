@@ -64,6 +64,7 @@ public class OrdersDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer num3;
 
-
+	@SchemaProperty(name = "")
+	private Integer num;
 
 }

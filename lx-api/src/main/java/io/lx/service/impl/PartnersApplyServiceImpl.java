@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static io.lx.constant.ApiConstant.ORDER_STATUS_NOTPAY;
 import static io.lx.constant.ApiConstant.SELF_DRIVING_APPLY_CANCEL;
-import static io.lx.constant.ApiConstant.SELF_DRIVING_APPLY_PENDING_REVIEW;
 
 /**
  * @author Mofeng laoniane@gmail.com
@@ -50,20 +50,24 @@ public class PartnersApplyServiceImpl extends CrudServiceImpl<PartnersApplyDao, 
 
 
     @Override
-    public void submitApply(PartnersApplyDTO dto, UserEntity user) {
+    public Map<String,String> submitApply(PartnersApplyDTO dto, UserEntity user) {
 
         PartnersApplyEntity entity = new PartnersApplyEntity();
         BeanUtils.copyProperties(dto, entity);
+        entity.setPayStatus(ORDER_STATUS_NOTPAY); // 0-未支付
 
         // 生成报名单号
         String orderNum = OrderNumberUtils.generateOrderNumber();
         entity.setApplyId(orderNum);
 
-        entity.setStatus(SELF_DRIVING_APPLY_PENDING_REVIEW); //待审核
+//        entity.setStatus(SELF_DRIVING_APPLY_PENDING_REVIEW); //待审核
         entity.setUserId(user.getId());
 
         baseDao.insert(entity);
 
+        Map<String,String> map = new HashMap<>();
+        map.put("orderId",orderNum);
+        return map;
     }
 
     @Override
@@ -146,4 +150,24 @@ public class PartnersApplyServiceImpl extends CrudServiceImpl<PartnersApplyDao, 
 
         return map;
     }
+
+    @Override
+    public void updatePayStatus(String orderId,String status){
+
+        // 查询单号-orderid与单号一致
+        PartnersApplyEntity entity = baseDao.selectById(orderId);
+        // 判断单号存在
+        if (entity == null) {
+            throw new RenException("订单不存在");
+        }
+
+        // 更新状态
+        entity.setStatus(status);
+        // 更新状态
+        entity.setPayStatus(status);
+
+        baseDao.updateById(entity);
+
+    }
+
 }
