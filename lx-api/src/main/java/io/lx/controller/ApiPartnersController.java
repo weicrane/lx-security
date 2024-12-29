@@ -103,5 +103,13 @@ public class ApiPartnersController {
         return new Result().ok(map);
     }
 
+    @GetMapping("getPartnersInfoById")
+    @Operation(summary = "根据id获取合作商家信息")
+    public Result<PartnersDTO> get(@Parameter Long id){
+        PartnersDTO data = partnersService.get(id);
+
+        return new Result<PartnersDTO>().ok(data);
+    }
+
 
 }

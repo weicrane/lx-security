@@ -70,6 +70,15 @@ public class ApiRouteGuidesController {
         return new Result<PageData<RoutesGuidesDTO>>().ok(page);
     }
 
+    @GetMapping("getRoutesGuidesInfoById")
+    @Operation(summary = "根据id获取玩法详情信息")
+    public Result<RoutesGuidesDTO> get(@Parameter Long id){
+        RoutesGuidesDTO data = routesGuidesService.get(id);
+
+        return new Result<RoutesGuidesDTO>().ok(data);
+    }
+
+
     @GetMapping("getRoutesGuidesDetail")
     @Operation(summary = "获取玩法详情")
     @Login

@@ -106,4 +106,12 @@ public class ApiSelfDrivingController {
         return new Result().ok(map);
     }
 
+    @GetMapping("getSelfDrivingInfoById")
+    @Operation(summary = "根据id获取自驾活动信息")
+    public Result<SelfDrivingsDTO> get(@Parameter Long id){
+        SelfDrivingsDTO data = selfDrivingsService.get(id);
+
+        return new Result<SelfDrivingsDTO>().ok(data);
+    }
+
 }
