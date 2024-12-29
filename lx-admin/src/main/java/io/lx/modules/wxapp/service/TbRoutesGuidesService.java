@@ -18,4 +18,6 @@ public interface TbRoutesGuidesService extends CrudService<TbRoutesGuidesEntity,
      * @return
      */
     TbRoutesGuidesEntity selectById(Integer id);
+
+    void onsale(TbRoutesGuidesDTO dto);
 }

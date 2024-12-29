@@ -83,4 +83,8 @@ public class TbRoutesGuidesEntity {
      *
      */
     private String mapImgPath;
+    /**
+     *
+     */
+    private String onsale;
 }

@@ -85,6 +85,18 @@ public class TbRoutesGuidesController {
         return new Result();
     }
 
+    @PutMapping("onsale")
+    @Operation(summary = "上架")
+    @LogOperation("上架")
+    public Result onsale(@RequestBody TbRoutesGuidesDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
+
+        tbRoutesGuidesService.onsale(dto);
+
+        return new Result();
+    }
+
     @DeleteMapping
     @Operation(summary = "删除")
     @LogOperation("删除")

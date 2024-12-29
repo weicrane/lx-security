@@ -9,6 +9,7 @@ import io.lx.modules.wxapp.service.TbRoutesGuidesService;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -34,6 +35,14 @@ public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao
     public TbRoutesGuidesEntity selectById(Integer id){
         TbRoutesGuidesEntity entity = baseDao.selectById(id);
         return entity;
+    }
+
+    @Override
+    public void onsale(TbRoutesGuidesDTO dto){
+        TbRoutesGuidesEntity entity = baseDao.selectById(dto.getId());
+        entity.setOnsale(dto.getOnsale());
+        entity.setUpdatedAt(new Date());
+        baseDao.updateById(entity);
     }
 
 }

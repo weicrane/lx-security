@@ -47,6 +47,8 @@ public class RoutesGuidesServiceImpl extends CrudServiceImpl<RoutesGuidesDao, Ro
     public  PageData<RoutesGuidesDTO> getAllRoutesGuidesByPage(String keyword, String season, Map<String, Object> params){
 
         QueryWrapper<RoutesGuidesEntity> wrapper = new QueryWrapper<>();
+        // 0.必须是已上架
+        wrapper.eq("onsale",ONE_STRING);
 
         // 1.关键词模糊匹配
         if (StrUtil.isNotBlank(keyword)) {
@@ -85,7 +87,10 @@ public class RoutesGuidesServiceImpl extends CrudServiceImpl<RoutesGuidesDao, Ro
     public RoutesGuidesDTO getRoutesGuidesDetail(Integer id){
         RoutesGuidesEntity entity = baseDao.selectById(id);
         RoutesGuidesDTO dto = new RoutesGuidesDTO();
-        BeanUtils.copyProperties(entity, dto);
+        // 已上架才返回
+        if (ONE_STRING.equals(entity.getOnsale())){
+            BeanUtils.copyProperties(entity, dto);
+        }
         return dto;
     }
 

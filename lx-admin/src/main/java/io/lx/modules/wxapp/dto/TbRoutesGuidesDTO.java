@@ -67,4 +67,7 @@ public class TbRoutesGuidesDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private String mapImgPath;
 
+	@SchemaProperty(name = "")
+	private String onsale;
+
 }

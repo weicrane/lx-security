@@ -83,4 +83,8 @@ public class RoutesGuidesEntity {
      *
      */
     private String mapImgPath;
+    /**
+     *
+     */
+    private String onsale;
 }
