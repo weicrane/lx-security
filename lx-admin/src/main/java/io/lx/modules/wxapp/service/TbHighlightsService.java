@@ -18,4 +18,7 @@ public interface TbHighlightsService extends CrudService<TbHighlightsEntity, TbH
     PageData<TbHighlightsDTO> selectPage(Map<String, Object> params, Integer journeyId, Integer id);
 
     void submit(TbHighlightsDTO dto);
+
+    // 删除亮点
+    void deleteByJourneyId(Integer id);
 }

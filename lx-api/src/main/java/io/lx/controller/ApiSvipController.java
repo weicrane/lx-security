@@ -6,6 +6,7 @@ package io.lx.controller;
 
 
 import io.lx.common.utils.Result;
+import io.lx.dto.SvipDTO;
 import io.lx.service.SvipService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,5 +36,12 @@ public class ApiSvipController {
         Map<String, Object> price =  new HashMap<>();
         price.put("price",svipService.getSvipPrice());
         return new Result().ok(price);
+    }
+
+    @GetMapping("getSvipInfo")
+    @Operation(summary = "查询会员信息")
+    public Result<SvipDTO> getSvipInfo(){
+        SvipDTO dto = svipService.getSvipInfo();
+        return new Result().ok(dto);
     }
 }

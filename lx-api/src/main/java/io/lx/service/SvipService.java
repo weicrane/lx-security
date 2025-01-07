@@ -16,4 +16,7 @@ public interface SvipService extends CrudService<SvipEntity, SvipDTO> {
     // 查询价格
     BigDecimal getSvipPrice();
 
+    // 查询详情
+    SvipDTO getSvipInfo();
+
 }

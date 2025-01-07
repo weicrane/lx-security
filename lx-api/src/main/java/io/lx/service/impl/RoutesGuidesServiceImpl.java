@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static io.lx.constant.ApiConstant.ONE_STRING;
+import static io.lx.constant.ApiConstant.ZERO_STRING;
 
 /**
  * 
@@ -57,8 +58,10 @@ public class RoutesGuidesServiceImpl extends CrudServiceImpl<RoutesGuidesDao, Ro
         }
 
         // 2.季节筛选
-        if (StrUtil.isNotBlank(season)) {
-            wrapper.eq("season", season);
+        // 0-四季皆宜，不筛选，1-4表示四个季节
+        if (StrUtil.isNotBlank(season) && !ZERO_STRING.equals(season)) {
+//            wrapper.eq("season", season);
+            wrapper.like("season", season);
         }
 
         // 3.分页查询

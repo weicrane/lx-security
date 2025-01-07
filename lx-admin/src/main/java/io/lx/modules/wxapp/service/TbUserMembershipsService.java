@@ -12,4 +12,8 @@ import io.lx.modules.wxapp.entity.TbUserMembershipsEntity;
  */
 public interface TbUserMembershipsService extends CrudService<TbUserMembershipsEntity, TbUserMembershipsDTO> {
 
+    /**
+     * 是否有人购买
+     */
+    Boolean isSold(Integer guideId);
 }

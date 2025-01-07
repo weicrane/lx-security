@@ -8,6 +8,7 @@ import io.lx.dto.SvipDTO;
 import io.lx.dto.SvipDao;
 import io.lx.entity.SvipEntity;
 import io.lx.service.SvipService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -40,6 +41,18 @@ public class SvipServiceImpl extends CrudServiceImpl<SvipDao, SvipEntity, SvipDT
             throw new RenException("查询会员价格失败");
         }
 
+    }
+
+    @Override
+    public SvipDTO getSvipInfo(){
+        SvipDTO dto = new SvipDTO();
+        try {
+            SvipEntity entity = baseDao.selectById(1);
+            BeanUtils.copyProperties(entity, dto);
+        }catch (Exception e) {
+            throw new RenException("查询会员价格失败");
+        }
+        return dto;
     }
 
 

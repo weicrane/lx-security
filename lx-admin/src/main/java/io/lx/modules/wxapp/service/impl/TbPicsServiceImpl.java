@@ -86,4 +86,29 @@ public class TbPicsServiceImpl extends CrudServiceImpl<TbPicsDao, TbPicsEntity, 
         }).collect(Collectors.toList());
         return dtoList;
     }
+
+    /**
+     * 删除线路相关图片记录
+     * @param id
+     */
+    @Override
+    public void deleteByRouteId(Integer id){
+        QueryWrapper<TbPicsEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("guide_id", id);
+        List<TbPicsEntity> list = baseDao.selectList(wrapper);
+
+        // 如果列表为空，则无需删除，直接返回
+        if (list.isEmpty()) {
+            return;
+        }
+
+        // 提取所有记录的主键 ID，构造一个 List
+        List<Long> idList = list.stream()
+                .map(TbPicsEntity::getId) // 假设主键字段为 id，请替换为实际字段名
+                .collect(Collectors.toList());
+
+        // 批量删除这些记录
+        baseDao.deleteBatchIds(idList);
+    }
+
 }

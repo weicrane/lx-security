@@ -1,14 +1,15 @@
 package io.lx.modules.wxapp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.lx.common.service.impl.CrudServiceImpl;
 import io.lx.modules.wxapp.dao.TbUserMembershipsDao;
 import io.lx.modules.wxapp.dto.TbUserMembershipsDTO;
 import io.lx.modules.wxapp.entity.TbUserMembershipsEntity;
 import io.lx.modules.wxapp.service.TbUserMembershipsService;
-import cn.hutool.core.util.StrUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +29,22 @@ public class TbUserMembershipsServiceImpl extends CrudServiceImpl<TbUserMembersh
         wrapper.eq(StrUtil.isNotBlank(id), "id", id);
 
         return wrapper;
+    }
+
+    /**
+     * 是否已出售
+     * @param guideId
+     * @return
+     */
+    @Override
+    public Boolean isSold(Integer guideId){
+        QueryWrapper<TbUserMembershipsEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("routes_guides_id",guideId);
+        List<TbUserMembershipsEntity> list = baseDao.selectList(wrapper);
+        if (list.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
 

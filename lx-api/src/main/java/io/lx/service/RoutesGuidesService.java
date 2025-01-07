@@ -35,5 +35,4 @@ public interface RoutesGuidesService extends CrudService<RoutesGuidesEntity, Rou
 
     PageData<RoutesGuidesDTO> getMyGuidesByPage(String keyword, Map<String, Object> params, UserEntity user);
 
-
 }

@@ -3,19 +3,18 @@ package io.lx.modules.wxapp.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
 import io.lx.modules.wxapp.dao.TbJourneyDao;
 import io.lx.modules.wxapp.dto.SubmitKmlDTO;
 import io.lx.modules.wxapp.dto.TbJourneyDTO;
 import io.lx.modules.wxapp.entity.TbJourneyEntity;
-import io.lx.modules.wxapp.entity.TbRoutesGuidesEntity;
+import io.lx.modules.wxapp.service.TbHighlightsService;
 import io.lx.modules.wxapp.service.TbJourneyService;
-import io.lx.modules.wxapp.service.TbRoutesGuidesService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,8 +34,11 @@ import static io.lx.common.constant.AdminConstant.JOURNEY_TYPE_OTHER_ALL;
 @Service
 public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourneyEntity, TbJourneyDTO> implements TbJourneyService {
 
+//    @Resource
+//    TbRoutesGuidesService tbRoutesGuidesService;
+
     @Resource
-    TbRoutesGuidesService tbRoutesGuidesService;
+    TbHighlightsService tbHighlightsService;
 
     @Override
     public QueryWrapper<TbJourneyEntity> getWrapper(Map<String, Object> params){
@@ -171,10 +173,10 @@ public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourne
      */
     @Override
     public void submitJourney(TbJourneyDTO dto){
-        TbRoutesGuidesEntity TbRoutesGuidesEntity = tbRoutesGuidesService.selectById(dto.getGuideId());
-        if (TbRoutesGuidesEntity == null){
-            throw new RenException("线路未找到，请检查线路id是否正确");
-        }
+//        TbRoutesGuidesEntity TbRoutesGuidesEntity = tbRoutesGuidesService.selectById(dto.getGuideId());
+//        if (TbRoutesGuidesEntity == null){
+//            throw new RenException("线路未找到，请检查线路id是否正确");
+//        }
         // 查询现有行程
         QueryWrapper<TbJourneyEntity> wrapper = new QueryWrapper<>();
         wrapper.eq("guide_id",dto.getGuideId());
@@ -198,5 +200,34 @@ public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourne
         TbJourneyEntity entity = baseDao.selectById(id);
         return entity;
     }
+
+    /**
+     * 删除线路相关
+     * @param id
+     */
+    @Override
+    @Transactional
+    public void deleteByRouteId(Integer id){
+
+        QueryWrapper<TbJourneyEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("guide_id", id);
+        List<TbJourneyEntity> list = baseDao.selectList(wrapper);
+
+        // 如果列表为空，则无需删除，直接返回
+        if (list.isEmpty()) {
+            return;
+        }
+
+        // 提取所有记录的主键 ID，构造一个 List
+        List<Integer> idList = list.stream()
+                .map(TbJourneyEntity::getId) // 假设主键字段为 id，请替换为实际字段名
+                .collect(Collectors.toList());
+
+        idList.forEach(tbHighlightsService::deleteByJourneyId);
+
+        // 批量删除这些记录
+        baseDao.deleteBatchIds(idList);
+    }
+
 
 }

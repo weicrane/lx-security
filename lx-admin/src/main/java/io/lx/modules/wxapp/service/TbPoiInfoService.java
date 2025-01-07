@@ -34,5 +34,10 @@ public interface TbPoiInfoService extends CrudService<TbPoiInfoEntity, TbPoiInfo
      */
     void importPoiXlsx(MultipartFile file) throws Exception;
 
+    /**
+     * 删除线路相关点
+     * @param id
+     */
+    void deleteByRouteId(Integer id);
 
 }

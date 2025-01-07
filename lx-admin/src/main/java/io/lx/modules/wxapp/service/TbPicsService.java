@@ -23,4 +23,9 @@ public interface TbPicsService extends CrudService<TbPicsEntity, TbPicsDTO> {
     List<TbPicsDTO> getListByGuideId(Integer guideId);
 
 
+    /**
+     * 删除线路相关图片记录
+     * @param id
+     */
+    void deleteByRouteId(Integer id);
 }

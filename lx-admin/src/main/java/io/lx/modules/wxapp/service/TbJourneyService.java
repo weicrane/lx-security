@@ -45,4 +45,10 @@ public interface TbJourneyService extends CrudService<TbJourneyEntity, TbJourney
      * @return
      */
     TbJourneyEntity selectById(Integer id);
+
+    /**
+     * 删除线路相关行程
+     * @param id
+     */
+    void deleteByRouteId(Integer id);
 }

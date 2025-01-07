@@ -2,10 +2,10 @@ package io.lx.modules.wxapp.controller;
 
 import io.lx.common.annotation.LogOperation;
 import io.lx.common.constant.Constant;
+import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.utils.ExcelUtils;
 import io.lx.common.utils.Result;
-import io.lx.common.validator.AssertUtils;
 import io.lx.common.validator.ValidatorUtils;
 import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
@@ -97,14 +97,28 @@ public class TbRoutesGuidesController {
         return new Result();
     }
 
-    @DeleteMapping
-    @Operation(summary = "删除")
-    @LogOperation("删除")
-    public Result delete(@RequestBody Long[] ids){
-        //效验数据
-        AssertUtils.isArrayEmpty(ids, "id");
+//    @DeleteMapping
+//    @Operation(summary = "删除")
+//    @LogOperation("删除")
+//    public Result delete(@RequestBody Long[] ids){
+//        //效验数据
+//        AssertUtils.isArrayEmpty(ids, "id");
+//
+//        tbRoutesGuidesService.delete(ids);
+//
+//        return new Result();
+//    }
 
-        tbRoutesGuidesService.delete(ids);
+    @DeleteMapping("delete")
+    @Operation(summary = "根据id删除线路")
+    @LogOperation("根据id删除线路")
+    public Result delete(@RequestBody TbRoutesGuidesDTO dto){
+        //效验
+        if (dto.getId()==null){
+            throw new RenException("id参数为空");
+        }
+
+        tbRoutesGuidesService.deleteById(dto.getId());
 
         return new Result();
     }
