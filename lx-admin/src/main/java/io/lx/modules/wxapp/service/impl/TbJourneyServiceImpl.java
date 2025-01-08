@@ -73,6 +73,7 @@ public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourne
             entity.setKmlPath(dto.getKmlPath());
             entity.setJourneyType(dto.getJourneyType());
             entity.setDateId("0");
+            entity.setGuideId(dto.getGuideId());
 
             baseDao.insert(entity);
         }else {
