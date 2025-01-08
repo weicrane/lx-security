@@ -35,16 +35,10 @@ public class PoiInfoDTO implements Serializable {
 	private String poiType;
 
 	@SchemaProperty(name = "")
-	private BigDecimal price;
-
-	@SchemaProperty(name = "")
 	private BigDecimal latitude;
 
 	@SchemaProperty(name = "")
 	private BigDecimal longitude;
-
-	@SchemaProperty(name = "")
-	private Long imageId;
 
 	@SchemaProperty(name = "")
 	private String filePath;

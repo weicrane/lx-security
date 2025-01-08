@@ -11,7 +11,7 @@
         <result property="season" column="season"/>
         <result property="destinationCity" column="destination_city"/>
         <result property="departureCity" column="departure_city"/>
-        <result property="tag" column="tag"/>
+        <result property="region" column="region"/>
         <result property="purchaseNotes" column="purchase_notes"/>
         <result property="coverImgPath" column="cover_img_path"/>
         <result property="detailImgPath" column="detail_img_path"/>

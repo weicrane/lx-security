@@ -45,7 +45,7 @@ public class RoutesGuidesServiceImpl extends CrudServiceImpl<RoutesGuidesDao, Ro
     }
 
     @Override
-    public  PageData<RoutesGuidesDTO> getAllRoutesGuidesByPage(String keyword, String season, Map<String, Object> params){
+    public  PageData<RoutesGuidesDTO> getAllRoutesGuidesByPage(String keyword, String season,String region, Map<String, Object> params){
 
         QueryWrapper<RoutesGuidesEntity> wrapper = new QueryWrapper<>();
         // 0.必须是已上架
@@ -62,6 +62,11 @@ public class RoutesGuidesServiceImpl extends CrudServiceImpl<RoutesGuidesDao, Ro
         if (StrUtil.isNotBlank(season) && !ZERO_STRING.equals(season)) {
 //            wrapper.eq("season", season);
             wrapper.like("season", season);
+        }
+
+        // 2.5 区域筛选
+        if (StrUtil.isNotBlank(region)) {
+            wrapper.like("region", region);
         }
 
         // 3.分页查询

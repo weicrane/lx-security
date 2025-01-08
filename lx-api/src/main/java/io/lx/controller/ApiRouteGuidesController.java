@@ -64,9 +64,10 @@ public class ApiRouteGuidesController {
     @Login
     public Result<PageData<RoutesGuidesDTO>> getAllRoutesGuidesByPage(@Parameter(hidden = false) @RequestParam Map<String, Object> params,
                                                                       @Parameter String keyword,
-                                                                      @Parameter String season){
+                                                                      @Parameter String season,
+                                                                      @Parameter String region){
         // 从请求中获取 Token
-        PageData<RoutesGuidesDTO> page = routesGuidesService.getAllRoutesGuidesByPage(keyword,season,params);
+        PageData<RoutesGuidesDTO> page = routesGuidesService.getAllRoutesGuidesByPage(keyword,season,region,params);
         return new Result<PageData<RoutesGuidesDTO>>().ok(page);
     }
 

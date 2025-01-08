@@ -41,7 +41,7 @@ public class RoutesGuidesDTO implements Serializable {
 	private String departureCity;
 
 	@SchemaProperty(name = "")
-	private String tag;
+	private String region;
 
 	@SchemaProperty(name = "")
 	private String purchaseNotes;

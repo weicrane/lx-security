@@ -50,7 +50,7 @@ public class TbRoutesGuidesEntity {
     /**
      * 
      */
-	private String tag;
+	private String region;
     /**
      * 
      */

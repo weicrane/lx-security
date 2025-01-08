@@ -42,19 +42,11 @@ public class PoiInfoEntity {
     /**
      * 
      */
-	private BigDecimal price;
-    /**
-     * 
-     */
 	private BigDecimal latitude;
     /**
      * 
      */
 	private BigDecimal longitude;
-    /**
-     * 
-     */
-	private Long imageId;
     /**
      * 
      */

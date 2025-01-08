@@ -24,7 +24,7 @@ public interface RoutesGuidesService extends CrudService<RoutesGuidesEntity, Rou
      * @param params
      * @return
      */
-    PageData<RoutesGuidesDTO> getAllRoutesGuidesByPage( String keyword, String season,Map<String, Object> params);
+    PageData<RoutesGuidesDTO> getAllRoutesGuidesByPage( String keyword, String season,String region,Map<String, Object> params);
 
     /**
      * 获取玩法详情

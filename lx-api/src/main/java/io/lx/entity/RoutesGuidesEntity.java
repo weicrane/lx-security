@@ -50,7 +50,7 @@ public class RoutesGuidesEntity {
     /**
      * 
      */
-	private String tag;
+	private String region;
     /**
      * 
      */
