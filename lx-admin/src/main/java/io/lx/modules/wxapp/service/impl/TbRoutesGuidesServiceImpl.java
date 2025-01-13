@@ -1,14 +1,16 @@
 package io.lx.modules.wxapp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.lx.common.exception.RenException;
 import io.lx.common.service.impl.CrudServiceImpl;
+import io.lx.common.utils.ConvertUtils;
 import io.lx.modules.wxapp.dao.TbRoutesGuidesDao;
 import io.lx.modules.wxapp.dto.TbRoutesGuidesDTO;
 import io.lx.modules.wxapp.entity.TbRoutesGuidesEntity;
 import io.lx.modules.wxapp.service.*;
-import cn.hutool.core.util.StrUtil;
 import jakarta.annotation.Resource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,9 @@ public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao
     TbPoiInfoService tbPoiInfoService;
     @Resource
     TbPicsService tbPicsService;
+    @Lazy
+    @Resource
+    TbRecommendsService tbRecommendsService;
 
     @Override
     public QueryWrapper<TbRoutesGuidesEntity> getWrapper(Map<String, Object> params){
@@ -85,6 +90,15 @@ public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao
         tbPicsService.deleteByRouteId(id); //删除图片
 
         baseDao.deleteById(id); //最后删除线路
+    }
+
+    @Override
+    public void update(TbRoutesGuidesDTO dto){
+        TbRoutesGuidesEntity entity = ConvertUtils.sourceToTarget(dto, currentModelClass());
+        baseDao.updateById(entity);
+
+        // 更新猜你喜欢
+        tbRecommendsService.updateInfo(dto.getId(),"03",dto.getTitle(),dto.getSubTitle(),dto.getCoverImgPath());
     }
 
 }

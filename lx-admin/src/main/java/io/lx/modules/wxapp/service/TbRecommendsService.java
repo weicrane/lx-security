@@ -20,4 +20,9 @@ public interface TbRecommendsService extends CrudService<TbRecommendsEntity, TbR
 
      void deleteByIdAndType(Integer id,String type);
 
+     /**
+      * 更新数据
+      */
+     void updateInfo(Integer id,String type,String title,String subTitle,String coverImgPath);
+
 }

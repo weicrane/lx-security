@@ -17,4 +17,8 @@ public interface TbSelfDrivingsService extends CrudService<TbSelfDrivingsEntity,
 
     PageData<TbSelfDrivingsDTO> getListByPage(Map<String, Object> params, String keyword);
 
+    /**
+     * 新增、修改
+     */
+    void update(TbSelfDrivingsDTO dto);
 }

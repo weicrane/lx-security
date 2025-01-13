@@ -15,6 +15,7 @@ import io.lx.modules.wxapp.service.TbRecommendsService;
 import io.lx.modules.wxapp.service.TbRoutesGuidesService;
 import io.lx.modules.wxapp.service.TbSelfDrivingsService;
 import jakarta.annotation.Resource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,10 +31,13 @@ import java.util.Optional;
 @Service
 public class TbRecommendsServiceImpl extends CrudServiceImpl<TbRecommendsDao, TbRecommendsEntity, TbRecommendsDTO> implements TbRecommendsService {
 
+    @Lazy
     @Resource
     TbRoutesGuidesService tbRoutesGuidesService;
+    @Lazy
     @Resource
     TbSelfDrivingsService tbSelfDrivingsService;
+    @Lazy
     @Resource
     TbPartnersService tbPartnersService;
 
@@ -119,7 +123,19 @@ public class TbRecommendsServiceImpl extends CrudServiceImpl<TbRecommendsDao, Tb
         newEntity.setId(id);
         newEntity.setType(type);
         newEntity.setOrders(order);
-        insert(newEntity);
+
+        QueryWrapper<TbRecommendsEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.eq("type",type);
+        // 新增还是更新
+        List<TbRecommendsEntity> entityList =  baseDao.selectList(wrapper);
+        if (entityList.isEmpty()){
+            insert(newEntity);
+        }else{
+            TbRecommendsDTO newDto = ConvertUtils.sourceToTarget(newEntity, TbRecommendsDTO.class);
+            update(newDto);
+        }
+
     }
 
     @Override
@@ -129,5 +145,36 @@ public class TbRecommendsServiceImpl extends CrudServiceImpl<TbRecommendsDao, Tb
         wrapper.eq("type",type);
         baseDao.delete(wrapper);
     }
+
+    /**
+     * 循环调用了。。
+     * @param id
+     * @param type
+     * @param title
+     * @param subTitle
+     * @param coverImgPath
+     */
+    @Override
+    public void updateInfo(Integer id,String type,String title,String subTitle,String coverImgPath){
+        // 查询是否存在
+        QueryWrapper<TbRecommendsEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.eq("type",type);
+        List<TbRecommendsEntity> entityList = baseDao.selectList(wrapper);
+        if (entityList.isEmpty()){
+            // 不存在，直接返回
+            return;
+        }
+        // 存在，更新数据
+        TbRecommendsEntity entity = entityList.get(0);
+        entity.setTitle(title);
+        entity.setSubTitle(subTitle);
+        entity.setCoverImgPath(coverImgPath);
+        TbRecommendsDTO newDto = ConvertUtils.sourceToTarget(entity, TbRecommendsDTO.class);
+
+        update(newDto);
+    }
+
+
 
 }

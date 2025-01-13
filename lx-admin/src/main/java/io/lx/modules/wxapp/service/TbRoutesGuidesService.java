@@ -25,4 +25,9 @@ public interface TbRoutesGuidesService extends CrudService<TbRoutesGuidesEntity,
      * 删除线路和相关行程
      */
     void deleteById(Integer id);
+
+    /**
+     * 新增、修改
+     */
+    void update(TbRoutesGuidesDTO dto);
 }

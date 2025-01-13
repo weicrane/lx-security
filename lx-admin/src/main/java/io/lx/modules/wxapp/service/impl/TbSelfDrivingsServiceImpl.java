@@ -1,15 +1,19 @@
 package io.lx.modules.wxapp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
+import io.lx.common.utils.ConvertUtils;
 import io.lx.modules.wxapp.dao.TbSelfDrivingsDao;
 import io.lx.modules.wxapp.dto.TbSelfDrivingsDTO;
 import io.lx.modules.wxapp.entity.TbSelfDrivingsEntity;
+import io.lx.modules.wxapp.service.TbRecommendsService;
 import io.lx.modules.wxapp.service.TbSelfDrivingsService;
-import cn.hutool.core.util.StrUtil;
+import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +29,9 @@ import java.util.stream.Collectors;
 @Service
 public class TbSelfDrivingsServiceImpl extends CrudServiceImpl<TbSelfDrivingsDao, TbSelfDrivingsEntity, TbSelfDrivingsDTO> implements TbSelfDrivingsService {
 
+    @Lazy
+    @Resource
+    TbRecommendsService tbRecommendsService;
     @Override
     public QueryWrapper<TbSelfDrivingsEntity> getWrapper(Map<String, Object> params){
         String id = (String)params.get("id");
@@ -66,5 +73,14 @@ public class TbSelfDrivingsServiceImpl extends CrudServiceImpl<TbSelfDrivingsDao
         TbSelfDrivingsDTO dto = new TbSelfDrivingsDTO();
         BeanUtils.copyProperties(entity, dto);
         return dto;
+    }
+
+    @Override
+    public void update(TbSelfDrivingsDTO dto){
+        TbSelfDrivingsEntity entity = ConvertUtils.sourceToTarget(dto, currentModelClass());
+        baseDao.updateById(entity);
+
+        // 更新猜你喜欢
+        tbRecommendsService.updateInfo(dto.getId(),"02",dto.getTitle(),dto.getSubTitle(),dto.getCoverImgPath());
     }
 }

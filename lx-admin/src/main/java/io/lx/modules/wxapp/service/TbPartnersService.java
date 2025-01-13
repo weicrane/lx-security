@@ -12,4 +12,8 @@ import io.lx.modules.wxapp.entity.TbPartnersEntity;
  */
 public interface TbPartnersService extends CrudService<TbPartnersEntity, TbPartnersDTO> {
 
+    /**
+     * 新增、修改
+     */
+    void update(TbPartnersDTO dto);
 }

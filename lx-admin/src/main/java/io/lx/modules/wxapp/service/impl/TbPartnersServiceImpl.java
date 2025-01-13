@@ -1,12 +1,16 @@
 package io.lx.modules.wxapp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.lx.common.service.impl.CrudServiceImpl;
+import io.lx.common.utils.ConvertUtils;
 import io.lx.modules.wxapp.dao.TbPartnersDao;
 import io.lx.modules.wxapp.dto.TbPartnersDTO;
 import io.lx.modules.wxapp.entity.TbPartnersEntity;
 import io.lx.modules.wxapp.service.TbPartnersService;
-import cn.hutool.core.util.StrUtil;
+import io.lx.modules.wxapp.service.TbRecommendsService;
+import jakarta.annotation.Resource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -20,6 +24,9 @@ import java.util.Map;
 @Service
 public class TbPartnersServiceImpl extends CrudServiceImpl<TbPartnersDao, TbPartnersEntity, TbPartnersDTO> implements TbPartnersService {
 
+    @Lazy
+    @Resource
+    TbRecommendsService tbRecommendsService;
     @Override
     public QueryWrapper<TbPartnersEntity> getWrapper(Map<String, Object> params){
         String id = (String)params.get("id");
@@ -30,5 +37,12 @@ public class TbPartnersServiceImpl extends CrudServiceImpl<TbPartnersDao, TbPart
         return wrapper;
     }
 
+    @Override
+    public void update(TbPartnersDTO dto){
+        TbPartnersEntity entity = ConvertUtils.sourceToTarget(dto, currentModelClass());
+        baseDao.updateById(entity);
 
+        // 更新猜你喜欢
+        tbRecommendsService.updateInfo(dto.getId(),"04",dto.getTitle(),dto.getSubTitle(),dto.getCoverImgPath());
+    }
 }
