@@ -37,7 +37,7 @@ public class TbJourneyEntity {
     /**
      * 
      */
-	private String dateId;
+	private Integer dateId;
     /**
      * 
      */

@@ -34,7 +34,7 @@ public class JourneyEntity {
     /**
      * 
      */
-	private String dateId;
+	private Integer dateId;
     /**
      * 
      */

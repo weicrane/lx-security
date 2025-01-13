@@ -72,7 +72,7 @@ public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourne
             }
             entity.setKmlPath(dto.getKmlPath());
             entity.setJourneyType(dto.getJourneyType());
-            entity.setDateId("0");
+            entity.setDateId(0);
             entity.setGuideId(dto.getGuideId());
 
             baseDao.insert(entity);
@@ -184,7 +184,6 @@ public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourne
         wrapper.eq("journey_type",dto.getJourneyType());
         List<TbJourneyEntity> list = baseDao.selectList(wrapper);
         Integer num = list.size() + 1;
-        String dateId = num.toString();
 
         TbJourneyEntity entity = new TbJourneyEntity();
         entity.setName(dto.getName());
@@ -192,7 +191,7 @@ public class TbJourneyServiceImpl extends CrudServiceImpl<TbJourneyDao, TbJourne
         entity.setJourneyType(dto.getJourneyType());
         entity.setGuideId(dto.getGuideId());
         entity.setIntro(dto.getIntro());
-        entity.setDateId(dateId);
+        entity.setDateId(num);
         baseDao.insert(entity);
     }
 

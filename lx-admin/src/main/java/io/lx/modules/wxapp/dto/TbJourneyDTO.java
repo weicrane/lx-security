@@ -35,7 +35,7 @@ public class TbJourneyDTO implements Serializable {
 	private String journeyType;
 
 	@SchemaProperty(name = "")
-	private String dateId;
+	private Integer dateId;
 
 	@SchemaProperty(name = "")
 	private String duration;
