@@ -1,7 +1,7 @@
 package io.lx.modules.wxapp.dao;
 
 import io.lx.common.dao.BaseDao;
-import io.lx.modules.wxapp.entity.TbPoiInfoEntity;
+import io.lx.modules.wxapp.entity.PoiExcelEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,5 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 1.0.0 2024-11-02
  */
 @Mapper
-public interface TbPoiInfoDao extends BaseDao<TbPoiInfoEntity> {
+public interface PoiExcelDao extends BaseDao<PoiExcelEntity> {
+	
 }

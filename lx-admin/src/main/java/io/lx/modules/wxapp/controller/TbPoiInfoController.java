@@ -4,7 +4,6 @@ import io.lx.common.annotation.LogOperation;
 import io.lx.common.constant.Constant;
 import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
-import io.lx.common.utils.ExcelUtils;
 import io.lx.common.utils.Result;
 import io.lx.common.validator.AssertUtils;
 import io.lx.common.validator.ValidatorUtils;
@@ -12,20 +11,17 @@ import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
 import io.lx.modules.wxapp.dto.TbPoiInfoDTO;
-import io.lx.modules.wxapp.excel.TbPoiInfoExcel;
 import io.lx.modules.wxapp.service.TbPoiInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -122,28 +118,15 @@ public class TbPoiInfoController {
         return new Result();
     }
 
-    @GetMapping("export")
-    @Operation(summary = "导出")
-    @LogOperation("导出")
-    @RequiresPermissions("wxapp:tbpoiinfo:export")
-    public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<TbPoiInfoDTO> list = tbPoiInfoService.list(params);
-
-        ExcelUtils.exportExcelToTarget(response, null, "", list, TbPoiInfoExcel.class);
-    }
-
-    @PostMapping("/import")
-    @Operation(summary = "批量导入excel")
-    @LogOperation("导入文件")
-    public Result importPoiData(@RequestParam("uploadFile") MultipartFile file) {
-        try {
-            // 批量导入数据库
-            tbPoiInfoService.importPoiData(file);
-        } catch (Exception e) {
-            throw new RenException("文件解析失败", e);
-        }
-        return new Result();
-    }
+//    @GetMapping("export")
+//    @Operation(summary = "导出")
+//    @LogOperation("导出")
+//    @RequiresPermissions("wxapp:tbpoiinfo:export")
+//    public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
+//        List<TbPoiInfoDTO> list = tbPoiInfoService.list(params);
+//
+//        ExcelUtils.exportExcelToTarget(response, null, "", list, TbPoiInfoExcel.class);
+//    }
 
     @PostMapping("/importPoiXlsx")
     @Operation(summary = "批量导入excel")

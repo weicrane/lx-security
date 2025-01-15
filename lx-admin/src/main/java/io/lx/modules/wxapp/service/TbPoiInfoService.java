@@ -18,15 +18,6 @@ public interface TbPoiInfoService extends CrudService<TbPoiInfoEntity, TbPoiInfo
 
     PageData<TbPoiInfoDTO> selectPage(Map<String, Object> params, Integer guidesId, String dateId, String journeyType);
 
-
-    /**
-     * 批量导入Poi数据
-     * @param file
-     * @throws Exception
-     */
-    void importPoiData(MultipartFile file) throws Exception;
-
-
     /**
      * 批量导入Poi数据
      * @param file
