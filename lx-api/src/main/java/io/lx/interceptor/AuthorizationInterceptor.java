@@ -17,9 +17,13 @@ import io.lx.service.TokenService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Enumeration;
 
 /**
  * 权限(Token)验证
@@ -30,12 +34,23 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class AuthorizationInterceptor implements HandlerInterceptor {
     @Resource
     private TokenService tokenService;
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
     public static final String USER_KEY = "userId";
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("触发AuthorizationInterceptor: Checking Token");
+
+        // 打印请求的 headers
+        Enumeration<String> headerNames = request.getHeaderNames();
+        if (headerNames != null) {
+            logger.info("=== Incoming Request Headers ===");
+            while (headerNames.hasMoreElements()) {
+                String headerName = headerNames.nextElement();
+                String headerValue = request.getHeader(headerName);
+                logger.info("{}: {}", headerName, headerValue);
+            }
+        }
 
         Login annotation;
         if (handler instanceof HandlerMethod) {
@@ -54,7 +69,6 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         if (StrUtil.isBlank(token)) {
             token = request.getParameter("token");
         }
-
         //token为空
         if (StrUtil.isBlank(token)) {
             throw new RenException(ErrorCode.TOKEN_NOT_EMPTY);
