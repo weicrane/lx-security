@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
+import io.lx.common.utils.CoordinateTransformUtils;
 import io.lx.common.utils.ExcelUtils;
 import io.lx.modules.wxapp.dao.TbPoiInfoDao;
 import io.lx.modules.wxapp.dto.TbPoiInfoDTO;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -83,9 +85,8 @@ public class TbPoiInfoServiceImpl extends CrudServiceImpl<TbPoiInfoDao, TbPoiInf
     }
 
     @Transactional(rollbackFor = Exception.class)
-
     @Override
-    public void importPoiXlsx(MultipartFile file) throws Exception{
+    public Object importPoiXlsx(MultipartFile file, Integer id) throws Exception{
 
         TbPoiInfoImportListener listener = new TbPoiInfoImportListener();
         // 调用Excel工具类
@@ -98,9 +99,21 @@ public class TbPoiInfoServiceImpl extends CrudServiceImpl<TbPoiInfoDao, TbPoiInf
         // 插入数据库
         if (!poiInfoList.isEmpty()) {
             for (PoiExcelEntity entity : poiInfoList) {
+                if (entity.getGuidesId()!=id){
+                    throw new RenException("Excel文件解析到异常数据，与线路ID("+id+")不符，请核对此条数据："+entity);
+                }
+
                 TbPoiInfoEntity dbentity = new TbPoiInfoEntity();
                 BeanUtils.copyProperties(entity,dbentity);
-//                insertList.add(dbentity);
+
+                // WGS84 转 GCJ-02
+                double lon = Double.parseDouble(String.valueOf(entity.getLongitude()));
+                double lat = Double.parseDouble(String.valueOf(entity.getLatitude()));
+                double[] gcj02Coord = CoordinateTransformUtils.wgs84ToGcj02(lat, lon);
+
+                dbentity.setLongitude(BigDecimal.valueOf(gcj02Coord[1]));
+                dbentity.setLatitude(BigDecimal.valueOf(gcj02Coord[0]));
+
                 baseDao.insert(dbentity);
             }
 //            baseService.insertBatch(insertList,10);
@@ -108,6 +121,7 @@ public class TbPoiInfoServiceImpl extends CrudServiceImpl<TbPoiInfoDao, TbPoiInf
         } else {
             throw new RenException("Excel文件未解析到有效数据");
         }
+        return "success";
     }
 
     /**

@@ -2,7 +2,6 @@ package io.lx.modules.wxapp.controller;
 
 import io.lx.common.annotation.LogOperation;
 import io.lx.common.constant.Constant;
-import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.utils.Result;
 import io.lx.common.validator.AssertUtils;
@@ -131,14 +130,9 @@ public class TbPoiInfoController {
     @PostMapping("/importPoiXlsx")
     @Operation(summary = "批量导入excel")
     @LogOperation("导入文件")
-    public Result importPoiXlsx(@RequestParam("uploadFile") MultipartFile file) {
-        try {
-            // 批量导入数据库
-            tbPoiInfoService.importPoiXlsx(file);
-        } catch (Exception e) {
-            throw new RenException("文件解析失败", e);
-        }
-        return new Result();
+    public Result importPoiXlsx(@RequestParam("uploadFile") MultipartFile file,@RequestParam("id") Integer id) throws Exception {
+
+        return new Result().ok(tbPoiInfoService.importPoiXlsx(file,id));
     }
 
 

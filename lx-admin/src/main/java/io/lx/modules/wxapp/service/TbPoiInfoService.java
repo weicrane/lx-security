@@ -20,10 +20,12 @@ public interface TbPoiInfoService extends CrudService<TbPoiInfoEntity, TbPoiInfo
 
     /**
      * 批量导入Poi数据
+     *
      * @param file
+     * @return
      * @throws Exception
      */
-    void importPoiXlsx(MultipartFile file) throws Exception;
+    Object importPoiXlsx(MultipartFile file, Integer id) throws Exception;
 
     /**
      * 删除线路相关点
