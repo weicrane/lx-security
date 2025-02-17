@@ -94,6 +94,38 @@ public class JourneyServiceImpl extends CrudServiceImpl<JourneyDao, JourneyEntit
 
     }
 
+    /**
+     * 只返一条
+     * @param guideId
+     * @param journeyType
+     * @return
+     */
+    @Override
+    public  Map<String,Object>  getMainJourneyNoLogin(Integer guideId, String journeyType){
+        QueryWrapper<JourneyEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("guide_id", guideId);
+        wrapper.eq("journey_type",journeyType);
+        wrapper.orderByAsc("date_id");
+        List<JourneyEntity> list = baseDao.selectList(wrapper);
+        int count = (list != null) ? list.size() : 0;
+        Map<String,Object> map = new HashMap<>();
+        map.put("count",count);
+
+        if (count > 0){
+            // 其他情况，只返回第一条
+            List<JourneyEntity> singleItemList = new ArrayList<>();
+            singleItemList.add(list.get(0)); // 将第一条数据添加到新的列表
+            map.put("journeyList", singleItemList);
+            map.put("access",false);
+        }else {
+            // 没有设置
+            map.put("journeyList",null);
+            map.put("access",false);
+        }
+        return map;
+
+    }
+
 
     @Override
     public Map<String,Object> getPathCoordinates(Integer journeyId){

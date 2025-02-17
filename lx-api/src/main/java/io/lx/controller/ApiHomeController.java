@@ -101,9 +101,7 @@ public class ApiHomeController {
 
     @GetMapping("getRoadConsById")
     @Operation(summary = "获取路况公告详情")
-    @Login
     public Result<RoadConditionsDTO> getRoadConsById(@NotNull @Parameter Long id) {
-
         return new Result<RoadConditionsDTO>().ok(roadConditionsService.getRoadConsById(id));
     }
 

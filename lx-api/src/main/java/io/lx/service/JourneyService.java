@@ -25,6 +25,15 @@ public interface JourneyService extends CrudService<JourneyEntity, JourneyDTO> {
     Map<String,Object> getMainJourney(Integer guideId, String journeyType, UserEntity entity);
 
     /**
+     * 获取主线行程信息-未登录
+     * @param guideId
+     * @param journeyType
+     * @return
+     */
+    Map<String,Object> getMainJourneyNoLogin(Integer guideId, String journeyType);
+
+
+    /**
      * 获取行程路径坐标列表
      * @param journeyId
      * @return

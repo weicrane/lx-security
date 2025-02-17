@@ -61,7 +61,6 @@ public class ApiRouteGuidesController {
             @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
             @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String")
     })
-    @Login
     public Result<PageData<RoutesGuidesDTO>> getAllRoutesGuidesByPage(@Parameter(hidden = false) @RequestParam Map<String, Object> params,
                                                                       @Parameter String keyword,
                                                                       @Parameter String season,
@@ -82,7 +81,6 @@ public class ApiRouteGuidesController {
 
     @GetMapping("getRoutesGuidesDetail")
     @Operation(summary = "获取玩法详情")
-    @Login
     public Result getRoutesGuidesDetail(@Parameter Integer guideId){
         if(guideId == null){
             throw new RenException("玩法id不能为空");
@@ -130,6 +128,20 @@ public class ApiRouteGuidesController {
         }
         return new Result().ok(
                 journeyService.getMainJourney(guideId,journeyType,user)
+        );
+    }
+
+    @GetMapping("getJourneyNoLogin")
+    @Operation(summary = "获取行程信息-未登录只返回一行")
+    public Result<Map<String,Object>> getJourneyNoLogin(@Parameter Integer guideId,@Parameter String journeyType){
+        if(guideId == null){
+            throw new RenException("玩法id不能为空");
+        }
+        if (StringUtil.isEmpty(journeyType)){
+            throw new RenException("行程类型不能为空");
+        }
+        return new Result().ok(
+                journeyService.getMainJourneyNoLogin(guideId,journeyType)
         );
     }
 
