@@ -10,6 +10,7 @@ import io.lx.common.validator.ValidatorUtils;
 import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
+import io.lx.modules.wxapp.dto.ChangeSvipStatusDTO;
 import io.lx.modules.wxapp.dto.TbUserDTO;
 import io.lx.modules.wxapp.excel.TbUserExcel;
 import io.lx.modules.wxapp.service.TbUserService;
@@ -106,4 +107,33 @@ public class TbUserController {
         ExcelUtils.exportExcelToTarget(response, null, "用户信息表", list, TbUserExcel.class);
     }
 
+    @GetMapping("getUserListByPage")
+    @Operation(summary = "筛选用户列表-分页")
+    @Parameters({
+            @Parameter(name = Constant.PAGE, description = "当前页码，从1开始", in = ParameterIn.QUERY, required = true, ref="int") ,
+            @Parameter(name = Constant.LIMIT, description = "每页显示记录数", in = ParameterIn.QUERY,required = true, ref="int") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String"),
+            @Parameter(name = "userId", description = "用户ID", in = ParameterIn.QUERY, ref="Long"),
+            @Parameter(name = "mobile", description = "手机号", in = ParameterIn.QUERY, ref="String"),
+            @Parameter(name = "isSvip", description = "是否会员", in = ParameterIn.QUERY, ref="String")
+
+    })
+    public Result<PageData<TbUserDTO>> getUserListByPage(@Parameter(hidden = true) @RequestParam Map<String, Object> params){
+        PageData<TbUserDTO> page = tbUserService.getUserListByPage(params);
+
+        return new Result<PageData<TbUserDTO>>().ok(page);
+    }
+
+    @PostMapping("changeSvipStatus")
+    @Operation(summary = "更改svip会员状态")
+    @LogOperation("更改svip会员状态")
+    public Result changeSvipStatus(@RequestBody ChangeSvipStatusDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
+
+        tbUserService.changeSvipStatus(dto);
+
+        return new Result();
+    }
 }

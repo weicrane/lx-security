@@ -10,12 +10,15 @@ import io.lx.modules.wxapp.dto.TbRoutesGuidesDTO;
 import io.lx.modules.wxapp.entity.TbRoutesGuidesEntity;
 import io.lx.modules.wxapp.service.*;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -27,6 +30,7 @@ import java.util.Map;
 public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao, TbRoutesGuidesEntity, TbRoutesGuidesDTO> implements TbRoutesGuidesService {
 
 
+    @Lazy
     @Resource
     TbUserMembershipsService tbUserMembershipsService;
     @Resource
@@ -99,6 +103,26 @@ public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao
 
         // 更新猜你喜欢
         tbRecommendsService.updateInfo(dto.getId(),"03",dto.getTitle(),dto.getSubTitle(),dto.getCoverImgPath());
+    }
+
+    @Override
+    public List<TbRoutesGuidesDTO> getAllRoutesList(){
+        QueryWrapper<TbRoutesGuidesEntity> wrapper = new QueryWrapper<>();
+        List<TbRoutesGuidesEntity> entityList = baseDao.selectList(wrapper) ;
+        // 判断 entityList 是否为空，避免 NPE
+        if (entityList == null || entityList.isEmpty()) {
+            return List.of(); // 返回空列表，避免返回 null
+        }
+        // 转换为 DTO 列表并返回
+        return entityList.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    // 转换实体对象到 DTO
+    private TbRoutesGuidesDTO convertToDTO(TbRoutesGuidesEntity entity) {
+        TbRoutesGuidesDTO dto = new TbRoutesGuidesDTO();
+        BeanUtils.copyProperties(entity, dto);
+        return dto;
     }
 
 }

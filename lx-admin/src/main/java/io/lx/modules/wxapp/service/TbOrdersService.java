@@ -1,8 +1,11 @@
 package io.lx.modules.wxapp.service;
 
+import io.lx.common.page.PageData;
 import io.lx.common.service.CrudService;
 import io.lx.modules.wxapp.dto.TbOrdersDTO;
 import io.lx.modules.wxapp.entity.TbOrdersEntity;
+
+import java.util.Map;
 
 /**
  * 
@@ -12,4 +15,9 @@ import io.lx.modules.wxapp.entity.TbOrdersEntity;
  */
 public interface TbOrdersService extends CrudService<TbOrdersEntity, TbOrdersDTO> {
 
+    /**
+     * 条件查询订单-分页
+     * @return
+     */
+    PageData<TbOrdersDTO> getOrderListByPage(Map<String, Object> params);
 }

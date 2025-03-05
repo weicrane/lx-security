@@ -10,6 +10,8 @@ import io.lx.common.validator.ValidatorUtils;
 import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
+import io.lx.modules.wxapp.dto.AddUserRoutesDTO;
+import io.lx.modules.wxapp.dto.TbRoutesGuidesDTO;
 import io.lx.modules.wxapp.dto.TbUserMembershipsDTO;
 import io.lx.modules.wxapp.excel.TbUserMembershipsExcel;
 import io.lx.modules.wxapp.service.TbUserMembershipsService;
@@ -104,6 +106,52 @@ public class TbUserMembershipsController {
         List<TbUserMembershipsDTO> list = tbUserMembershipsService.list(params);
 
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbUserMembershipsExcel.class);
+    }
+
+    /**
+     * 用户权益管理详细设计：
+     * 1.查询用户列表
+     * 2.点击用户，可查看用户拥有的线路
+     * 3.可管理权益：新增、删除
+     */
+
+    @GetMapping("getUserRoutesByPage")
+    @Operation(summary = "查询用户拥有的线路分页")
+    @Parameters({
+            @Parameter(name = Constant.PAGE, description = "当前页码，从1开始", in = ParameterIn.QUERY, required = true, ref="int") ,
+            @Parameter(name = Constant.LIMIT, description = "每页显示记录数", in = ParameterIn.QUERY,required = true, ref="int") ,
+            @Parameter(name = Constant.ORDER_FIELD, description = "排序字段", in = ParameterIn.QUERY, ref="String") ,
+            @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)", in = ParameterIn.QUERY, ref="String"),
+            @Parameter(name = "userId" ,description = "用户ID", required = true, ref="Long")
+    })
+    public Result<PageData<TbRoutesGuidesDTO>> getUserRoutesByPage(@Parameter(hidden = true) @RequestParam Map<String, Object> params){
+        PageData<TbRoutesGuidesDTO> page = tbUserMembershipsService.getUserRoutesByPage(params);
+
+        return new Result<PageData<TbRoutesGuidesDTO>>().ok(page);
+    }
+
+    @PostMapping("addUserRoutes")
+    @Operation(summary = "给用户新增线路")
+    @LogOperation("给用户新增线路")
+    public Result addUserRoutes(@RequestBody AddUserRoutesDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
+
+        tbUserMembershipsService.addUserRoutes(dto);
+
+        return new Result();
+    }
+
+    @DeleteMapping("deleteUserRoutes")
+    @Operation(summary = "给用户删除线路")
+    @LogOperation("给用户删除线路")
+    public Result deleteUserRoutes(@RequestBody AddUserRoutesDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
+
+        tbUserMembershipsService.deleteUserRoutes(dto);
+
+        return new Result();
     }
 
 }

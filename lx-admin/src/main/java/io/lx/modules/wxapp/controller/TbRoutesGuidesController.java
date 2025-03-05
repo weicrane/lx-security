@@ -132,4 +132,12 @@ public class TbRoutesGuidesController {
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbRoutesGuidesExcel.class);
     }
 
+    @GetMapping("getAllRoutesList")
+    @Operation(summary = "查询全部线路基础信息")
+    public Result<List<TbRoutesGuidesDTO>> getAllRoutesList(){
+        List<TbRoutesGuidesDTO> list = tbRoutesGuidesService.getAllRoutesList();
+
+        return new Result<List<TbRoutesGuidesDTO>>().ok(list);
+    }
+
 }

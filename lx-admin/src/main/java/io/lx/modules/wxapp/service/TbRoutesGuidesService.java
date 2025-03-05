@@ -4,6 +4,8 @@ import io.lx.common.service.CrudService;
 import io.lx.modules.wxapp.dto.TbRoutesGuidesDTO;
 import io.lx.modules.wxapp.entity.TbRoutesGuidesEntity;
 
+import java.util.List;
+
 /**
  * 
  *
@@ -30,4 +32,9 @@ public interface TbRoutesGuidesService extends CrudService<TbRoutesGuidesEntity,
      * 新增、修改
      */
     void update(TbRoutesGuidesDTO dto);
+
+    /**
+     * 查询全部线路基础信息
+     */
+    List<TbRoutesGuidesDTO> getAllRoutesList();
 }

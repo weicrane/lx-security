@@ -48,7 +48,8 @@ public class RoadConditionsServiceImpl extends BaseServiceImpl<RoadConditionsDao
     public List<RoadConditionsDTO> getRoadConsList() {
         QueryWrapper<RoadConditionsEntity> wrapper = new QueryWrapper<>();
         wrapper.eq( "status", "1");
-        // TODO:添加按时间逆序排序
+        // 添加按时间逆序排序
+        wrapper.orderByDesc("updated_at");
         List<RoadConditionsEntity> list = baseDao.selectList(wrapper);
         return ConvertUtils.sourceToTarget(list, RoadConditionsDTO.class);
     }
