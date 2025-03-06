@@ -20,4 +20,5 @@ public interface TbOrdersService extends CrudService<TbOrdersEntity, TbOrdersDTO
      * @return
      */
     PageData<TbOrdersDTO> getOrderListByPage(Map<String, Object> params);
+    void test();
 }

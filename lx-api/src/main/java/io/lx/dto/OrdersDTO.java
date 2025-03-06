@@ -67,4 +67,6 @@ public class OrdersDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer num;
 
+	@SchemaProperty(name = "手机号")
+	private String mobile;
 }

@@ -23,6 +23,12 @@ public interface TbUserService extends CrudService<TbUserEntity, TbUserDTO> {
     TbUserEntity getUserEntity(Long userId);
 
     /**
+     * 反查用户id
+     *
+     */
+    TbUserEntity getUserEntityByMobile(String mobile);
+
+    /**
      * 更改svip会员状态
      */
     void changeSvipStatus(ChangeSvipStatusDTO dto);

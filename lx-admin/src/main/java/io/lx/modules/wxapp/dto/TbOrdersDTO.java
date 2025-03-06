@@ -49,4 +49,7 @@ public class TbOrdersDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private String description;
 
+	@SchemaProperty(name = "")
+	private String mobile;
+
 }

@@ -50,6 +50,19 @@ public class TbUserServiceImpl extends CrudServiceImpl<TbUserDao, TbUserEntity, 
         }
         return baseDao.selectById(userId);
     }
+    /**
+     * 反查用户id
+     *
+     */
+    public TbUserEntity getUserEntityByMobile(String mobile){
+        if (StrUtil.isNotBlank(mobile)){
+            QueryWrapper<TbUserEntity> wrapper = new QueryWrapper<>();
+            wrapper.eq("mobile",mobile);
+            return baseDao.selectOne(wrapper);
+        }else {
+            throw new RenException("手机号为空");
+        }
+    }
 
     /**
      * 更改svip会员状态

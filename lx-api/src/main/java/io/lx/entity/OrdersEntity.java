@@ -59,5 +59,8 @@ public class OrdersEntity {
      *
      */
     private String description;
-
+    /**
+     *
+     */
+    private String mobile;
 }

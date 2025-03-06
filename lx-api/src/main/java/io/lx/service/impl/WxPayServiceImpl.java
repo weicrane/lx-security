@@ -352,6 +352,7 @@ public class WxPayServiceImpl implements WxPayService {
             dto.setOrderId(outTradeNo); // 订单号
             dto.setUserId(userDetailDTO.getId()); //用户id
             dto.setOpenid(userDetailDTO.getOpenid()); //openid
+            dto.setMobile(userDetailDTO.getMobile()); //手机号
             dto.setStatus("0"); //订单状态:0-未支付，1-已支付，2-支付失败，3-取消支付
             ordersService.creatOrder(dto);
 
