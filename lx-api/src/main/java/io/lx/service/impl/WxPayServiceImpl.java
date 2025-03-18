@@ -633,6 +633,7 @@ public class WxPayServiceImpl implements WxPayService {
      * 更新用户会员
      * @param orderId
      */
+    @Override
     public void updateUserMemShips(String orderId) {
         // 1.查询订单详情
         OrdersEntity orderEntity = ordersService.getOrderDetail(orderId);

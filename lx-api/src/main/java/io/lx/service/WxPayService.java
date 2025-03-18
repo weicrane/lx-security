@@ -56,4 +56,10 @@ public interface WxPayService {
      * @return
      */
     void closePay(String outTradeNo);
+
+    /**
+     * 更新会员身份、线路权限
+     * @param orderId
+     */
+    void updateUserMemShips(String orderId);
 }

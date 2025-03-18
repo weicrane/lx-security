@@ -3,6 +3,7 @@ package io.lx.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.lx.common.exception.RenException;
 import io.lx.common.page.PageData;
 import io.lx.common.service.impl.CrudServiceImpl;
 import io.lx.dao.RoutesGuidesDao;
@@ -94,6 +95,9 @@ public class RoutesGuidesServiceImpl extends CrudServiceImpl<RoutesGuidesDao, Ro
     @Override
     public RoutesGuidesDTO getRoutesGuidesDetail(Integer id){
         RoutesGuidesEntity entity = baseDao.selectById(id);
+        if (entity==null){
+            throw new RenException("线路信息查询失败，请重试或查看其他线路");
+        }
         RoutesGuidesDTO dto = new RoutesGuidesDTO();
         // 已上架才返回
         if (ONE_STRING.equals(entity.getOnsale())){

@@ -58,7 +58,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 "/wepay/**",
                 "/selfdriving/**",
                 "/partners/**",
-                "/routesguides/**");
+                "/routesguides/**",
+                "/card/**");
 //        registry.addInterceptor(authorizationInterceptor).addPathPatterns();
 
     }

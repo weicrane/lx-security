@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.lx.modules.wxapp.dao.TbCardRedeemDao">
+
+    <resultMap type="io.lx.modules.wxapp.entity.TbCardRedeemEntity" id="tbCardRedeemMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="productType" column="product_type"/>
+        <result property="routesGuidesId" column="routes_guides_id"/>
+        <result property="cardCode" column="card_code"/>
+        <result property="redeemTime" column="redeem_time"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+
+</mapper>
