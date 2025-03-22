@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static io.lx.constant.ApiConstant.ONE_STRING;
+
 /**
  * 首页推荐
  *
@@ -39,6 +41,8 @@ public class RecommendsServiceImpl extends CrudServiceImpl<RecommendsDao, Recomm
     @Override
     public PageData<RecommendsDTO> getRecommendsListByPage( Map<String, Object> params){
         QueryWrapper<RecommendsEntity> wrapper = new QueryWrapper<>();
+        // 0.必须是已上架
+        wrapper.eq("onsale",ONE_STRING);
 
         // 获取排序字段和排序方式
         String orderField = (String) params.get(Constant.ORDER_FIELD);

@@ -84,4 +84,9 @@ public class SelfDrivingsEntity {
 
     private String field3;
     private BigDecimal price3;
+
+    /**
+     *
+     */
+    private String onsale;
 }

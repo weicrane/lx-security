@@ -73,4 +73,8 @@ public class PartnersEntity {
 	private Integer inventory;
 
     private String needPay;
+    /**
+     *
+     */
+    private String onsale;
 }

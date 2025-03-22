@@ -24,6 +24,7 @@
         <result property="price2" column="price2"/>
         <result property="field3" column="field3"/>
         <result property="price3" column="price3"/>
+        <result property="onsale" column="onsale"/>
     </resultMap>
 
 

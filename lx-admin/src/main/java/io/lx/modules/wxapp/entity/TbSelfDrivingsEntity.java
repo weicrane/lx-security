@@ -87,4 +87,6 @@ public class TbSelfDrivingsEntity {
 
     private String field3;
     private BigDecimal price3;
+
+    private String onsale;
 }

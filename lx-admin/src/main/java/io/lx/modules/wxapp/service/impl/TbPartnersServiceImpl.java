@@ -12,7 +12,9 @@ import io.lx.modules.wxapp.service.TbRecommendsService;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -44,5 +46,17 @@ public class TbPartnersServiceImpl extends CrudServiceImpl<TbPartnersDao, TbPart
 
         // 更新猜你喜欢
         tbRecommendsService.updateInfo(dto.getId(),"04",dto.getTitle(),dto.getSubTitle(),dto.getCoverImgPath());
+    }
+
+    @Override
+    @Transactional
+    public void onsale(TbPartnersDTO dto){
+        TbPartnersEntity entity = baseDao.selectById(dto.getId());
+        entity.setOnsale(dto.getOnsale());
+        entity.setUpdatedAt(new Date());
+        baseDao.updateById(entity);
+
+        // 更新首页推荐
+        tbRecommendsService.updateSale(dto.getId(),"04",dto.getOnsale());
     }
 }

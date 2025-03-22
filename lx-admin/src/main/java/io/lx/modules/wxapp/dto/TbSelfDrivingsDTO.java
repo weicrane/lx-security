@@ -3,6 +3,7 @@ package io.lx.modules.wxapp.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -79,4 +80,7 @@ public class TbSelfDrivingsDTO implements Serializable {
 	@SchemaProperty(name = "价格3")
 	private BigDecimal price3;
 
+	@SchemaProperty(name = "上架")
+	@NotBlank
+	private String onsale;
 }

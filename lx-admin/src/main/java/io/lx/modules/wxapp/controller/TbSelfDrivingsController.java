@@ -119,4 +119,16 @@ public class TbSelfDrivingsController {
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbSelfDrivingsExcel.class);
     }
 
+    @PutMapping("onsale")
+    @Operation(summary = "上架")
+    @LogOperation("上架")
+    public Result onsale(@RequestBody TbSelfDrivingsDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
+
+        tbSelfDrivingsService.onsale(dto);
+
+        return new Result();
+    }
+
 }

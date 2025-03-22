@@ -46,4 +46,6 @@ public class RecommendsDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Integer orders;
 
+	@SchemaProperty(name = "")
+	private String onsale;
 }

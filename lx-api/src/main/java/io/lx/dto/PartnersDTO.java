@@ -61,4 +61,7 @@ public class PartnersDTO implements Serializable {
 	@SchemaProperty(name = "是否需要支付")
 	private String needPay;
 
+	@SchemaProperty(name = "")
+	private String onsale;
+
 }

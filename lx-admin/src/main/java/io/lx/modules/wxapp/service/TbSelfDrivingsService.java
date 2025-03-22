@@ -21,4 +21,10 @@ public interface TbSelfDrivingsService extends CrudService<TbSelfDrivingsEntity,
      * 新增、修改
      */
     void update(TbSelfDrivingsDTO dto);
+
+    /**
+     * 上架
+     * @param dto
+     */
+    void onsale(TbSelfDrivingsDTO dto);
 }

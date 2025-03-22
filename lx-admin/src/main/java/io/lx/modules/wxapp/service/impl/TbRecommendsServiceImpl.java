@@ -18,6 +18,7 @@ import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -170,11 +171,28 @@ public class TbRecommendsServiceImpl extends CrudServiceImpl<TbRecommendsDao, Tb
         entity.setTitle(title);
         entity.setSubTitle(subTitle);
         entity.setCoverImgPath(coverImgPath);
+        entity.setUpdatedAt(new Date());
         TbRecommendsDTO newDto = ConvertUtils.sourceToTarget(entity, TbRecommendsDTO.class);
 
         update(newDto);
     }
 
-
+    @Override
+    public void updateSale(Integer id,String type,String saleStatus){
+        // 查询是否存在
+        QueryWrapper<TbRecommendsEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.eq("type",type);
+        List<TbRecommendsEntity> entityList = baseDao.selectList(wrapper);
+        if (entityList.isEmpty()){
+            // 不存在，直接返回
+            return;
+        }
+        // 存在，更新上架状态
+        TbRecommendsEntity entity = entityList.get(0);
+        entity.setOnsale(saleStatus);
+        entity.setUpdatedAt(new Date());
+        baseDao.updateById(entity);
+    }
 
 }

@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static io.lx.constant.ApiConstant.ONE_STRING;
+
 /**
  * 
  *
@@ -40,6 +42,8 @@ public class PartnersServiceImpl extends CrudServiceImpl<PartnersDao, PartnersEn
 
         // 初始化查询条件
         QueryWrapper<PartnersEntity> wrapper = new QueryWrapper<>();
+        // 0.必须是已上架
+        wrapper.eq("onsale",ONE_STRING);
         // 如果有 keyword，按 title 和 subtitle 模糊匹配
         if (StrUtil.isNotBlank(keyword)) {
             wrapper.like("title", keyword)

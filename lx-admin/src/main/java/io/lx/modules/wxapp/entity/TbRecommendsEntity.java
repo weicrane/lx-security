@@ -55,4 +55,5 @@ public class TbRecommendsEntity {
      * 
      */
 	private Integer orders;
+    private String onsale;
 }

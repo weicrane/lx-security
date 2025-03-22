@@ -80,4 +80,7 @@ public class SelfDrivingsDTO implements Serializable {
 	private String field3;
 	@SchemaProperty(name = "价格3")
 	private BigDecimal price3;
+
+	@SchemaProperty(name = "")
+	private String onsale;
 }

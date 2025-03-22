@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,5 +83,16 @@ public class TbSelfDrivingsServiceImpl extends CrudServiceImpl<TbSelfDrivingsDao
 
         // 更新猜你喜欢
         tbRecommendsService.updateInfo(dto.getId(),"02",dto.getTitle(),dto.getSubTitle(),dto.getCoverImgPath());
+    }
+
+    @Override
+    public void onsale(TbSelfDrivingsDTO dto){
+        TbSelfDrivingsEntity entity = baseDao.selectById(dto.getId());
+        entity.setOnsale(dto.getOnsale());
+        entity.setUpdatedAt(new Date());
+        baseDao.updateById(entity);
+
+        // 更新首页推荐
+        tbRecommendsService.updateSale(dto.getId(),"02",dto.getOnsale());
     }
 }

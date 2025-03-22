@@ -25,4 +25,9 @@ public interface TbRecommendsService extends CrudService<TbRecommendsEntity, TbR
       */
      void updateInfo(Integer id,String type,String title,String subTitle,String coverImgPath);
 
+     /**
+      * 更新上架状态
+      * @param dto
+      */
+     void updateSale(Integer id,String type,String saleStatus);
 }

@@ -16,4 +16,9 @@ public interface TbPartnersService extends CrudService<TbPartnersEntity, TbPartn
      * 新增、修改
      */
     void update(TbPartnersDTO dto);
+    /**
+     * 上架
+     * @param dto
+     */
+    void onsale(TbPartnersDTO dto);
 }

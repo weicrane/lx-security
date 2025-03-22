@@ -54,4 +54,8 @@ public class RecommendsEntity {
      * 
      */
 	private Integer orders;
+    /**
+     *
+     */
+    private String onsale;
 }

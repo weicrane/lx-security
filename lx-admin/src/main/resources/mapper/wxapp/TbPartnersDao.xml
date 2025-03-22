@@ -18,6 +18,7 @@
         <result property="price" column="price"/>
         <result property="inventory" column="inventory"/>
         <result property="needPay" column="need_pay"/>
+        <result property="onsale" column="onsale"/>
     </resultMap>
 
 

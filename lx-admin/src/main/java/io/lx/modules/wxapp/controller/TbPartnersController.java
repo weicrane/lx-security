@@ -11,6 +11,7 @@ import io.lx.common.validator.group.AddGroup;
 import io.lx.common.validator.group.DefaultGroup;
 import io.lx.common.validator.group.UpdateGroup;
 import io.lx.modules.wxapp.dto.TbPartnersDTO;
+import io.lx.modules.wxapp.dto.TbSelfDrivingsDTO;
 import io.lx.modules.wxapp.excel.TbPartnersExcel;
 import io.lx.modules.wxapp.service.TbPartnersService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -104,6 +105,18 @@ public class TbPartnersController {
         List<TbPartnersDTO> list = tbPartnersService.list(params);
 
         ExcelUtils.exportExcelToTarget(response, null, "", list, TbPartnersExcel.class);
+    }
+
+    @PutMapping("onsale")
+    @Operation(summary = "上架")
+    @LogOperation("上架")
+    public Result onsale(@RequestBody TbPartnersDTO dto){
+        //效验数据
+        ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
+
+        tbPartnersService.onsale(dto);
+
+        return new Result();
     }
 
 }

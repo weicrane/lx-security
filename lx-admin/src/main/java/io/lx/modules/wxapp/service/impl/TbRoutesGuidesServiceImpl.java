@@ -65,6 +65,9 @@ public class TbRoutesGuidesServiceImpl extends CrudServiceImpl<TbRoutesGuidesDao
         entity.setOnsale(dto.getOnsale());
         entity.setUpdatedAt(new Date());
         baseDao.updateById(entity);
+
+        // 更新首页推荐
+        tbRecommendsService.updateSale(dto.getId(),"03",dto.getOnsale());
     }
 
     /**
