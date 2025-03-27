@@ -43,5 +43,10 @@ public class CardRedeemDTO implements Serializable {
 	@SchemaProperty(name = "")
 	private Date updatedAt;
 
+	@SchemaProperty(name = "备注")
+	private String description;
+
+	@SchemaProperty(name = "标题")
+	private String tittle;
 
 }

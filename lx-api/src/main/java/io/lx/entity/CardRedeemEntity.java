@@ -50,4 +50,12 @@ public class CardRedeemEntity {
      * 
      */
 	private Date updatedAt;
+    /**
+     * 备注
+     */
+    private String description;
+    /**
+     * 标题
+     */
+    private String tittle;
 }

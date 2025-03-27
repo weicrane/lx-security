@@ -46,5 +46,7 @@ public class TbCardDTO implements Serializable {
 	@SchemaProperty(name = "备注")
 	private String description;
 
+	@SchemaProperty(name = "标题")
+	private String tittle;
 
 }

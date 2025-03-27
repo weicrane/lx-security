@@ -12,6 +12,8 @@
         <result property="redeemTime" column="redeem_time"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
+        <result property="description" column="description"/>
+        <result property="tittle" column="tittle"/>
     </resultMap>
 
 

@@ -38,6 +38,10 @@ public class TbCardExcel {
     @ColumnWidth(15) // 设置列宽为 20
     private Integer routesGuidesId;
 
+    @ExcelProperty(value = "标题")
+    @ColumnWidth(40) // 设置列宽为
+    private String tittle;
+
     @ExcelProperty(value = "创建时间")
     @ColumnWidth(30) // 设置列宽为 20
     private Date createdAt;
@@ -47,6 +51,7 @@ public class TbCardExcel {
     private Date updatedAt;
 
     @ExcelProperty(value = "备注")
+    @ColumnWidth(40) // 设置列宽为 20
     private String description;
 
 }

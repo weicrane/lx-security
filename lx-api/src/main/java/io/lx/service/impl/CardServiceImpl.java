@@ -112,6 +112,12 @@ public class CardServiceImpl extends CrudServiceImpl<CardDao, CardEntity, CardDT
             throw new RenException("本卡无效，类型缺失，请联系工作人员");
         }
         if (!type.equals(dto.getProductType())){
+            if (ORDER_TYPE_ROUTES.equals(type)){
+                throw new RenException("您的激活码为线路兑换卡，请前往对应的线路:["+cardEntity.getTittle() + "]进行解锁");
+            }
+            if (ORDER_TYPE_SVIP.equals(type)){
+                throw new RenException("您的激活码是终身会员兑换卡，请前往我的页面会员激活处进行会员激活，解锁全部线路");
+            }
             throw new RenException("本卡非当前类型，请重新选择兑换类别");
         }
 
@@ -119,7 +125,7 @@ public class CardServiceImpl extends CrudServiceImpl<CardDao, CardEntity, CardDT
         if (ORDER_TYPE_ROUTES.equals(type)){
 
             if (!cardEntity.getRoutesGuidesId().equals(dto.getRoutesGuidesId())){
-                throw new RenException("本卡非当前线路，请重新选择");
+                throw new RenException("本卡非当前线路，请选择对应的线路：["+cardEntity.getTittle()+"]");
             }
             Map<String, Object> userShipsMap = userMembershipsService.getMembershipsByUserId(user.getId());
 
@@ -166,8 +172,12 @@ public class CardServiceImpl extends CrudServiceImpl<CardDao, CardEntity, CardDT
         cardRedeemEntity.setUserId(user.getId());
         cardRedeemEntity.setCardCode(cardEntity.getCardCode());
         cardRedeemEntity.setProductType(cardEntity.getProductType());
+        cardRedeemEntity.setDescription(cardEntity.getDescription());
         if (ORDER_TYPE_ROUTES.equals(type)){
             cardRedeemEntity.setRoutesGuidesId(cardEntity.getRoutesGuidesId());
+            cardRedeemEntity.setTittle(cardEntity.getTittle());
+        }else {
+            cardRedeemEntity.setTittle("终身会员");
         }
         cardRedeemEntity.setRedeemTime(new Date());
         cardRedeemService.insert(cardRedeemEntity);

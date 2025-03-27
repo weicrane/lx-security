@@ -54,4 +54,8 @@ public class TbCardEntity {
      * 备注
      */
 	private String description;
+    /**
+     * 标题
+     */
+    private String tittle;
 }

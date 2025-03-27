@@ -2,8 +2,6 @@ package io.lx.modules.wxapp.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
-import com.alibaba.excel.annotation.write.style.ContentRowHeight;
-import com.alibaba.excel.annotation.write.style.HeadRowHeight;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,20 +15,34 @@ import java.util.Date;
 @Data
 public class TbCardRedeemExcel {
     @ExcelProperty(value = "主键ID")
+    @ColumnWidth(20) // 设置列宽为 20
     private Integer id;
-    @ExcelProperty(value = "用户ID")
-    private Long userId;
-    @ExcelProperty(value = "类别，00-终身会员，01-网盘路书，02-自驾活动，03-四季玩法")
-    private String productType;
-    @ExcelProperty(value = "线路玩法ID")
-    private Integer routesGuidesId;
-    @ExcelProperty(value = "16位卡密")
-    private String cardCode;
-    @ExcelProperty(value = "兑换时间")
-    private Date redeemTime;
-    @ExcelProperty(value = "")
-    private Date createdAt;
-    @ExcelProperty(value = "")
-    private Date updatedAt;
 
+    @ExcelProperty(value = "用户ID")
+    @ColumnWidth(40) // 设置列宽为 20
+    private Long userId;
+
+    @ExcelProperty(value = "类别(00-会员，03-线路)")
+    @ColumnWidth(15) // 设置列宽为 20
+    private String productType;
+
+    @ExcelProperty(value = "线路ID")
+    @ColumnWidth(15) // 设置列宽为 20
+    private Integer routesGuidesId;
+
+    @ExcelProperty(value = "标题")
+    @ColumnWidth(40) // 设置列宽为 20
+    private String tittle;
+
+    @ExcelProperty(value = "兑换码")
+    @ColumnWidth(30) // 设置列宽为 20
+    private String cardCode;
+
+    @ExcelProperty(value = "兑换时间")
+    @ColumnWidth(30) // 设置列宽为 20
+    private Date redeemTime;
+
+    @ExcelProperty(value = "备注")
+    @ColumnWidth(40) // 设置列宽为 20
+    private String description;
 }

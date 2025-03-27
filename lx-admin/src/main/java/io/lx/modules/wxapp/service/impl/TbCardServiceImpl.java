@@ -10,9 +10,13 @@ import io.lx.modules.wxapp.dao.TbCardDao;
 import io.lx.modules.wxapp.dto.GenCardsDTO;
 import io.lx.modules.wxapp.dto.TbCardDTO;
 import io.lx.modules.wxapp.entity.TbCardEntity;
+import io.lx.modules.wxapp.entity.TbRoutesGuidesEntity;
 import io.lx.modules.wxapp.service.TbCardService;
+import io.lx.modules.wxapp.service.TbRoutesGuidesService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +36,10 @@ import static com.baomidou.mybatisplus.extension.toolkit.Db.saveBatch;
 @Slf4j
 @Service
 public class TbCardServiceImpl extends CrudServiceImpl<TbCardDao, TbCardEntity, TbCardDTO> implements TbCardService {
+
+    @Resource
+    @Lazy
+    TbRoutesGuidesService tbRoutesGuidesService;
 
     private static final String CHARACTERS = "ABCDEFGHJKMNPQRSTUVWXYZ2356789";
     private static final int CODE_LENGTH = 16;
@@ -53,7 +61,6 @@ public class TbCardServiceImpl extends CrudServiceImpl<TbCardDao, TbCardEntity, 
 
     /**
      * 生成卡密
-     * TODO:校验线路ID
      * @param dto 请求参数
      */
     @Transactional(rollbackFor = Exception.class)
@@ -89,6 +96,10 @@ public class TbCardServiceImpl extends CrudServiceImpl<TbCardDao, TbCardEntity, 
         // 如果类型是 "00"，则 routesGuidesId 必须为空
         if ("00".equals(dto.getProductType()) && dto.getRoutesGuidesId()!=null) {
             throw new RenException("类型为会员时，线路必须为空");
+        }
+        // 如果类型是 "03"，则 routesGuidesId 必须不为空
+        if ("03".equals(dto.getProductType()) && dto.getRoutesGuidesId()==null) {
+            throw new RenException("类型为线路时，线路ID必须填写");
         }
     }
 
@@ -179,7 +190,21 @@ public class TbCardServiceImpl extends CrudServiceImpl<TbCardDao, TbCardEntity, 
      * 创建 TbCardEntity 实例
      */
     private TbCardEntity createCardEntity(GenCardsDTO dto, String code) {
+
         TbCardEntity card = new TbCardEntity();
+
+        // 如果类型是 "03"，则 routesGuidesId 必须存在
+        if ("03".equals(dto.getProductType())) {
+            TbRoutesGuidesEntity tbRoutesGuidesEntity = tbRoutesGuidesService.selectById(dto.getRoutesGuidesId());
+            if (tbRoutesGuidesEntity==null){
+                throw new RenException("线路不存在");
+            }
+
+            card.setTittle(tbRoutesGuidesEntity.getTitle()); //线路标题
+        }else {
+            card.setTittle("终身会员"); //会员标题
+        }
+
         card.setCardCode(code);
         card.setStatus(0);
         card.setExpireTime(dto.getExpireTime());
